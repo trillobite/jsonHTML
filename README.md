@@ -11,7 +11,7 @@ jsonHTML
     Basically if you can do something in javaScript, you can now do it to your HTML!
     
                                           EXAMPLE!!!!
-    ``` javaScript
+    ```
     var jsonHTMLObj = function (data) {
         return {
             type: 'div',
