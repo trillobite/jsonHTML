@@ -38,7 +38,7 @@ EXAMPLE:
             children: [ //an array of child objects, these can be anything, even text boxes.
                 {
                     type: 'div',
-                    id: 'thisIsDivStuffChild0',
+                    id: 'thisIsDivStuffChild0', //notice this id is static and could cause some bugs, +data.indx would make it dynamic.
                     text: 'Hello World From Child 0',
                     functions: [function () {
                         $('#thisIsDivStuffChild0').css({
@@ -51,9 +51,9 @@ EXAMPLE:
                 
                 {
                     type: 'div',
-                    id: 'thisIsDivStuffChild1',
+                    id: 'thisIsDivStuffChild1', //notice this id is static and could cause some bugs, +data.indx would make it dynamic.
                     text: 'Hello World From Child 1',
-                    functions: [function () {
+                    functions: [function () { //This is an array of functions, notice how it only has one function in it currently.
                         $('#thisIsDivStuffChild0').css({
                             'width': '50%',
                             'border': '1px solid black',
