@@ -85,10 +85,10 @@ This code is provided with no warranties, or guarantees, all I ask is you retain
 ```
     (
    ) ) )
-  ........
-  |      | ]
-  \      /
-   `----'  Keep it black.
+  ..........
+  |   js   | ]
+  \        /
+   `------'  Keep it black.
 ```
 
 Feel free to fork, and ask to become a contributor, if you have an improvement you have implemented in your fork, that 
