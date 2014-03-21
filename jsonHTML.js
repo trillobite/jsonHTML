@@ -6,64 +6,18 @@
     in which virtually none of my div objects, or much of any of the HTML could have been written
     statically in HTML. It was not written for performance, therefore it may not be good for very
     large projects, but it is good if you need to write code quickly in a more intuitive manner. 
-    Basically if you can do something in javaScript, you can now do it to your HTML!
+    Basically, if you can do something in javaScript, you can now do it to your HTML.
     
-                                          EXAMPLE!!!!
-    var jsonHTMLObj = function (data) {
-        return {
-            type: 'div',
-            id: 'thisIsDivStuff'+data.indx, //there must always be an id so that my code knows where to make appends.
-            class: 'divStuff',
-            text: '<h2>'+HELLO WORLD!+'</h2>', //you can still have some html, it just throws it all in as a string.
-            functions: [function () {
-                $('#thisIsDivStuff'+data.indx).css({ //set the css styling using jQuery! Or any other functions you would like!
-                    'width': '50%',
-                    'border': '1px solid black',
-                    'text-align': 'center',
-                });
-            }],
-            children: [ //an array of child objects, these can be anything, even text boxes.
-                {
-                    type: 'div',
-                    id: 'thisIsDivStuffChild0',
-                    text: 'Hello World From Child 0',
-                    functions: [function () {
-                        $('#thisIsDivStuffChild0').css({
-                            'width': '50%',
-                            'border': '1px solid black',
-                            'text-align': 'center',
-                        });
-                    }]
-                },
-                
-                {
-                    type: 'div',
-                    id: 'thisIsDivStuffChild1',
-                    text: 'Hello World From Child 1',
-                    functions: [function () {
-                        $('#thisIsDivStuffChild0').css({
-                            'width': '50%',
-                            'border': '1px solid black',
-                            'text-align': 'center',
-                        });
-                    }]
-                },
-            ]
-        }
-    };
-    appendHTML({ //now just append it to any div!
-        indx: 1,
-    }, 'containerDivIDAsString');
-
+    Disclaimer: jsonHTML is provided to you as Free Software (refer to: gnu.org/philosophy/free-sw.html ), by using this code
+    you agree not to hold me responsible for any damages, or consequences of your malicious or "friendly" use of this code.
+    This code is provided with no warranties, or guarantees, all I ask is you retain credit back to me if you use my code.
+    https://github.com/trillobite/jsonHTML
+    
+    Feel free to fork, and ask to become a contributor, if you have an improvement you have implemented in your fork, that 
+    you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, and
+    give you credit as one of the authors or contributors.
 */
 
-/*
-    example json parsing, type this into chrome console:
-    
-    appendHTML(jsonObj({
-        id: 'helloWorld',
-    }), 'id if blank div element here in quotes');
-*/
 
 //Returns a small chunk of HTML as a string back to the parent function.
 //Can produce HTML for a button, text box, or a div element.
