@@ -139,7 +139,7 @@ mDiv({
 ```
  
 I have not had the courage yet to add some "Syntactic Sugar" to make object mutation easier to conceptualize, for now, this is
-what we got, if someone would like to fork and add some functionality, that would be great, but for now jsonHTML is black as 
+what we got, if someone would like to fork and add some "Sugar", that would be great, but for now jsonHTML is black as 
 a java can be! (Means it has no sugar, does not have to do with race...)
 
 You can execute the completed code in the 'example.html' This is a fully operational example of what jsonHTML can do, though,
