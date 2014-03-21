@@ -75,6 +75,15 @@ Disclaimer: jsonHTML is provided to you as Free Software (refer to: gnu.org/phil
 you agree not to hold me responsible for any damages, or consequences of your malicious or "friendly" use of this code.
 This code is provided with no warranties, or guarantees, all I ask is you retain credit back to me if you use my code.
 
+```
+   ( (
+    ) )
+  ........
+  |      | ]
+  \      /
+   `----'
+```
+
 Feel free to fork, and ask to become a contributor, if you have an improvement you have implemented in your fork, that 
 you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, and
 give you credit as one of the authors or contributors.
