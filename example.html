@@ -11,6 +11,26 @@
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js'></script> <!--MAKE SURE TO INCLUDE JQUERY!!-->
         <script type='text/javascript' src='jsonHTML.js'></script>
         <script>
+            function mDiv(element) { //A generic mutable JSON Div.
+                return {
+                    type: 'div',
+                    id: element.id,
+                    text: element.text,
+                    functions: [element.css, element.event],
+                    children: undefined !== element.children ? element.children : undefined,
+                }  
+            };
+            
+            function mTxt(element) {
+                return {
+                    type: 'textbox',
+                    id: element.id,
+                    text: element.text,
+                    functions: [element.css, element.event],
+                    children: undefined !== element.children ? element.children : undefined,
+                }  
+            };
+
             var jsonHTMLObj = function (data) {
                 return {
                     type: 'div',
@@ -38,18 +58,38 @@
                             }]
                         },
                         
-                        {
-                            type: 'div',
-                            id: 'thisIsDivStuffChild1', //notice this id is static and could cause some bugs, +data.indx would make it dynamic.
-                            text: 'Hello World From Child 1',
-                            functions: [function () { //This is an array of functions, notice how it only has one function in it currently.
-                                $('#thisIsDivStuffChild0').css({
+                        mDiv({
+                            id: 'thisIsDivStuffChild1',
+                            text: 'Hello World From Child 1 <-- Click me!',
+                            css: function() {
+                                $('#thisIsDivStuffChild1').css({
                                     'width': '50%',
                                     'border': '1px solid black',
                                     'text-align': 'center',
                                 });
-                            }]
-                        },
+                            },
+                            event: function () {
+                                $('#thisIsDivStuffChild1').click(function() { //mutate on the click!
+                                    $('#thisIsDivStuffChild1').remove(); //remove the old
+                                    appendHTML(mTxt({ //in with the new!
+                                        id: 'thisIsDivStuffChild1',
+                                        text: 'Hello World From Child 1',
+                                        css: function() {
+                                            $('#thisIsDivStuffChild1').css({
+                                                'color': 'purple',
+                                            })
+                                        },
+                                        event: function () { //now in reverse!
+                                            $('#thisIsDivStuffChild1').blur(function() { //when you click away from the textbox, it goes back to original!
+                                                $('#thisIsDivStuffChild1').remove();
+                                                appendHTML(jsonHTMLObj(data).children[1], 'thisIsDivStuff'+data.indx); // I can just grab the original object, like recursion!
+                                            });
+                                            $('#thisIsDivStuffChild1').focus(); //so you will be in the text box.
+                                        },
+                                    }), 'thisIsDivStuff'+data.indx);
+                                });
+                            },
+                        }),
                     ]
                 }
             };

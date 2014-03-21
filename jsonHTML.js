@@ -63,7 +63,7 @@ var parsetype = function (type) {
         },
         html: function (element) {
             return element.data;
-        }
+        },
     };
     return undefined !== options[type] ? options[type] : undefined;
 };

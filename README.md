@@ -61,7 +61,7 @@ EXAMPLE:
                     id: 'thisIsDivStuffChild1', //notice this id is static and could cause some bugs, +data.indx would make it dynamic.
                     text: 'Hello World From Child 1',
                     functions: [function () { //This is an array of functions, notice how it only has one function in it currently.
-                        $('#thisIsDivStuffChild0').css({
+                        $('#thisIsDivStuffChild1').css({
                             'width': '50%',
                             'border': '1px solid black',
                             'text-align': 'center',
@@ -75,7 +75,73 @@ EXAMPLE:
         indx: 1, //these are properties that you can set to your template object.
     }, 'containerDivIDAsString');
     
-You can also Execute the code in the 'example.html' This is a fully operational example of what jsonHTML can do, though,
+Now, lets say I want 'thisIsDivStuffChild1' to mutate into a textbox!
+
+First, we would want to setup a mutable Div and a mutable textbox structure to make things a tad bit easier to conceptualize:
+```
+function mDiv(element) { //a generic mutable JSON Div.
+    return {
+        type: 'div',
+        id: element.id,
+        text: element.text,
+        functions: [element.css, element.event],
+        children: undefined !== element.children ? element.children : undefined, //meh, it could have a child object...
+    }  
+};
+
+function mTxt(element) { //a generic mutable JSON text object.
+    return {
+        type: 'textbox',
+        id: element.id,
+        text: element.text,
+        functions: [element.css, element.event],
+        children: undefined !== element.children ? element.children : undefined, //meh, it could have a child object...
+    }  
+};
+
+```
+Then, I pass them an object full of properties explaining what I want them to do, I can do this now by completely replacing
+my orignal json div element above: 
+```
+mDiv({
+    id: 'thisIsDivStuffChild1',
+    text: 'Hello World From Child 1',
+    css: function() {
+        $('#thisIsDivStuffChild1').css({
+            'width': '50%',
+            'border': '1px solid black',
+            'text-align': 'center',
+        });
+    },
+    event: function () {
+        $('#thisIsDivStuffChild1').click(function() { //mutate on the click!
+            $('#thisIsDivStuffChild1').remove(); //remove the old
+            appendHTML(mTxt({ //in with the new!
+                id: 'thisIsDivStuffChild1', //same as the previous id, were replacing the old with the new!
+                text: 'Hello World From Child 1', //the text I want in my text box.
+                css: function() {
+                    $('#thisIsDivStuffChild1').css({
+                        'color': 'purple', //i want my textbox font to be purple :)
+                    });
+                },
+                event: function () { //now in reverse!
+                    $('#thisIsDivStuffChild1').blur(function() { //when you click away from the textbox, it goes back to original!
+                        $('#thisIsDivStuffChild1').remove();
+                        appendHTML(jsonHTMLObj(data).children[1], 'thisIsDivStuff'+data.indx); // I can just grab the original object, like recursion!
+                    });
+                    $('#thisIsDivStuffChild1').focus(); //focus will now be in the text box.
+                },
+            }), 'thisIsDivStuff'+data.indx);
+        });
+    },
+}),
+```
+ 
+I have not had the courage yet to add some "Syntactic Sugar" to make object mutation easier to conceptualize, for now, this is
+what we got, if someone would like to fork and add some functionality, that would be great, but for now jsonHTML is black as 
+a java can be! (Means it has no sugar...)
+
+You can execute the completed code in the 'example.html' This is a fully operational example of what jsonHTML can do, though,
 it's a quite basic example, and you can do much... MUCH more with jsonHTML.
     
 Disclaimer: jsonHTML is provided to you as Free Software (refer to: https://gnu.org/philosophy/free-sw.html ), by using this code
@@ -90,6 +156,12 @@ This code is provided with no warranties, or guarantees, all I ask is you retain
   \        /
    `------'  Keep it black.
 ```
+
+
+
+
+
+
 
 Feel free to fork, and ask to become a contributor, if you have an improvement you have implemented in your fork, that 
 you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, and
