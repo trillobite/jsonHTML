@@ -77,8 +77,8 @@ EXAMPLE:
     
 Now, lets say I want 'thisIsDivStuffChild1' to mutate into a textbox!
 
-First, we would want to setup a mutable Div and a mutable textbox structure to make things a tad bit easier to conceptualize
-if you have taken an C++ in the past, these would be similar to Structs:
+First, we would want to setup a mutable Div and a mutable textbox structure to make things a tad bit easier to conceptualize.
+If you have taken C++ in the past, these would be similar to Structs:
 ```
 function mDiv(element) { //a generic mutable JSON Div.
     return {
