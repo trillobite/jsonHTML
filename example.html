@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>jsonHTML EXAMPLE!</title>
+        <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js'></script> <!--MAKE SURE TO INCLUDE JQUERY!!-->
+        <script type='text/javascript' src='jsonHTML.js'></script>
+        <script>
+            var jsonHTMLObj = function (data) {
+                return {
+                    type: 'div',
+                    id: 'thisIsDivStuff'+data.indx, //there must always be an id so that my code knows where to make appends.
+                    class: 'divStuff',
+                    text: '<h2>'+'HELLO WORLD!'+'</h2>', //you can still have some html, it just throws it all in as a string.
+                    functions: [function () {
+                        $('#thisIsDivStuff'+data.indx).css({ //set the css styling using jQuery! Or any other functions you would like!
+                            'width': '50%',
+                            'border': '1px solid black',
+                            'text-align': 'center',
+                        });
+                    }],
+                    children: [ //an array of child objects, these can be anything, even text boxes.
+                        {
+                            type: 'div',
+                            id: 'thisIsDivStuffChild0', //notice this id is static and could cause some bugs, +data.indx would make it dynamic.
+                            text: 'Hello World From Child 0',
+                            functions: [function () {
+                                $('#thisIsDivStuffChild0').css({
+                                    'width': '50%',
+                                    'border': '1px solid black',
+                                    'text-align': 'center',
+                                });
+                            }]
+                        },
+                        
+                        {
+                            type: 'div',
+                            id: 'thisIsDivStuffChild1', //notice this id is static and could cause some bugs, +data.indx would make it dynamic.
+                            text: 'Hello World From Child 1',
+                            functions: [function () { //This is an array of functions, notice how it only has one function in it currently.
+                                $('#thisIsDivStuffChild0').css({
+                                    'width': '50%',
+                                    'border': '1px solid black',
+                                    'text-align': 'center',
+                                });
+                            }]
+                        },
+                    ]
+                }
+            };
+            $(document).ready(function () {
+                appendHTML(jsonHTMLObj({ //now just append it to any div!
+                    indx: 1, //these are properties that you can set to your template object.
+                }), 'root');
+            });
+        </script>
+    </head>
+        <body>
+            <div id='root'></div>
+        </body>
+</html>

@@ -71,7 +71,7 @@ var parsetype = function (type) {
 //recursive function, simply loops until there are no more children objects,
 //uses jQuery to append to the parent object (usually a div element).
 function appendHTML(jsonObj, container) {
-    if($m(jsonObj).typ == 'function'){
+    if(typeof jsonObj == 'function') {
         jsonObj = jsonObj();
     }
     $('#'+container).append(parsetype(jsonObj.type)(jsonObj));
