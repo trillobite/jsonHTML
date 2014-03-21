@@ -1,9 +1,10 @@
 jsonHTML
 ========
 
-jsonHTML
 Author: Jesse Parnell
-Description
+
+Description:
+
 This allows you to render html using jQuery dynamically. Was created for one of my own projects,
 in which virtually none of my div objects, or much of any of the HTML could have been written
 statically in HTML. It was not written for performance, therefore it may not be good for very
