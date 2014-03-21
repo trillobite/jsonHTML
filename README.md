@@ -7,16 +7,23 @@ Requires: jQuery
 
 Description:
 
-jsonHTML allows you to render your HTML using jQuery dynamically. Was created for one of my own projects,
-in which virtually none of my div objects, or much of any of the HTML could have been written
-statically. jsonHTML was not written for performance, therefore it may not be best for very
+jsonHTML allows you to grant the powers of javaScript to your dreaded static HTML. 
+If you find writing HTML to be boring, or just need more flexibility and power to dynamically alter, manipulate,
+or duplicate HTML objects as if it were javaScript objects, this is for you. This was created for one of my own projects,
+in which virtually none of my div objects, or much of any HTML could have been written
+traditionally. jsonHTML was not written for performance, therefore it may not be best for very
 large projects, but it is good if you need to write code quickly, and dynamically alter objects in a more intuitive manner. 
 Basically if you can do something in javaScript, you can now do it to your HTML.
 
+Before this, to achieve the flexibility required for my projects, I had to write out the HTML as a string, and use jQuery to
+add them or manipulate them by parsing that string. This was tedious, especially compared to manipulating JSON objects as an
+abstraction layer. Basically put, by creating a JSON object to reflect what you want, jsonHTML takes your object and creates
+the string to pass to jQuery, then jQuery handles the rest.
+
 Example below is a template object in which you can create, and add the generated HTML to a div "container." It does require
-that an existing div to append to exists. One confusion to watch out for, is to make sure every time you use a template to 
-generate HTML, make sure the id's are never the same, or an append may append to all items of that same id, and cause a wormhole
-and great confusion in your project...
+that there is an existing div to append to. One potential confusion to watch out for, is every time you use a template to 
+generate HTML, make sure the id's are never the same, or an append may append to all items of that same id; Good practice will prevent a wormhole
+from opening up in your mind, consuming all logic and understanding.
     
 EXAMPLE:
     
