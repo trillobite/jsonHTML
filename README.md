@@ -71,7 +71,7 @@ EXAMPLE:
             ]
         }
     };
-    appendHTML({ //now just append it to any div!
+    appendHTML(jsonHTMLObj{ //now just append it to any div!
         indx: 1, //these are properties that you can set to your template object.
     }, 'containerDivIDAsString');
     
