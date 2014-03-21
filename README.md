@@ -76,8 +76,8 @@ you agree not to hold me responsible for any damages, or consequences of your ma
 This code is provided with no warranties, or guarantees, all I ask is you retain credit back to me if you use my code.
 
 ```
-   ( (
-    ) )
+    (
+   ) ) )
   ........
   |      | ]
   \      /
