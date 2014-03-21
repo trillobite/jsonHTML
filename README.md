@@ -77,7 +77,8 @@ EXAMPLE:
     
 Now, lets say I want 'thisIsDivStuffChild1' to mutate into a textbox!
 
-First, we would want to setup a mutable Div and a mutable textbox structure to make things a tad bit easier to conceptualize:
+First, we would want to setup a mutable Div and a mutable textbox structure to make things a tad bit easier to conceptualize
+if you have taken an C++ in the past, these would be similar to Structs:
 ```
 function mDiv(element) { //a generic mutable JSON Div.
     return {
@@ -100,7 +101,7 @@ function mTxt(element) { //a generic mutable JSON text object.
 };
 
 ```
-Then, I pass them an object full of properties explaining what I want them to do, I can do this now by completely replacing
+Then, I pass to my "Structs" an object full of properties explaining what I want them to do, I can do this now by completely replacing
 my orignal json div element above: 
 ```
 mDiv({
@@ -139,7 +140,7 @@ mDiv({
  
 I have not had the courage yet to add some "Syntactic Sugar" to make object mutation easier to conceptualize, for now, this is
 what we got, if someone would like to fork and add some functionality, that would be great, but for now jsonHTML is black as 
-a java can be! (Means it has no sugar...)
+a java can be! (Means it has no sugar, does not have to do with race...)
 
 You can execute the completed code in the 'example.html' This is a fully operational example of what jsonHTML can do, though,
 it's a quite basic example, and you can do much... MUCH more with jsonHTML.
@@ -156,12 +157,6 @@ This code is provided with no warranties, or guarantees, all I ask is you retain
   \        /
    `------'  Keep it black.
 ```
-
-
-
-
-
-
 
 Feel free to fork, and ask to become a contributor, if you have an improvement you have implemented in your fork, that 
 you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, and
