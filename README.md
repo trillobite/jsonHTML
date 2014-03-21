@@ -68,6 +68,9 @@ EXAMPLE:
         indx: 1, //these are properties that you can set to your template object.
     }, 'containerDivIDAsString');
     
+You can also Execute the code in the 'example.html' This is a fully operational example of what jsonHTML can do, though,
+it's a quite basic example, and you can do much... MUCH more with jsonHTML.
+    
 Disclaimer: jsonHTML is provided to you as Free Software (refer to: gnu.org/philosophy/free-sw.html ), by using this code
 you agree not to hold me responsible for any damages, or consequences of your malicious or "friendly" use of this code.
 This code is provided with no warranties, or guarantees, all I ask is you retain credit back to me if you use my code.
