@@ -26,20 +26,23 @@ var parsetype = function (type) {
         var html = {
             id: undefined !== element.id ? ' id="'+element.id+'"' : '',
             class: undefined !== element.class ? ' class="'+element.class+'"' : '',
-            onclick: undefined !== element.onclick ? ' onclick="'+element.onclick+'"' : '',
+            onclick: undefined !== element.onclick ? ' onclick="'+element.onclick+'"' : '', 
             onblur: undefined !== element.onblur ? ' onblur="' + element.onblur + '"' : '',
             onfocus: undefined !== element.onfocus ? ' onfocus="' + element.onfocus + '"' : '',
+            max: undefined !== element.max ? ' max="' + element.max + '"' : '',
+            min: undefined !== element.min ? ' min="' + element.min + '"' : '',
+            name: undefined !== element.name ? ' name="' + element.name + '"' : '',
+            readonly: undefined !== element.readonly ? ' readonly="' + element.readonly + '"' : '',
+            rows: undefined !== element.rows ? ' rows="' + element.rows + '"' : '',
+            cols: undefined !== element.cols ? ' cols="' + element.cols + '"' : '',
         }; 
-        return html.id + html.class + html.onclick + html.onblur + html.onfocus;
+        var retVal = "";
+        $.each(html, function () { //for each property.
+            retVal += this;
+        });
+        return retVal;
     }
     var options = {
-        textbox: function (element) {
-            var html = {
-                start: '<input type="text"',
-                end: undefined !== element.text ? ' value="' + element.text + '">' : '>',
-            };
-            return html.start + ico(element) + html.end;
-        },
         button: function (element) {
             var html = {
                 start: '<button type="button"',
@@ -64,6 +67,28 @@ var parsetype = function (type) {
         html: function (element) {
             return element.data;
         },
+        spinner: function (element) {
+            var html = {
+                start: undefined !== element.text ? element.text+'<input type="number"' : '<input type="number"',
+                end: '/>',
+            };
+            return html.start + ico(element) + html.end;
+        },
+        textarea: function (element) {
+            var html = { 
+                start: '<textarea ',
+                end: undefined !== element.text ? '>' + element.text + '</textarea>' : '></textarea>',
+            };
+            return html.start + ico(element) + html.end;
+        },
+        textbox: function (element) {
+            var html = {
+                start: '<input type="text"',
+                end: undefined !== element.text ? ' value="' + element.text + '">' : '>',
+            };
+            return html.start + ico(element) + html.end;
+        },
+
     };
     return undefined !== options[type] ? options[type] : undefined;
 };
@@ -71,7 +96,7 @@ var parsetype = function (type) {
 //recursive function, simply loops until there are no more children objects,
 //uses jQuery to append to the parent object (usually a div element).
 function appendHTML(jsonObj, container) {
-    if(typeof jsonObj == 'function') {
+    if(typeof jsonObj == 'function'){
         jsonObj = jsonObj();
     }
     $('#'+container).append(parsetype(jsonObj.type)(jsonObj));
