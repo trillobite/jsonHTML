@@ -18,6 +18,68 @@
     give you credit as one of the authors or contributors.
 */
 
+/*
+    This is a hashing function. It works similar to an in memory database for this project.
+    It can store any string you want, to see if that object already exists, it's a really powerful tool actually.
+*/
+var arrdb = {
+    db: [],
+    calcIndex: function(data) {
+        var total = 0;
+        for(var i = 0; i < data.length; ++i) {
+            total += data.charCodeAt(i);
+        }
+        return total % 50;
+    },
+    exists: function(data) {
+        var indx = this.calcIndex(data);
+        if(this.db[indx]) {
+            console.log(this);
+            for(var i = 0; i < this.db[indx].length; ++i) {
+                if(this.db[indx][i] == data) {
+                    return true; //success
+                }
+            }
+            return false; //none matched
+        } else {
+            return false; //contains nothing.
+        }
+    },
+    hash: function(data) {
+        if(!(this.exists(data))) {
+            var indx = this.calcIndex(data);
+            if(this.db[indx]) {
+                this.db[indx][this.db[indx].length] = data;
+                return true; //success
+            } else {
+                this.db[indx] = [];
+                this.db[indx][this.db[indx].length] = data;
+                return true; //success
+            }
+        } else {
+            return false; //already exists
+        }
+    }
+
+}
+
+/*
+    If the user does not provide a div id for their object, this will make a 
+    random one.
+*/
+var makeID = function () {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 12; i++ ) //144 possible random div id's
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    if(!(arrdb.hash(text))) {
+        text + Math.floor(Math.random() * 24);
+        console.log('warning: Last div id was the same, are you making too many objects without div id\'s? ', text);
+    }
+    return text;
+};
 
 //Returns a small chunk of HTML as a string back to the parent function.
 //Can produce HTML for a button, text box, or a div element.
@@ -96,6 +158,9 @@ var parsetype = function (type) {
 //recursive function, simply loops until there are no more children objects,
 //uses jQuery to append to the parent object (usually a div element).
 function appendHTML(jsonObj, container) {
+    if(!(jsonObj.id)) {
+        jsonObj.id = makeID();
+    }
     if(typeof jsonObj == 'function'){
         jsonObj = jsonObj();
     }
@@ -110,4 +175,16 @@ function appendHTML(jsonObj, container) {
             this();
         });
     }
+}
+
+//so that you can construct an object that will work just like any other javaScript object.
+function $jConstruct(htmlType) {
+    return {
+        type: undefined !== htmlType ? htmlType : 'div', //defaults to a div
+        children: [],
+        functions: [],
+        addChild: function (childObj) { this.children[this.children.length] = childObj },
+        addFunction: function (addFunc) { this.functions[this.functions.length] = addFunc },
+        appendTo: function(parent) { this.parent = parent; appendHTML(this, this.parent); },
+    };
 }
