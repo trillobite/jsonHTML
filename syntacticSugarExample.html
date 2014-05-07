@@ -32,29 +32,39 @@
                 }).css(centerBorderHalf);
             };
             
+            //do this when div looses focus.
+            var mutableDivOnBlur = function (mDiv, data) {
+                $('#'+mDiv.id).blur(function() { //when you click away from the textbox, it goes back to a div!
+                    var txt = $('#'+mDiv.id)[0].value;
+                    $('#'+mDiv.id).remove();
+                    mDiv.text = txt;
+                    mDiv.appendTo('thisIsDivStuff'+data.indx); // I can just grab the original mDiv, beautiful like recursion!
+                }); 
+            }
+            
+            //do this when div is clicked. this is what makes a mutable div... mutate.
+            var mutableDivOnClick = function(mDiv, data) {
+                $('#'+mDiv.id).click(function() { //mutate my div into a textbox on the click!
+                    $('#'+mDiv.id).remove(); //remove the old
+                    $jConstruct('textbox', {
+                        id: mDiv.id,
+                        text: 'Change the text!', //text that will display in the text box.
+                    }).css({
+                        'color': 'purple', //color of the text in the text box.
+                    }).addFunction(function () {
+                        mutableDivOnBlur(mDiv, data);
+                        $('#'+mDiv.id).focus(); //so you will be in the text box.
+                    }).appendTo('thisIsDivStuff'+data.indx); //on click append my object to this div id!
+                });
+            }
+            
             //here is where it gets crazy... this is a mutable div!
             var mutableDiv = function(data) { 
                 var mDiv = $jConstruct('div', { //this var is reused, make sure that it stays in memory by declaring it as var.
                     id: 'thisIsDivStuffChild1',
                     text: 'Hello World From Child 1 <-- Click Me!',
-                }).css(centerBorderHalf).addFunction(function () {
-                    $('#'+mDiv.id).click(function() { //mutate my div into a textbox on the click!
-                        $('#'+mDiv.id).remove(); //remove the old
-                        $jConstruct('textbox', {
-                            id: mDiv.id,
-                            text: 'Change the text!', //text that will display in the text box.
-                        }).css({
-                            'color': 'purple', //color of the text in the text box.
-                        }).addFunction(function () {
-                            $('#'+mDiv.id).blur(function() { //when you click away from the textbox, it goes back to a div!
-                                var txt = $('#'+mDiv.id)[0].value;
-                                $('#'+mDiv.id).remove();
-                                mDiv.text = txt;
-                                mDiv.appendTo('thisIsDivStuff'+data.indx); // I can just grab the original mDiv, beautiful like recursion!
-                            });
-                            $('#'+mDiv.id).focus(); //so you will be in the text box.
-                        }).appendTo('thisIsDivStuff'+data.indx); //on click append my object to this div id!
-                    });
+                }).css(centerBorderHalf).addFunction(function() {
+                    mutableDivOnClick(mDiv, data);
                 });
                 return mDiv;
             };
