@@ -7,6 +7,9 @@ Requires: jQuery
 
 Description:
 
+*There have been recent changes to jsonHTML, code examples below still work, but there are newer more intuitive approaches
+ to using jsonHTML, feel free to view the latest methods by taking a look at the new code: syntacticSugarExample.html *
+
 jsonHTML allows you to grant the powers of javaScript to your dreaded static HTML. 
 If you find writing HTML to be boring, or just need more flexibility and power to dynamically alter, manipulate,
 or duplicate HTML objects as if it were javaScript objects, this is for you. This was created for one of my own projects,
