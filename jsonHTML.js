@@ -183,15 +183,33 @@ function $jConstruct(htmlType, directInsert) {
         type: undefined !== htmlType ? htmlType : 'div', //defaults to a div
         children: [],
         functions: [],
-        addChild: function (childObj) { this.children[this.children.length] = childObj; return this; },
-        addFunction: function (addFunc) { this.functions[this.functions.length] = addFunc; return this; },
-        appendTo: function(parent) { this.parent = parent; appendHTML(this, this.parent); return this; },
     };
     if(directInsert) { //dynamically add all properties to the object from directInsert that the user inputs.
         for(var propertyName in directInsert) {
             tmp[propertyName] = directInsert[propertyName];
         }
     }
+    if(undefined === tmp.id) {
+        tmp.id = makeID();
+    }
+    tmp.addChild = function (childObj) { this.children[this.children.length] = childObj; return this; };
+    tmp.addFunction = function (addFunc) { this.functions[this.functions.length] = addFunc; return this; };
+    tmp.appendTo = function(parent) { 
+        appendHTML(this, parent); 
+        return this; 
+    };
+    tmp.css = function(input) { 
+        var divId = '#'+this.id;
+        this.addFunction(function() {
+            $(divId).css(input);
+        });
+        return this;
+    };
+    tmp.remove = function() {
+        var divId = '#'+this.id;
+        $(divId).remove();
+    }
+
     return tmp;
 }
 
