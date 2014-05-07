@@ -138,12 +138,14 @@ mDiv({
 }),
 ```
  
-I have not had the courage yet to add some "Syntactic Sugar" to make object mutation easier to conceptualize, for now, this is
+~~I have not had the courage yet to add some "Syntactic Sugar" to make object mutation easier to conceptualize,~~ Make sure 
+to check out the second HTML example "syntacticSugarExample.html," jsonHTML has been updated and can be written in a more 
+functional programming style, but it's still got a long way to go before it's easy to use, but for now, again this is
 what we got, if someone would like to fork and add some "Sugar", that would be great, but for now jsonHTML is black as 
-a java can be! (Means it has no sugar, does not have to do with race...)
+a tasty java can be! (Means it has no sugar, does not have to do with race...)
 
-You can execute the completed code in the 'example.html' This is a fully operational example of what jsonHTML can do, though,
-it's a quite basic example, and you can do much... MUCH more with jsonHTML.
+You can execute the completed code in the 'example.html' or 'syntacticSugarExample.html' This is a fully operational example 
+of what jsonHTML can do, though, it's only a basic example, and you can do much... MUCH more with jsonHTML.
     
 Disclaimer: jsonHTML is provided to you as Free Software (refer to: https://gnu.org/philosophy/free-sw.html ), by using this code
 you agree not to hold me responsible for any damages, or consequences of your malicious or "friendly" use of this code.

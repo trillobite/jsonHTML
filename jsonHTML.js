@@ -20,7 +20,7 @@
 
 /*
     This is a hashing function. It works similar to an in memory database for this project.
-    It can store any string you want, to see if that object already exists, it's a really powerful tool actually.
+    It can store any string you want, to see if that object already exists. It's a really powerful tool actually.
 */
 var arrdb = {
     db: [],
@@ -158,11 +158,11 @@ var parsetype = function (type) {
 //recursive function, simply loops until there are no more children objects,
 //uses jQuery to append to the parent object (usually a div element).
 function appendHTML(jsonObj, container) {
-    if(!(jsonObj.id)) {
-        jsonObj.id = makeID();
-    }
     if(typeof jsonObj == 'function'){
         jsonObj = jsonObj();
+    }
+    if(undefined === jsonObj.id) {
+        jsonObj.id = makeID();
     }
     $('#'+container).append(parsetype(jsonObj.type)(jsonObj));
     if(undefined !== jsonObj.children) {
@@ -178,13 +178,28 @@ function appendHTML(jsonObj, container) {
 }
 
 //so that you can construct an object that will work just like any other javaScript object.
-function $jConstruct(htmlType) {
-    return {
+function $jConstruct(htmlType, directInsert) {
+    var tmp = {
         type: undefined !== htmlType ? htmlType : 'div', //defaults to a div
         children: [],
         functions: [],
-        addChild: function (childObj) { this.children[this.children.length] = childObj },
-        addFunction: function (addFunc) { this.functions[this.functions.length] = addFunc },
-        appendTo: function(parent) { this.parent = parent; appendHTML(this, this.parent); },
+        addChild: function (childObj) { this.children[this.children.length] = childObj; return this; },
+        addFunction: function (addFunc) { this.functions[this.functions.length] = addFunc; return this; },
+        appendTo: function(parent) { this.parent = parent; appendHTML(this, this.parent); return this; },
     };
+    if(directInsert) { //dynamically add all properties to the object from directInsert that the user inputs.
+        for(var propertyName in directInsert) {
+            tmp[propertyName] = directInsert[propertyName];
+        }
+    }
+    return tmp;
 }
+
+/*
+    (
+   ) ) )
+  ..........
+  |   js   | ]
+  \        /
+   `------'  Keep it black, no sugar.
+*/
