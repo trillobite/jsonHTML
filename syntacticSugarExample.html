@@ -1,5 +1,5 @@
 <!--
-    This example produces the same html as what is in example.html, but quite possibly could be more difficult 
+    This example produces similar html as what is in example.html, but quite possibly could be more difficult 
     to understand. One thing to notice here, is that this code is utilizing the more advanced features of jsonHTML,
     and is written in a more functional programming way. Notice how in order to manipulate the json objects in
     a more functional programming style, you have to call $jConstruct, as it will construct an object for you to
@@ -17,54 +17,54 @@
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js'></script> <!--MAKE SURE TO INCLUDE JQUERY!!-->
         <script type='text/javascript' src='jsonHTML.js'></script>
         <script>
+            var centerBorderHalf = { //css to reuse in each object, or you can put this in a .css file!
+                'width': '50%',
+                'border': '1px solid black',
+                'border-radius': '15px',
+                'text-align': 'center',
+                'margin': '0 auto',
+            };
+            
+            var child0 = function () {
+                return $jConstruct('div', {
+                    //id: 'thisISDivStuffChild0', //notice how if this object is not later manipulated in code, I can simply ignore adding an ID, jsonHTML will make one on its own!
+                    text: 'Hello World From Child 0',
+                }).css(centerBorderHalf);
+            };
+            
+            //here is where it gets crazy... this is a mutable div!
+            var mutableDiv = function(data) { 
+                var mDiv = $jConstruct('div', { //this var is reused, make sure that it stays in memory by declaring it as var.
+                    id: 'thisIsDivStuffChild1',
+                    text: 'Hello World From Child 1 <-- Click Me!',
+                }).css(centerBorderHalf).addFunction(function () {
+                    $('#'+mDiv.id).click(function() { //mutate my div into a textbox on the click!
+                        $('#'+mDiv.id).remove(); //remove the old
+                        $jConstruct('textbox', {
+                            id: mDiv.id,
+                            text: 'Change the text!', //text that will display in the text box.
+                        }).css({
+                            'color': 'purple', //color of the text in the text box.
+                        }).addFunction(function () {
+                            $('#'+mDiv.id).blur(function() { //when you click away from the textbox, it goes back to a div!
+                                var txt = $('#'+mDiv.id)[0].value;
+                                $('#'+mDiv.id).remove();
+                                mDiv.text = txt;
+                                mDiv.appendTo('thisIsDivStuff'+data.indx); // I can just grab the original mDiv, beautiful like recursion!
+                            });
+                            $('#'+mDiv.id).focus(); //so you will be in the text box.
+                        }).appendTo('thisIsDivStuff'+data.indx); //on click append my object to this div id!
+                    });
+                });
+                return mDiv;
+            };
+            
             var jsonHTMLObj = function(data) {
                 return $jConstruct('div', {
                     id: 'thisIsDivStuff' + data.indx,
-                    class: 'divStuff',
+                    class: 'divStuff', //yea, you can set a class and add css in an external style sheet!
                     text: '<h2>'+'HELLO WORLD!'+'</h2>',
-                }).css({ //set the css styling without a jQuery call!
-                    'width': '50%',
-                    'border': '1px solid black',
-                    'border-radius': '15px',
-                    'text-align': 'center',
-                }).addChild(function () { //add a child object with chaining!
-                    return $jConstruct('div', {
-                        //id: 'thisISDivStuffChild0', //notice how if this object is not later manipulated in code, I can simply ignore adding an ID, jsonHTML will make one on its own!
-                        text: 'Hello World From Child 0',
-                    }).css({
-                        'width': '50%',
-                        'border': '1px solid black',
-                        'text-align': 'center',
-                        'margin': '0 auto',
-                    });
-                }).addChild(function() { //here is where it gets crazy... this is a mutable div!
-                    var mDiv = $jConstruct('div', { //this var is reused, make sure that it stays in memory by declaring it as var.
-                        id: 'thisIsDivStuffChild1',
-                        text: 'Hello World From Child 1 <-- Click Me!',
-                    }).css({
-                        'width': '50%',
-                        'border': '1px solid black',
-                        'text-align': 'center',
-                        'margin': '0 auto',
-                    }).addFunction(function () {
-                        $('#'+mDiv.id).click(function() { //mutate my div into a textbox on the click!
-                            $('#'+mDiv.id).remove(); //remove the old
-                            $jConstruct('textbox', {
-                                id: mDiv.id,
-                                text: 'Hello World From Child 1',
-                            }).css({
-                                'color': 'purple',
-                            }).addFunction(function () {
-                                $('#'+mDiv.id).blur(function() { //when you click away from the textbox, it goes back to a div!
-                                    $('#'+mDiv.id).remove();
-                                    mDiv.appendTo('thisIsDivStuff'+data.indx); // I can just grab the original mDiv, beautiful like recursion!
-                                });
-                                $('#'+mDiv.id).focus(); //so you will be in the text box.
-                            }).appendTo('thisIsDivStuff'+data.indx); //on click append my object to this div id!
-                        });
-                    });
-                    return mDiv;
-                });
+                }).css(centerBorderHalf).addChild(child0).addChild(mutableDiv(data)); //add a child object with chaining!
             }
 
             $(document).ready(function () {
