@@ -25,6 +25,7 @@
                 }).css({ //set the css styling without a jQuery call!
                     'width': '50%',
                     'border': '1px solid black',
+                    'border-radius': '15px',
                     'text-align': 'center',
                 }).addChild(function () { //add a child object with chaining!
                     return $jConstruct('div', {
@@ -34,6 +35,7 @@
                         'width': '50%',
                         'border': '1px solid black',
                         'text-align': 'center',
+                        'margin': '0 auto',
                     });
                 }).addChild(function() { //here is where it gets crazy... this is a mutable div!
                     var mDiv = $jConstruct('div', { //this var is reused, make sure that it stays in memory by declaring it as var.
@@ -43,6 +45,7 @@
                         'width': '50%',
                         'border': '1px solid black',
                         'text-align': 'center',
+                        'margin': '0 auto',
                     }).addFunction(function () {
                         $('#'+mDiv.id).click(function() { //mutate my div into a textbox on the click!
                             $('#'+mDiv.id).remove(); //remove the old
