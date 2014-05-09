@@ -38,7 +38,9 @@
                     var txt = $('#'+mDiv.id)[0].value;
                     $('#'+mDiv.id).remove();
                     mDiv.text = txt;
-                    mDiv.appendTo('thisIsDivStuff'+data.indx); // I can just grab the original mDiv, beautiful like recursion!
+                    mDiv.textProperties('bold').css({
+                        'color': 'purple',
+                    }).appendTo('thisIsDivStuff'+data.indx); // I can just grab the original mDiv and re-append it, beautiful like recursion!
                 }); 
             }
             
@@ -53,7 +55,7 @@
                         'color': 'purple', //color of the text in the text box.
                     }).addFunction(function () {
                         mutableDivOnBlur(mDiv, data);
-                        $('#'+mDiv.id).focus(); //so you will be in the text box.
+                        $('#'+mDiv.id).focus(); //focus will go back to the text box after rendering.
                     }).appendTo('thisIsDivStuff'+data.indx); //on click append my object to this div id!
                 });
             }
@@ -61,7 +63,7 @@
             //here is where it gets crazy... this is a mutable div!
             var mutableDiv = function(data) { 
                 var mDiv = $jConstruct('div', { //this var is reused, make sure that it stays in memory by declaring it as var.
-                    id: 'thisIsDivStuffChild1',
+                    //id: 'thisIsDivStuffChild1',
                     text: 'Hello World From Child 1 <-- Click Me!',
                 }).css(centerBorderHalf).addFunction(function() {
                     mutableDivOnClick(mDiv, data);
@@ -73,9 +75,9 @@
                 return $jConstruct('div', {
                     id: 'thisIsDivStuff' + data.indx,
                     class: 'divStuff', //yea, you can set a class and add css in an external style sheet!
-                    text: '<h2>'+'HELLO WORLD!'+'</h2>',
-                }).css(centerBorderHalf).addChild(child0).addChild(mutableDiv(data)); //add a child object with chaining!
-            }
+                    text: 'HELLO WORLD!',
+                }).textProperties('heading', '2').css(centerBorderHalf).addChild(child0).addChild(mutableDiv(data)); //add text styling, css and a child object with chaining!
+            };
 
             $(document).ready(function () {
                 jsonHTMLObj({indx: 1}).appendTo('root'); //now just append it to any div!

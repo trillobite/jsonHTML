@@ -177,6 +177,66 @@ function appendHTML(jsonObj, container) {
     }
 }
 
+var jConstructObjectManipulations = {
+    textStyling: function(tmp) {
+        return {
+            hyperlink: function(linkTo) {
+                tmp.text = '<a href='+linkTo+'>'+tmp.text+'</a>';
+                return this;
+            },
+            bold: function() {
+                tmp.text = '<b>'+tmp.text+'</b>';
+                return this;
+            },
+            italicize: function() {
+                tmp.text = '<i>'+tmp.text+'</i>';
+                return this;
+            },
+            strong: function () {
+                tmp.text = '<strong>'+tmp.text+'</strong>';
+                return this;
+            },
+            heading: function(num) {
+                tmp.text = '<h'+num+'>'+tmp.text+'</h'+num+'>';
+                return tmp;
+            },
+            paragraph: function() {
+                tmp.text = '<p>'+tmp.text+'</p>';
+                return tmp;
+            }
+        }
+    },
+    basicPropertiesInsert: function(tmp, directInsert) {
+        tmp.textProperties = function(type, option) { 
+            var options = jConstructObjectManipulations.textStyling(tmp);
+            if(option) {
+                options[type](option);
+            } else {
+                options[type]();
+            }
+            return this;
+        };
+        tmp.addChild = function (childObj) { this.children[this.children.length] = childObj; return this; };
+        tmp.addFunction = function (addFunc) { this.functions[this.functions.length] = addFunc; return this; };
+        tmp.appendTo = function(parent) { 
+            appendHTML(this, parent); 
+            return this; 
+        };
+        tmp.css = function(input) { 
+            var divId = '#'+this.id;
+            this.addFunction(function() {
+                $(divId).css(input);
+            });
+            return this;
+        };
+        tmp.remove = function() {
+            var divId = '#'+this.id;
+            $(divId).remove();
+        }
+    }
+};
+
+
 //so that you can construct an object that will work just like any other javaScript object.
 function $jConstruct(htmlType, directInsert) {
     var tmp = {
@@ -192,32 +252,17 @@ function $jConstruct(htmlType, directInsert) {
     if(undefined === tmp.id) {
         tmp.id = makeID();
     }
-    tmp.addChild = function (childObj) { this.children[this.children.length] = childObj; return this; };
-    tmp.addFunction = function (addFunc) { this.functions[this.functions.length] = addFunc; return this; };
-    tmp.appendTo = function(parent) { 
-        appendHTML(this, parent); 
-        return this; 
-    };
-    tmp.css = function(input) { 
-        var divId = '#'+this.id;
-        this.addFunction(function() {
-            $(divId).css(input);
-        });
-        return this;
-    };
-    tmp.remove = function() {
-        var divId = '#'+this.id;
-        $(divId).remove();
-    }
-
+    jConstructObjectManipulations.basicPropertiesInsert(tmp, directInsert);
+    
     return tmp;
 }
 
 /*
     (
    ) ) )
-  ..........
-  |   js   | ]
+  .........._
+  |        | }
+  |   js   |/
   \        /
    `------'  Keep it black, no sugar.
 */
