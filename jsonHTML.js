@@ -177,7 +177,7 @@ function appendHTML(jsonObj, container) {
     }
 }
 
-var jConstructObjectManipulations = {
+var jConstructObjectManipulations = { //text object manipulations.
     textStyling: function(tmp) {
         return {
             hyperlink: function(linkTo) {
@@ -207,7 +207,34 @@ var jConstructObjectManipulations = {
         }
     },
     basicPropertiesInsert: function(tmp, directInsert) {
-        tmp.textProperties = function(type, option) { 
+        tmp.addChild = function (childObj) { //add a child JSON object on the fly.
+            this.children[this.children.length] = childObj; 
+            return this; 
+        }; 
+        tmp.addFunction = function (addFunc) { //add a function on the fly.
+            this.functions[this.functions.length] = addFunc; 
+            return this; 
+        }; 
+        tmp.appendTo = function(parent) { //append the JSON to a container div.
+            appendHTML(this, parent); 
+            return this; 
+        };
+        tmp.css = function(input) { //sets CSS to the current element.
+            var divId = '#'+this.id;
+            this.addFunction(function() {
+                $(divId).css(input);
+            });
+            return this;
+        };
+        tmp.editProperty = function(properties) { //dynamically add new properties to the JSON HTML object on the fly.
+            jConstructObjectManipulations.dynamicPropertiesAdd(tmp, properties);
+            return this;
+        };
+        tmp.remove = function() { //removes the object from the DOM
+            var divId = '#'+this.id;
+            $(divId).remove();
+        };
+        tmp.textProperties = function(type, option) { //so the simple text manipulations can easily be done.
             var options = jConstructObjectManipulations.textStyling(tmp);
             if(option) {
                 options[type](option);
@@ -216,23 +243,12 @@ var jConstructObjectManipulations = {
             }
             return this;
         };
-        tmp.addChild = function (childObj) { this.children[this.children.length] = childObj; return this; };
-        tmp.addFunction = function (addFunc) { this.functions[this.functions.length] = addFunc; return this; };
-        tmp.appendTo = function(parent) { 
-            appendHTML(this, parent); 
-            return this; 
-        };
-        tmp.css = function(input) { 
-            var divId = '#'+this.id;
-            this.addFunction(function() {
-                $(divId).css(input);
-            });
-            return this;
-        };
-        tmp.remove = function() {
-            var divId = '#'+this.id;
-            $(divId).remove();
+    },
+    dynamicPropertiesAdd: function(tmp, directInsert) {
+        for(var propertyName in directInsert) {
+            tmp[propertyName] = directInsert[propertyName];
         }
+        return this;
     }
 };
 
@@ -245,9 +261,7 @@ function $jConstruct(htmlType, directInsert) {
         functions: [],
     };
     if(directInsert) { //dynamically add all properties to the object from directInsert that the user inputs.
-        for(var propertyName in directInsert) {
-            tmp[propertyName] = directInsert[propertyName];
-        }
+        jConstructObjectManipulations.dynamicPropertiesAdd(tmp, directInsert);
     }
     if(undefined === tmp.id) {
         tmp.id = makeID();
