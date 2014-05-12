@@ -354,9 +354,18 @@ You can execute the completed code in the 'example.html' or 'syntacticSugarExamp
 of what jsonHTML can do, though, it's only a basic example, and you can do much... MUCH more with jsonHTML.
     
 
+Still left to do:
 
-Disclaimer: 
------------
+-Implement an easy way to handle events: on click, blur... etc...
+
+-Implement more objects.
+
+-Possibly remove some syntactic sugar from v0.5, make it more low level, thus more functional, and more future proof.
+
+
+
+Disclaimer / License: 
+---------------------
 
 ---------------------------------------------------------------------------------------------------------------------------------
 jsonHTML is provided to you as Free Software (refer to: https://gnu.org/philosophy/free-sw.html ), by using this code
@@ -370,15 +379,6 @@ you believe is totally amazing, and should be included in the main project, ill 
 give you credit as one of the authors or contributors.
 
 ---------------------------------------------------------------------------------------------------------------------------------
-
-Still left to do:
-
--Implement an easy way to handle events: on click, blur... etc...
-
--Implement more objects.
-
--Possibly remove some syntactic sugar from v0.5, make it more low level, thus more functional, and more future proof.
-
 
 ```
     (
