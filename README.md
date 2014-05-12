@@ -158,14 +158,15 @@ So, you may still be sitting here and wondering what the practical use of jsonHT
 can just write it by hand? You must remember, javaScript has some powerful tools, that are contained in every programming language
 and one of the most powerful are loops. What??? Your wondering why loops are so awesome??? If you must ask, I will explain!
 
-First of all, lets say you have a database full of data, and when you pull from it, you got an array of objects with properties.
+First of all, lets say you have a database full of data. When you pulled data from it, you got an array of objects with properties.
 For each row that was in the database (or object if using mongoDB), you need a div element to allow your users to view that data.
-In order to display this data, we could use jsonHTML to produce for us a template object, then use a loop to fill an array full of
-jsonHTML objects, and append one at a time to the DOM.
+In order to display this data, we could use jsonHTML to produce for us a bunch of div objects, and append that object to the DOM on
+every loop.
 
 For the sake of simplicity of this example, lets say the data which came back from your database is already in JSON format:
 ```
-var dbData = [
+//the data which came back from the database.
+var dbData = [ 
     {
         Name: 'jaunty',
         Description: 'jaunty loves apples!',
