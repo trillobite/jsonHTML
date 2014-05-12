@@ -144,13 +144,15 @@ You can even add the child object upon creation of the parent object, making mor
     }).addChild(childTextBox);
 
 ```
-Utilizing Data, The Bigger Picture
-----------------------------------
 
 Just remember, that despite the fact that jsonHTML will allow you to add a child object to any object, typically in HTML, a 
 textbox or a button do not have child objects. So if you try to add a child object to a traditional HTML object, there may be
 some very interesting bugs produced when you render it. For example, you can have a Div inside a Div, but you cannot have a Div
 inside a button, depending on the browser, it may render that code error in strange unexpected ways, so keep that in mind.
+
+
+Utilizing Data, The Bigger Picture
+----------------------------------
 
 So, you may still be sitting here and wondering what the practical use of jsonHTML really is, why compile down to HTML, when you
 can just write it by hand? You must remember, javaScript has some powerful tools, that are contained in every programming language
