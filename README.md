@@ -14,6 +14,11 @@ Documentation / Code examples Relevant for v0.5
 There have been recent changes to jsonHTML, feel free to view the latest methods by taking a look at the new code example: syntacticSugarExample.html
 
 -------------------------------------------------------------------------------------------------------------------------
+The example code in this documentation is currently being bug tested. The code in the documentation for v0.2 has been bug tested and runs prefectly if you prefer.
+
+-------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------
 
 
 
