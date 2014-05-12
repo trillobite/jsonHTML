@@ -353,11 +353,12 @@ what we got, if someone would like to fork and add some "Sugar", that would be g
 You can execute the completed code in the 'example.html' or 'syntacticSugarExample.html' This is a fully operational example 
 of what jsonHTML can do, though, it's only a basic example, and you can do much... MUCH more with jsonHTML.
     
----------------------------------------------------------------------------------------------------------------------------------
+
 
 Disclaimer: 
 -----------
 
+---------------------------------------------------------------------------------------------------------------------------------
 jsonHTML is provided to you as Free Software (refer to: https://gnu.org/philosophy/free-sw.html ), by using this code
 you agree not to hold me responsible for any damages, or consequences of your malicious or "friendly" use of this code.
 This code is provided with no warranties, or guarantees, all I ask is you retain credit back to me if you use my code. 
