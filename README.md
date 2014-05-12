@@ -8,8 +8,12 @@ Requires: jQuery
 Description:
 
 Documentation / Code examples Relevant for v0.5
-*There have been recent changes to jsonHTML, feel free to view the latest methods by taking a look at the new code example: 
-syntacticSugarExample.html *
+
+-------------------------------------------------------------------------------------------------------------------------
+
+There have been recent changes to jsonHTML, feel free to view the latest methods by taking a look at the new code example: syntacticSugarExample.html
+
+-------------------------------------------------------------------------------------------------------------------------
 
 
 
