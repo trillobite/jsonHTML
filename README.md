@@ -226,7 +226,7 @@ generate HTML, make sure the id's are never the same, or an append may append to
 from opening up in your mind, consuming all logic and understanding.
     
 EXAMPLE:
-    
+```JavaScript
     //this is the template object, the function will return a custom JSON object using the object you pass to it, which can then be used by
     //appendHTML to generate and append the HTML from your JSON object.
     var jsonHTMLObj = function (data) {
@@ -274,12 +274,12 @@ EXAMPLE:
     appendHTML(jsonHTMLObj{ //now just append it to any div!
         indx: 1, //these are properties that you can set to your template object.
     }, 'containerDivIDAsString');
-    
+```
 Now, lets say I want 'thisIsDivStuffChild1' to mutate into a textbox!
 
 First, we would want to setup a mutable Div and a mutable textbox structure to make things a tad bit easier to conceptualize.
 If you have taken C++ in the past, these would be similar to Structs:
-```
+```JavaScript
 function mDiv(element) { //a generic mutable JSON Div.
     return {
         type: 'div',
@@ -303,7 +303,7 @@ function mTxt(element) { //a generic mutable JSON text object.
 ```
 Then, I pass to my "Structs" an object full of properties explaining what I want them to do, I can do this now by completely replacing
 my orignal json div element above: 
-```
+```JavaScript
 mDiv({
     id: 'thisIsDivStuffChild1',
     text: 'Hello World From Child 1',
