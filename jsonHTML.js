@@ -219,6 +219,31 @@ var jConstructObjectManipulations = { //text object manipulations.
             appendHTML(this, parent); 
             return this; 
         };
+        tmp.blur = function(input) {
+            var divId = '#'+this.id;
+            $(divId).blur(input); //input is a function
+            return this;
+        };
+        tmp.bind = function(input) {
+            var divId = '#'+this.id;
+            $(divId).bind(input);
+            return this;
+        };
+        tmp.change = function(input) {
+            var divId = '#'+this.id;
+            $(divId).change(input);
+            return this;
+        };
+        tmp.dblclick = function(input) {
+            var divId = '#'+this.id;
+            $(divId).dblclick(input);
+            return this;
+        }
+        tmp.click = function(input) {
+            var divId = '#'+this.id;
+            $(divId).click(input); //input is a function
+            return this;
+        };
         tmp.css = function(input) { //sets CSS to the current element.
             var divId = '#'+this.id;
             this.addFunction(function() {
@@ -228,6 +253,16 @@ var jConstructObjectManipulations = { //text object manipulations.
         };
         tmp.editProperty = function(properties) { //dynamically add new properties to the JSON HTML object on the fly.
             jConstructObjectManipulations.dynamicPropertiesAdd(tmp, properties);
+            return this;
+        };
+        tmp.focus = function(input) {
+            var divId = '#'+this.id;
+            $(divId).focus(input); //input is a function
+            return this;
+        };
+        tmp.hover = function(input) {
+            var divId = '#'+this.id;
+            $(divId).hover(input); //input is a function
             return this;
         };
         tmp.remove = function() { //removes the object from the DOM
