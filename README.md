@@ -205,7 +205,7 @@ $.each(dbData, function(data, indx) {
 
 ```
 One thing to remember here, is that setting the css manually for each div, is optional, you can define a class name for your
-jsonHTML object, and implement styling in an external style sheet, just like you would if you were writing native html. In the
+jsonHTML object, or an ID, and implement styling in an external style sheet, just like you would if you were writing native html. In the
 above example, even though it currently does nothing, I set the parentNameObj class to "defaultClass," a css style can be added
 and when this object is rendered on the DOM, it will automatically set the styling. It is also good to remember that jsonHTML
 does technically require that each object has an id, if you do not define an id, jsonHTML will come up with random characters and
