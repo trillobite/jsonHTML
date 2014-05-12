@@ -62,6 +62,9 @@ documentation for v0.2 near the bottom of this documentation, v0.5 is backwards 
     helloDiv.text = 'Hello World';
 </script>
 ```
+Appending to DOM
+----------------
+
 Cool! You made a div that will say Hello World, but if you run this right now, you wont see anything, because the html output has
 not been appended to any div, so we need to write code to do that.
 ```
@@ -76,6 +79,9 @@ was appended to the 'root' div.
 
 Now that you made your first helloWorld page with jsonHTML, we can begin with doing some tad bit more crazy, and mind bending
 stuff, But first, lets cover the basic HTML styling which is typically done naturally.
+
+Basic HTML/CSS styling
+----------------------
 
 Would if, I wanted "Hello World" to be a heading, and bold? jsonHTML has the ability to do this very simply with function chaining. Lets
 rewrite helloDiv so it's a bit more simple and looks more awesome.
@@ -98,6 +104,9 @@ Here's the same object, and setting css (styling) to it:
 ```
 Neat right? As you can see, any styling you can set using jQuery, you can utilize here, basically '.css()' is just a shortcut
 to jQuery, it plugs it right in.
+
+Adding Child Objects
+--------------------
 
 Now that we have covered the very basic div object manipulations, typically HTML includes child objects, and jsonHTML does not 
 only work with div's but also the basic html objects: textboxes, checkboxes, buttons, etc... (full list coming soon). To add a
@@ -131,6 +140,9 @@ You can even add the child object upon creation of the parent object, making mor
     }).addChild(childTextBox);
 
 ```
+Utilizing Data, The Bigger Picture
+----------------------------------
+
 Just remember, that despite the fact that jsonHTML will allow you to add a child object to any object, typically in HTML, a 
 textbox or a button do not have child objects. So if you try to add a child object to a traditional HTML object, there may be
 some very interesting bugs produced when you render it. For example, you can have a Div inside a Div, but you cannot have a Div
