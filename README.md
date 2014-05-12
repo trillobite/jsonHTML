@@ -20,7 +20,8 @@ The example code in this documentation is currently being bug tested. The code i
 
 -------------------------------------------------------------------------------------------------------------------------
 
-
+Overview
+--------
 
 jsonHTML allows you to grant the powers of javaScript to your dreaded static HTML.
 If you find writing HTML to be boring, or just need more flexibility and power to dynamically alter, manipulate,
