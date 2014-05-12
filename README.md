@@ -166,7 +166,7 @@ and one of the most powerful are loops. What??? Your wondering why loops are so 
 
 First of all, lets say you have a database full of data. When you pulled data from it, you got an array of objects with properties.
 For each row that was in the database (or object if using mongoDB), you need a div element to allow your users to view that data.
-In order to display this data, traditionally we would have to write out each div statically, but since we do not know how much data is going to come to us, one would write templates, as strings... by hand... yes... tedious. This is the reason jsonHTML was created, we could use simply use its tools to produce for us a bunch of div objects, and append that object to the DOM on
+In order to display this data, traditionally we would have to write out each div statically, but since we do not know how much data is going to come to us, one would write templates, as strings... by hand... yes... tedious. This is the reason jsonHTML was created, we could simply use its tools to produce for us a bunch of div objects, and append that object to the DOM on
 every loop.
 
 For the sake of simplicity of this example, lets say the data which came back from your database is already in JSON format:
