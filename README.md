@@ -26,7 +26,7 @@ jsonHTML allows you to grant the powers of javaScript to your dreaded static HTM
 If you find writing HTML to be boring, or just need more flexibility and power to dynamically alter, manipulate,
 or duplicate HTML objects as if it were javaScript objects, this is for you. jsonHTML was created in a rush for one of my
 own projects, in which virtually none of my div objects, or much of any HTML could have been written
-traditionally, thus, I will release new versions, and improve functionality as I require more power. jsonHTML was not written for performance, therefore it may not be best for very
+traditionally, thus, I will release new versions, and improve functionality as my projects require more. jsonHTML was not written for performance, therefore it may not be best for very
 large projects, but it is good if you need to write code quickly, and dynamically alter objects in a more intuitive manner. 
 Basically the goal of the jsonHTML project is if you can do something in javaScript, you will be able to reflect it in HTML.
 
