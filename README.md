@@ -359,9 +359,13 @@ you agree not to hold me responsible for any damages, or consequences of your ma
 This code is provided with no warranties, or guarantees, all I ask is you retain credit back to me if you use my code.
 
 Still left to do:
+
 -Implement an easy way to handle events: on click, blur... etc...
+
 -Implement more objects.
+
 -Possibly remove some syntactic sugar from v0.5, make it more low level, thus more functional, and more future proof.
+
 
 ```
     (
