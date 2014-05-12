@@ -59,7 +59,7 @@ For the sake of simplicity, there is a jsonHTML constructor that you can call to
 This sets up an object that you can manipulate and have renderd to the DOM. If you dont like syntactic sugar, check out the 
 documentation for v0.2 near the bottom of this documentation, v0.5 is backwards compatible.
 
-```
+```HTML
 <script>
     //lets make a div that says hello world!
     var helloDiv = $jConstruct('div');
