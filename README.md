@@ -34,8 +34,7 @@ Basically the goal of the jsonHTML project is if you can do something in javaScr
 Before this, to achieve the flexibility required for my projects, I had to write out the HTML as a string, and use jQuery to
 add them or manipulate them by parsing that string. This was tedious, especially compared to manipulating JSON objects as an
 abstraction layer. Basically put, by creating a JSON object to reflect what you want, jsonHTML takes your object and creates
-the string to pass to jQuery, then jQuery handles the rest. Think of jsonHTML as a compiler, it takes javaScript (JSON) objects
-and compiles them down to HTML, where the browser deals with them traditionally.
+the string to pass to jQuery, then jQuery handles the rest. Think of jsonHTML as a compiler, or a jQuery shell, it takes javaScript (JSON) objects and compiles them down to HTML, where it is passed to jQuery, implemented into the DOM and the browser deals with them traditionally.
 
 The easiest way to use jsonHTML.
 ---------------------------------
@@ -199,7 +198,7 @@ $.each(dbData, function(data, indx) {
     });
 
     //now I need to create the parent Div that will hold the 'Name.'
-    var parentNameObj = $jConstruct('div', {
+    $jConstruct('div', {
         class: 'defaultClass',
         text: data.Name,
     }.css({
@@ -225,7 +224,7 @@ Writing in a different Style
 ----------------------------
 
 --------------------------------------------------------------------------------------------------------------------------------
-Example below is for jsonHTML v0.2 (never released), as of v0.5 everything here is still backwards compatible, if you prefer writing in the method below, feel free, the methods here should never become depricated even in the later versions.
+Example below is for jsonHTML v0.2 (never released), as of v0.5 everything here is still backwards compatible, if you prefer writing in the method below, feel free, the methods here should never become depricated even in the later versions. v0.5 can be thought of as a shell over v0.2, below is jsonHTML in it's most true, lowest level, and flexible form. Updates to this part of the documentation is coming soon.
 
 --------------------------------------------------------------------------------------------------------------------------------
 Example below is a template object in which you can create, and add the generated HTML to a div "container." It does require
@@ -358,6 +357,11 @@ of what jsonHTML can do, though, it's only a basic example, and you can do much.
 Disclaimer: jsonHTML is provided to you as Free Software (refer to: https://gnu.org/philosophy/free-sw.html ), by using this code
 you agree not to hold me responsible for any damages, or consequences of your malicious or "friendly" use of this code.
 This code is provided with no warranties, or guarantees, all I ask is you retain credit back to me if you use my code.
+
+Still left to do:
+-Implement an easy way to handle events: on click, blur... etc...
+-Implement more objects.
+-Possibly remove some syntactic sugar from v0.5, make it more low level, thus more functional, and more future proof.
 
 ```
     (
