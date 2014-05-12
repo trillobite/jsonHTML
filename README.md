@@ -71,7 +71,7 @@ Appending to DOM
 
 Cool! You made a div that will say Hello World, but if you run this right now, you wont see anything, because the html output has
 not been appended to any div, so we need to write code to do that.
-```Ecere Projects
+```JavaScript
     //first we want to wait until the DOM is finished rendering, we can use jQuery to do this.
     $(document).ready(function() {
         //now lets append helloDiv to the root div.
@@ -90,7 +90,7 @@ Basic HTML/CSS styling
 Would if, I wanted "Hello World" to be a heading, and bold? jsonHTML has the ability to do this very simply with function chaining. Lets
 rewrite helloDiv so it's a bit more simple and looks more awesome.
 
-```
+```JavaScript
     var helloDiv = $jConstruct('div', {
         text: 'Hello World',
     }).textProperties('heading', '2').textProperties('bold');
@@ -99,7 +99,7 @@ Notice how in order to make the heading size change, I manually input the number
 What's nice is if, I want the text to be a different color, I can simply set styling to the object using function chaining.
 
 Here's the same object, and setting css (styling) to it:
-```
+```JavaScript
     var helloDiv = $jConstruct('div', {
         text: 'Hello World',
     }).textProperties('heading', '2').textProperties('bold').css({
@@ -116,7 +116,7 @@ Now that we have covered the very basic div object manipulations, typically HTML
 only work with div's but also the basic html objects: textboxes, checkboxes, buttons, etc... (full list coming soon). To add a
 child object, you can either create a new variable holding the child object to add later, or you can directly create the new
 child object using $jConstructor directly in the parent object:
-```
+```JavaScript
     //Creating child object as a seperate var, may be more intuitive:
     var childTextBox = $jConstruct('textbox', {
         text: 'it is amazing!',
@@ -128,7 +128,7 @@ child object using $jConstructor directly in the parent object:
     helloDiv.addChild(childTextBox);
 ```
 You can even add the child object upon creation of the parent object, making more compact simple code:
-```
+```JavaScript
     //Creating child object as a seperate var, may be more intuitive:
     var childTextBox = $jConstruct('textbox', {
         text: 'it is amazing!',
@@ -164,7 +164,7 @@ In order to display this data, we could use jsonHTML to produce for us a bunch o
 every loop.
 
 For the sake of simplicity of this example, lets say the data which came back from your database is already in JSON format:
-```
+```JavaScript
 //the data which came back from the database.
 var dbData = [ 
     {
@@ -182,7 +182,7 @@ var dbData = [
 ];
 ```
 Now, lets say we want to reflect that data, each object as an individual div on the DOM:
-```
+```JavaScript
 //I need to loop through the returned data from the database:
 $.each(dbData, function(data, indx) {
     //I believe I want the description to be in it's own div in an html paragraph, this will be a child object.
