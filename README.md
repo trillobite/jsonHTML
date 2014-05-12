@@ -36,7 +36,7 @@ The easiest way to use jsonHTML.
 
 First of all, you will still need to write a little bit of HTML to get started, you can utilize an existing web project, but for
 simplicity it's best to practice on a clean slate.
-```
+```HTML
 <html>
     <head>
         <title>jsonHTML EXAMPLE!</title>
@@ -71,7 +71,7 @@ Appending to DOM
 
 Cool! You made a div that will say Hello World, but if you run this right now, you wont see anything, because the html output has
 not been appended to any div, so we need to write code to do that.
-```
+```Ecere Projects
     //first we want to wait until the DOM is finished rendering, we can use jQuery to do this.
     $(document).ready(function() {
         //now lets append helloDiv to the root div.
