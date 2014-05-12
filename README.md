@@ -224,7 +224,7 @@ Writing in a different Style
 ----------------------------
 
 --------------------------------------------------------------------------------------------------------------------------------
-Example below is for jsonHTML v0.2 (never released), as of v0.5 everything here is still backwards compatible, if you prefer writing in the method below, feel free, the methods here should never become depricated even in the later versions. v0.5 can be thought of as a shell over v0.2, below is jsonHTML in it's most true, lowest level, and flexible form. Updates to this part of the documentation is coming soon.
+Example below is for jsonHTML v0.2 (never released), as of v0.5 everything here is still backwards compatible, if you prefer writing in the method below, feel free, the methods here should never become depricated even in the later versions. v0.5 can be thought of as a shell over v0.2, below is jsonHTML in it's most true, lowest level, and flexible form. Updates to this part of the documentation is coming soon. Due to the "Keep it black" philosophy, v0.2 will be forked and later released as "jsonHTML Black v1.0."
 
 --------------------------------------------------------------------------------------------------------------------------------
 Example below is a template object in which you can create, and add the generated HTML to a div "container." It does require
