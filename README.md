@@ -222,7 +222,7 @@ Writing in a different Style
 ----------------------------
 
 --------------------------------------------------------------------------------------------------------------------------------
-Example below is for jsonHTML v0.2 (never released), as of v0.5 everything here is still backwards compatible, if you prefer writing in the method below, feel free.
+Example below is for jsonHTML v0.2 (never released), as of v0.5 everything here is still backwards compatible, if you prefer writing in the method below, feel free, the methods here should never become depricated even in the later versions.
 
 --------------------------------------------------------------------------------------------------------------------------------
 Example below is a template object in which you can create, and add the generated HTML to a div "container." It does require
