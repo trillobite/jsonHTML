@@ -206,6 +206,8 @@ make a random generic one for you, but if you ever want to call on this object a
 with a unique ID. It is recommended in very large projects to define a unique id to each object, but jsonHTML will do the best it
 can to provide the most unique ID possible.
 
+Writing in a different Style
+----------------------------
 
 --------------------------------------------------------------------------------------------------------------------------------
 Example below is for jsonHTML v0.2 (never released), as of v0.5 everything here is still backwards compatible, if you prefer writing in the method below, feel free.
