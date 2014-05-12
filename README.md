@@ -28,6 +28,7 @@ the string to pass to jQuery, then jQuery handles the rest. Think of jsonHTML as
 and compiles them down to HTML, where the browser deals with them traditionally.
 
 The easiest way to use jsonHTML.
+---------------------------------
 
 First of all, you will still need to write a little bit of HTML to get started, you can utilize an existing web project, but for
 simplicity it's best to practice on a clean slate.
@@ -195,8 +196,8 @@ can to provide the most unique ID possible.
 
 
 --------------------------------------------------------------------------------------------------------------------------------
-Example below is for jsonHTML v0.2 (never released), as of v0.5 everything here is still backwards compatible, if you prefer
-writing in the method below, feel free.
+Example below is for jsonHTML v0.2 (never released), as of v0.5 everything here is still backwards compatible, if you prefer writing in the method below, feel free.
+
 --------------------------------------------------------------------------------------------------------------------------------
 Example below is a template object in which you can create, and add the generated HTML to a div "container." It does require
 that there is an existing div to append to. One potential confusion to watch out for, is every time you use a template to 
