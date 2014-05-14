@@ -394,8 +394,8 @@ Disclaimer / License:
 
 ---------------------------------------------------------------------------------------------------------------------------------
 jsonHTML is provided to you as Free Software (refer to: https://gnu.org/philosophy/free-sw.html ), by using this code
-you agree not to hold me responsible for any damages, or consequences of your malicious or "friendly" use of this code.
-This code is provided with no warranties, or guarantees, all I ask is you retain credit back to me if you use my code. 
+you agree to hold me __not__ responsible for any damages, or consequences of your malicious or "friendly" use of this code.
+This code is provided with no warranties, or guarantees, all I ask is you __retain__ credit back to me if you use my code. 
 
 The "Keep it black" philosophy was arisen from the rebirth of the coffee shop culture, when one would ask if you wanted any sweeteners in your coffee, the correct response under this philosophy is, "No, keep it black." One who believes in this philosophy, finds that keeping the coffee black is the best way to experience the flavor in it's truest form, unspoiled by pesky sweeteners masking it's true nature. This same philosophy is now implemented into the code that I write, I try to keep it black, I only add fluff to the code where it's necessary, but other than that any library I write under this philosophy is written to be as low level as possible and least intrusive to any programmer coming to try out the code I made. If you understand javaScript, there should be as small of a learning curve as possible to use my code, keeping it as true to it's roots as possible. 
 
@@ -406,11 +406,23 @@ give you credit as one of the authors or contributors.
 ---------------------------------------------------------------------------------------------------------------------------------
 
 ```
-    (
-   ) ) )
-  .........._
-  |        | }
-  |   js   |/
-  \        /
-   `------'  Keep it black, no sugar.
+            )
+            
+            (
+        )   )
+        (
+    .-----------------.
+    |      _____      |___
+    |   .'`_,-._`'.    __ \
+    |  /  ( [ ] )  \  |  ||
+    | /.-""`( )`""-.\ |  ||
+    |' <'```(.)```'> '| _||
+    |  <'```(.)```'>  |/ _/
+    |   <'``(.)``'>    ./
+    |    <``\_/``> js. |
+    \_    `'---'`    _/
+      \_____________/  Keep it black.
+
+
+https://github.com/trillobite
 ```
