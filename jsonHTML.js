@@ -164,10 +164,10 @@ function appendHTML(jsonObj, container) {
     if(undefined === jsonObj.id) {
         jsonObj.id = makeID();
     }
-    $('#'+container).append(parsetype(jsonObj.type)(jsonObj));
+    $(container).append(parsetype(jsonObj.type)(jsonObj));
     if(undefined !== jsonObj.children) {
         $.each(jsonObj.children, function () {
-            appendHTML(this, jsonObj.id);
+            appendHTML(this, '#'+jsonObj.id);
         });
     }
     if(undefined !== jsonObj.functions) {
@@ -206,6 +206,7 @@ var jConstructObjectManipulations = { //text object manipulations.
             }
         }
     },
+    //what you can immediately call on any object created by $jConstruct.
     basicPropertiesInsert: function(tmp, directInsert) {
         tmp.addChild = function (childObj) { //add a child JSON object on the fly.
             this.children[this.children.length] = childObj; 
@@ -216,34 +217,29 @@ var jConstructObjectManipulations = { //text object manipulations.
             return this; 
         }; 
         tmp.appendTo = function(parent) { //append the JSON to a container div.
-            appendHTML(this, parent); 
+            var id;
+            if(typeof parent == "object") { //if a jsonHTML object is inserted intended as the object to append to, grab the id of it.
+                id = '#' + parent.id;
+            } else {
+                id = parent;
+            }
+            appendHTML(this, id); 
             return this; 
         };
-        tmp.blur = function(input) {
+        tmp.event = function(type, func) {
             var divId = '#'+this.id;
-            $(divId).blur(input); //input is a function
+            if(func) {
+                $(divId)[type](func);
+            } else {
+                $(divId)[type]();
+            }
             return this;
-        };
-        tmp.bind = function(input) {
-            var divId = '#'+this.id;
-            $(divId).bind(input);
-            return this;
-        };
-        tmp.change = function(input) {
-            var divId = '#'+this.id;
-            $(divId).change(input);
-            return this;
-        };
+        }
         tmp.dblclick = function(input) {
             var divId = '#'+this.id;
             $(divId).dblclick(input);
             return this;
         }
-        tmp.click = function(input) {
-            var divId = '#'+this.id;
-            $(divId).click(input); //input is a function
-            return this;
-        };
         tmp.css = function(input) { //sets CSS to the current element.
             var divId = '#'+this.id;
             this.addFunction(function() {
@@ -255,19 +251,14 @@ var jConstructObjectManipulations = { //text object manipulations.
             jConstructObjectManipulations.dynamicPropertiesAdd(tmp, properties);
             return this;
         };
-        tmp.focus = function(input) {
-            var divId = '#'+this.id;
-            $(divId).focus(input); //input is a function
-            return this;
-        };
-        tmp.hover = function(input) {
-            var divId = '#'+this.id;
-            $(divId).hover(input); //input is a function
-            return this;
-        };
         tmp.remove = function() { //removes the object from the DOM
-            var divId = '#'+this.id;
-            $(divId).remove();
+            var divId = this.id;
+            var myNode = document.getElementById(divId);
+            while(myNode.firstChild) { //Experimental DOM object removal, jQuery "remove" leaves a temporary memory leak, this is intended to fix that issue.
+                myNode.removeChild(myNode.firstChild);
+            }
+            $('#'+divId).remove();
+            return this;
         };
         tmp.textProperties = function(type, option) { //so the simple text manipulations can easily be done.
             var options = jConstructObjectManipulations.textStyling(tmp);

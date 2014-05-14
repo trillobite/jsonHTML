@@ -82,11 +82,11 @@
                                         event: function () { //now in reverse!
                                             $('#thisIsDivStuffChild1').blur(function() { //when you click away from the textbox, it goes back to original!
                                                 $('#thisIsDivStuffChild1').remove();
-                                                appendHTML(jsonHTMLObj(data).children[1], 'thisIsDivStuff'+data.indx); // I can just grab the original object, like recursion!
+                                                appendHTML(jsonHTMLObj(data).children[1], '#thisIsDivStuff'+data.indx); // I can just grab the original object, like recursion!
                                             });
                                             $('#thisIsDivStuffChild1').focus(); //so you will be in the text box.
                                         },
-                                    }), 'thisIsDivStuff'+data.indx);
+                                    }), '#thisIsDivStuff'+data.indx);
                                 });
                             },
                         }),
@@ -96,13 +96,11 @@
             $(document).ready(function () {
                 appendHTML(jsonHTMLObj({ //now just append it to any div!
                     indx: 1, //these are properties that you can set to your template object.
-                }), 'root');
+                }), 'body');
             });
         </script>
     </head>
-        <body>
-            <div id='root'></div>
-        </body>
+        <body></body>
 </html>
 <!--
     (

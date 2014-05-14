@@ -7,21 +7,16 @@ Requires: jQuery
 
 Description:
 
-Documentation / Code examples Relevant for v0.6+
+Documentation / Code examples Relevant for v0.5
 
 -------------------------------------------------------------------------------------------------------------------------
 
-There have been recent changes to jsonHTML, v0.6 is slightly incompatible, incompatibilites are noted in the tutorial below. Feel free to view the latest methods by taking a look at the new code example: syntacticSugarExample.html
+There have been recent changes to jsonHTML, feel free to view the latest methods by taking a look at the new code example: syntacticSugarExample.html
 
 -------------------------------------------------------------------------------------------------------------------------
-The example code in this documentation is currently being bug tested.
+The example code in this documentation is currently being bug tested. The code in the documentation for v0.2 has been bug tested and is stable.
 
 -------------------------------------------------------------------------------------------------------------------------
-
-jsonHTML still does not have an official release, as the API is still under construction. In order to avoid affecting anyone using this code library during the developmental phase, I still maintain the ideal that any changes to the API should be minor, and not drastic. If you have used v0.5.X-X, and want to begin using v0.6+ be sure to read the Incompatibilities Notice:
-
-Incompatibilities between v0.5 and v0.6:
-#For the sake of simplicity, and increasing the flexibility of jsonHTML it was determined that it is important to allow the user to append to any portion of the DOM. The user is now able to append to the body of the HTML directly by simply specifying 'body.' In order to do this properly, if you are to append to any div in the DOM, you have to specify it with the hash symbol '#.' Before you were able to simply type .appendTo('divID'), but now it is required to type .appendTo('#divID'), jQuery users should already be familiar with this, as it is a necessary method in order to use jQuery properly.
 
 -------------------------------------------------------------------------------------------------------------------------
 
@@ -53,11 +48,13 @@ simplicity it's best to practice on a clean slate.
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js'></script> <!--MAKE SURE TO INCLUDE JQUERY-->
         <script type='text/javascript' src='jsonHTML.js'></script> <!-- MAKE SURE TO INCLUDE jsonHTML -->
     </head>
-        <body></body>
+        <body>
+            <div id='root'></div>
+        </body>
 </html>
 ```
-~~Notice how I manually hard coded a div called "root." jsonHTML currently requires some sort of root div to begin appending to, in 
-later versions this may no longer be required.~~ As of v0.6 and newer, you can now append directly to body, this is one of two incompatibilities between v0.5 and v0.6. This "root" div can be any current div in the DOM, you may have to experiment to see
+Notice how I manually hard coded a div called "root." jsonHTML currently requires some sort of root div to begin appending to, in 
+later versions this may no longer be required. This root div can be any current div in the DOM, you may have to experiment to see
 exactly how your DOM will render, and make changes to css styling, luckily you can do that on the fly as will be covered later.
 
 Now, within the head tags, or within an external linked script, you can begin using jsonHTML, for this example, for simplicity, 
@@ -78,16 +75,16 @@ Appending to DOM
 ----------------
 
 Cool! You made a div that will say Hello World, but if you run this right now, you wont see anything, because the html output has
-not been appended to any container, so we need to write code to do that.
+not been appended to any div, so we need to write code to do that.
 ```JavaScript
     //first we want to wait until the DOM is finished rendering, we can use jQuery to do this.
     $(document).ready(function() {
         //now lets append helloDiv to the root div.
-        helloDiv.appendTo('body');
+        helloDiv.appendTo('root');
     });
 ```
 Now, It should be rendered on the DOM, and you can even hit "inspect element" in your browser, and you can view the HTML which
-was appended to the specified HTML container.
+was appended to the 'root' div.
 
 Now that you made your first helloWorld page with jsonHTML, we can begin with doing some tad bit more crazy, and mind bending
 stuff, But first, lets cover the basic HTML styling which is typically done naturally.
@@ -208,7 +205,7 @@ $.each(dbData, function(data, indx) {
         'text-align': 'center',
         'border': '1px solid black',
         'border-radius': '15px', //I want the border to look pretty!
-    })).addChild(childDescript).appendTo('body'); //add the child object and append it to the root div of the DOM.
+    })).addChild(childDescript).appendTo('root'); //add the child object and append it to the root div of the DOM.
 });
 
 ```
@@ -359,27 +356,9 @@ of what jsonHTML can do, though, it's only a basic example, and you can do much.
 
 Still left to do:
 
---------
+-Implement an easy way to handle events: on click, blur... etc...
 
-key: 
-
-'*' = Implemented, but no Documentation yet. 
-
-'-' = Needs to be done. 
-
-'~' = currently being worked on, limited support.
-
-'+' = Done, and documented.
-
---------
-
-*Implement an easy way to handle events: on click, blur... etc...
-
-*Can append a jsonHTML object to a parent jsonHTML object, by passing the object directly, or by passing the parent objects ID.
-
-*Object DOM removal memory leak fix.
-
-~Implement more HTML objects.
+-Implement more objects.
 
 -Possibly remove some syntactic sugar from v0.5, make it more low level, thus more functional, and more future proof.
 

@@ -34,20 +34,20 @@
             
             //do this when div looses focus.
             var mutableDivOnBlur = function (mDiv, data) {
-                $('#'+mDiv.id).blur(function() { //when you click away from the textbox, it goes back to a div!
+                mDiv.event('blur', function() { //when you click away from the textbox, it goes back to a div!
                     var txt = $('#'+mDiv.id)[0].value;
-                    $('#'+mDiv.id).remove();
+                    mDiv.remove();
                     mDiv.text = txt;
                     mDiv.textProperties('bold').css({
                         'color': 'purple',
-                    }).appendTo('thisIsDivStuff'+data.indx); // I can just grab the original mDiv and re-append it, beautiful like recursion!
+                    }).appendTo('#thisIsDivStuff'+data.indx); // I can just grab the original mDiv, by its ID, and re-append it, beautiful like recursion!
                 }); 
             }
             
             //do this when div is clicked. this is what makes a mutable div... mutate.
             var mutableDivOnClick = function(mDiv, data) {
-                $('#'+mDiv.id).click(function() { //mutate my div into a textbox on the click!
-                    $('#'+mDiv.id).remove(); //remove the old
+                mDiv.event('click', function() { //mutate my div into a textbox on the click!
+                    mDiv.remove(); //remove the old
                     $jConstruct('textbox', {
                         id: mDiv.id,
                         text: 'Change the text!', //text that will display in the text box.
@@ -55,8 +55,8 @@
                         'color': 'purple', //color of the text in the text box.
                     }).addFunction(function () {
                         mutableDivOnBlur(mDiv, data);
-                        $('#'+mDiv.id).focus(); //focus will go back to the text box after rendering.
-                    }).appendTo('thisIsDivStuff'+data.indx); //on click append my object to this div id!
+                        mDiv.event('focus');
+                    }).appendTo('#thisIsDivStuff'+data.indx); //on click append my object to this div id!
                 });
             }
             
@@ -80,14 +80,12 @@
             };
 
             $(document).ready(function () {
-                jsonHTMLObj({indx: 1}).appendTo('root'); //now just append it to any div!
+                jsonHTMLObj({indx: 1}).appendTo('body'); //now just append it to any div!
             });
             
         </script>
     </head>
-        <body>
-            <div id='root'></div>
-        </body>
+        <body></body>
 </html>
 
 <!--
