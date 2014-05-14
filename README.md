@@ -13,10 +13,7 @@ Documentation / Code examples Relevant for v0.6+
 
 There have been recent changes to jsonHTML, v0.6 is slightly incompatible, incompatibilites are noted in the Incompatibility Notice at the bottom of this document. Feel free to view the latest methods by taking a look at the new code example: syntacticSugarExample.html
 
--------------------------------------------------------------------------------------------------------------------------
-The example code in this documentation is currently being bug tested.
-
--------------------------------------------------------------------------------------------------------------------------
+#####The example code in this documentation is currently being bug tested.
 
 -------------------------------------------------------------------------------------------------------------------------
 
@@ -51,8 +48,7 @@ simplicity it's best to practice on a clean slate.
         <body></body>
 </html>
 ```
-~~Notice how I manually hard coded a div called "root." jsonHTML currently requires some sort of root div to begin appending to, in 
-later versions this may no longer be required.~~ As of v0.6 and newer, you can now append directly to the body, this is one of two incompatibilities between v0.5 and v0.6. This "root" div can be any current div in the DOM, you may have to experiment to see
+As of v0.6 and newer, you can now append directly to the body, this is one of two incompatibilities between v0.5 and v0.6. This "root" div can be any current div in the DOM, you may have to experiment to see
 exactly how your DOM will render, and make changes to css styling, luckily you can do that on the fly as will be covered later.
 
 Now, within the head tags, or within an external linked script, you can begin using jsonHTML, for this example, for simplicity, 
@@ -230,7 +226,7 @@ that there is an existing div to append to. One potential confusion to watch out
 generate HTML, make sure the id's are never the same, or an append may append to all items of that same id; Good practice will prevent a wormhole
 from opening up in your mind, consuming all logic and understanding.
     
-EXAMPLE:
+#####EXAMPLE:
 ```JavaScript
     //this is the template object, the function will return a custom JSON object using the object you pass to it, which can then be used by
     //appendHTML to generate and append the HTML from your JSON object.
