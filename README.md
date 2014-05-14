@@ -412,7 +412,7 @@ give you credit as one of the authors or contributors.
         )   )
         (
     .---------------------.
-    |       _____         |___
+    |       _____         |___      
     |     .'`_,-._`'.      __ \
     |    /  ( [ ] )  \    |  ||
     |   /.-""`( )`""-.\   |  ||
@@ -421,7 +421,7 @@ give you credit as one of the authors or contributors.
     |     <'``(.)``'>      ./
     |      <``\_/``>      |
     |       `'---'`       |
-    \github.com/trillobite/
-      \_________________/  Keep it black.
+    \github.com/trillobite/              Keep it black.
+      \_________________/  
 
 ```
