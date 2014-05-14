@@ -18,8 +18,10 @@ The example code in this documentation is currently being bug tested.
 
 -------------------------------------------------------------------------------------------------------------------------
 
-jsonHTML still does not have an official release, as the API is still under construction. In order to avoid affecting anyone using this code library during the developmental phase, I still maintain the ideal that any changes to the API should be minor, and not drastic. If you have used v0.5.X-X, and want to begin using v0.6+ be sure to read the Incompatibilities Notice:
+jsonHTML still does not have an official release, as the API is still under construction. In order to least affect anyone using this code library during the developmental phase, I still maintain the ideal that any changes to the API should be minor, and not drastic. If you have used v0.5.X-X, and want to begin using v0.6+ be sure to read the Incompatibility Notice, If you would rather still use v0.5, I left the old documentation renamed as, "READMEv0.5.md," and you should still be able to download the latest v0.5.X-X pre-release.
 
+Incompatibility Notice:
+--------
 Incompatibilities between v0.5 and v0.6:
 For the sake of simplicity, and increasing the flexibility of jsonHTML it was determined that it is important to allow the user to append to any portion of the DOM. The user is now able to append to the body of the HTML directly by simply specifying 'body.' In order to do this properly, if you are to append to any div in the DOM, you have to specify it with the hash symbol '#.' Before you were able to simply type .appendTo('divID'), but now it is required to type .appendTo('#divID'), jQuery users should already be familiar with this, as it is a necessary method in order to use jQuery properly.
 
@@ -57,7 +59,7 @@ simplicity it's best to practice on a clean slate.
 </html>
 ```
 ~~Notice how I manually hard coded a div called "root." jsonHTML currently requires some sort of root div to begin appending to, in 
-later versions this may no longer be required.~~ As of v0.6 and newer, you can now append directly to body, this is one of two incompatibilities between v0.5 and v0.6. This "root" div can be any current div in the DOM, you may have to experiment to see
+later versions this may no longer be required.~~ As of v0.6 and newer, you can now append directly to the body, this is one of two incompatibilities between v0.5 and v0.6. This "root" div can be any current div in the DOM, you may have to experiment to see
 exactly how your DOM will render, and make changes to css styling, luckily you can do that on the fly as will be covered later.
 
 Now, within the head tags, or within an external linked script, you can begin using jsonHTML, for this example, for simplicity, 
