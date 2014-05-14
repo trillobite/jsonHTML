@@ -359,6 +359,7 @@ jsonHTML still does not have an official release, as the API is still under cons
 
 
 Incompatibilities between v0.5 and v0.6:
+
 For the sake of simplicity, and increasing the flexibility of jsonHTML it was determined that it is important to allow the user to append to any portion of the DOM. The user is now able to append to the body of the HTML directly by simply specifying 'body.' In order to do this properly, if you are to append to any div in the DOM, you have to specify it with the hash symbol '#.' Before you were able to simply type .appendTo('divID'), but now it is required to type .appendTo('#divID'), jQuery users should already be familiar with this, as it is a necessary method in order to use jQuery properly.
 
 -------------------------------------------------------------
