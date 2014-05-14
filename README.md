@@ -7,11 +7,11 @@ Requires: jQuery
 
 Description:
 
-Documentation / Code examples Relevant for v0.6+
+Documentation / Code examples Relevant for v0.7+
 
 -------------------------------------------------------------------------------------------------------------------------
 
-There have been recent changes to jsonHTML, v0.6 is slightly incompatible, incompatibilites are noted in the Incompatibility Notice at the bottom of this document. Feel free to view the latest methods by taking a look at the new code example: syntacticSugarExample.html
+There have been recent changes to jsonHTML, v0.7 is slightly incompatible, incompatibilites are noted in the Incompatibility Notice at the bottom of this document. Feel free to view the latest methods by taking a look at the new code example: syntacticSugarExample.html
 
 #####The example code in this documentation is currently being bug tested.
 
@@ -339,8 +339,7 @@ mDiv({
 }),
 ```
  
-~~I have not had the courage yet to add some "Syntactic Sugar" to make object mutation easier to conceptualize,~~ Make sure 
-to check out the second HTML example "syntacticSugarExample.html," jsonHTML has been updated and can be written in a more 
+Make sure to check out the second HTML example "syntacticSugarExample.html," jsonHTML has been updated and can be written in a more 
 functional programming style, but it's still got a long way to go before it's easy to use, but for now, again this is
 what we got, if someone would like to fork and add some "Sugar", that would be great, but for now jsonHTML is black as can be!
 
@@ -351,10 +350,10 @@ Incompatibility Notice:
 --------
 
 -------------------------------------------------------------
-jsonHTML still does not have an official release, as the API is still under construction. In order to least affect anyone using this code library during the developmental phase, I still maintain the ideal that any changes to the API should be minor, and not drastic. If you have used v0.5.X-X, and want to begin using v0.6+ be sure to read the Incompatibility Notice, If you would rather still use v0.5, I left the old documentation renamed as, "READMEv0.5.md," and you should still be able to download the latest v0.5.X-X pre-release.
+jsonHTML still does not have an official release, as the API is still under construction. In order to least affect anyone using this code library during the developmental phase, I still maintain the ideal that any changes to the API should be minor, and not drastic. If you have used v0.5.X-X, and want to begin using v0.6+ be sure to read the Incompatibility Notice, If you would rather still use v0.5 to v0.6, I left the old documentation renamed as, "READMEv0.5.md," and you should still be able to download the latest v0.6.X-X pre-release.
 
 
-#####Incompatibilities between v0.5 and v0.6:
+#####Incompatibilities between v0.5 - v0.6 and v0.7:
 
 For the sake of simplicity, and increasing the flexibility of jsonHTML it was determined that it is important to allow the user to append to any portion of the DOM. The user is now able to append to the body of the HTML directly by simply specifying 'body.' In order to do this properly, if you are to append to any div in the DOM, you have to specify it with the hash symbol '#.' Before you were able to simply type .appendTo('divID'), but now it is required to type .appendTo('#divID'), jQuery users should already be familiar with this, as it is a necessary method in order to use jQuery properly.
 
