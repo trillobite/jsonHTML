@@ -228,24 +228,40 @@ var jConstructObjectManipulations = { //text object manipulations.
         };
         tmp.event = function(type, func) {
             var divId = '#'+this.id;
-            if(func) {
-                $(divId)[type](func);
+            if($(divId)[0]) { //if the object is on the DOM.
+                if(func) {
+                    $(divId)[type](func);
+                } else {
+                    $(divId)[type]();
+                }
             } else {
-                $(divId)[type]();
+                if(func) {
+                    tmp.addFunction(function () { $(divId)[type](func) });
+                } else {
+                    tmp.addFunction(function () { $(divId)[type]() });
+                }
             }
             return this;
-        }
-        tmp.dblclick = function(input) {
-            var divId = '#'+this.id;
-            $(divId).dblclick(input);
-            return this;
-        }
+        };
         tmp.css = function(input) { //sets CSS to the current element.
+            //console.log(this);
             var divId = '#'+this.id;
-            this.addFunction(function() {
-                $(divId).css(input);
-            });
-            return this;
+            if($(divId)[0]) { //if the object is rendered on the DOM.
+                if(input) {
+                    $(divId).css(input); //set the css
+                } else { //if there was no input
+                    return $(divId)[0].style; //return the object styles.
+                }
+            } else { //if not rendered on the DOM
+                if(input) { //if css was input
+                    this.addFunction(function() { //set CSS after it is rendered on the DOM.
+                        $(divId).css(input);
+                    });
+                } else { //if there was no input
+                    return $(divId)[0].style; //return the object styles.
+                }
+            }
+            return this; //everything worked as expected.
         };
         tmp.editProperty = function(properties) { //dynamically add new properties to the JSON HTML object on the fly.
             jConstructObjectManipulations.dynamicPropertiesAdd(tmp, properties);
