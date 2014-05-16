@@ -77,8 +77,20 @@ not been appended to any container, so we need to write code to do that.
         helloDiv.appendTo('body');
     });
 ```
-Now, It should be rendered on the DOM, and you can even hit "inspect element" in your browser, and you can view the HTML which
-was appended to the specified HTML container.
+The code so far between the script tags should look like this:
+```JavaScript
+    //lets make a div that says hello world!
+    var helloDiv = $jConstruct('div');
+    helloDiv.text = 'Hello World';
+
+    //first we want to wait until the DOM is finished rendering, we can use jQuery to do this.
+    $(document).ready(function() {
+        //now lets append helloDiv to the root div.
+        helloDiv.appendTo('body');
+    });
+
+```
+Now, When you reload the page, it should be rendered on the DOM, and you can even hit "inspect element" in your browser, and you can view the HTML which was appended to the specified HTML container, in this case the "body" of the DOM. Notice how, every object you create with jsonHTML has a random character string as an ID. This random ID is created if you dont specify one yourself, in order for jsonHTML to manage appends in it's internal workings, this adds flexibility, and decreases code complexity so others can view the code and understand it better. It is not known if having lots of ID's decreases performance in page rendering, but so far, even big web applications don't appear to mind.
 
 Now that you made your first helloWorld page with jsonHTML, we can begin with doing some tad bit more crazy, and mind bending
 stuff, But first, lets cover the basic HTML styling which is typically done naturally.
@@ -103,6 +115,21 @@ Here's the same object, and setting css (styling) to it:
         text: 'Hello World',
     }).textProperties('heading', '2').textProperties('bold').css({
         'color': 'purple',
+    });
+```
+Your Completed code should now look like this:
+```JavaScript
+    //lets make a div that says hello world!
+    var helloDiv = $jConstruct('div', {
+        text: 'Hello World',
+    }).textProperties('heading', '2').textProperties('bold').css({
+        'color': 'purple', //changes color of text, all the same stuff as real CSS.
+    });         
+            
+    //We want to wait until the DOM is finished rendering, we can use jQuery to do this.
+    $(document).ready(function() {
+        //now lets append helloDiv to the root div.
+        helloDiv.appendTo('body');
     });
 ```
 Neat right? As you can see, any styling you can set using jQuery, you can utilize here, basically '.css()' is just a shortcut
@@ -143,7 +170,29 @@ You can even add the child object upon creation of the parent object, making mor
     }).addChild(childTextBox);
 
 ```
+Here is the completed code to your first hello world code example!
+```JavaScript
+    //Creating child object as a seperate var, may be more intuitive:
+    var childTextBox = $jConstruct('textbox', {
+        text: 'it is amazing!',
+    }).css({
+        'color': 'purple',
+    });
 
+    //Creating the parent object.
+    var helloDiv = $jConstruct('div', {
+        text: 'Hello World',
+    }).textProperties('heading', '2').textProperties('bold').css({
+        'color': 'purple',
+    }).addChild(childTextBox);      
+            
+    //first we want to wait until the DOM is finished rendering, we can use jQuery to do this.
+    $(document).ready(function() {
+        //now lets append helloDiv to the root div.
+        helloDiv.appendTo('body');
+    });
+
+```
 Just remember, that despite the fact that jsonHTML will allow you to add a child object to any object, typically in HTML, a 
 textbox or a button do not have child objects. So if you try to add a child object to a traditional HTML object, there may be
 some very interesting bugs produced when you render it. For example, you can have a Div inside a Div, but you cannot have a Div
@@ -183,7 +232,7 @@ var dbData = [
 Now, lets say we want to reflect that data, each object as an individual div on the DOM:
 ```JavaScript
 //I need to loop through the returned data from the database:
-$.each(dbData, function(data, indx) {
+$.each(dbData, function(indx, data) {
     //I believe I want the description to be in it's own div in an html paragraph, this will be a child object.
     var childDescript = $jConstruct('div', {
         text: data.Description,
@@ -195,12 +244,55 @@ $.each(dbData, function(data, indx) {
     $jConstruct('div', {
         class: 'defaultClass',
         text: data.Name,
-    }.css({
+    }).css({
         'text-align': 'center',
         'border': '1px solid black',
         'border-radius': '15px', //I want the border to look pretty!
-    })).addChild(childDescript).appendTo('body'); //add the child object and append it to the root div of the DOM.
+    }).addChild(childDescript).appendTo('body'); //add the child object and append it to the root div of the DOM.
 });
+
+```
+Here is what the code should look like between your script tags:
+```JavaScript
+//the data which came back from the database.
+var dbData = [ 
+    {
+        Name: 'jaunty',
+        Description: 'jaunty loves apples!',
+    }, 
+    {
+        Name: 'bob',
+        Description: 'Likes to skateboard',
+    },
+    {
+        Name: 'joseph',
+        Description: 'Likes to watch movies',
+    }
+];
+
+//you have to wrap it in a .ready in order for the browser to know when to begin executing.
+$(document).ready(function() {
+    //I need to loop through the returned data from the database:
+    $.each(dbData, function(indx, data) {
+        //I believe I want the description to be in it's own div in an html paragraph, this will be a child object.
+        var childDescript = $jConstruct('div', {
+            text: data.Description,
+        }).textProperties('paragraph').css({
+            'margin': '0 auto', //I want it to be centered in the parent div.
+        });
+
+        //now I need to create the parent Div that will hold the 'Name.'
+        $jConstruct('div', {
+            class: 'defaultClass',
+            text: data.Name,
+        }).css({
+            'color': 'purple', //purple is such a nice color... don't you agree?
+            'text-align': 'center',
+            'border': '1px solid black',
+            'border-radius': '15px', //I want the border to look pretty!
+        }).addChild(childDescript).appendTo('body'); //add the child object and append it to the root div of the DOM.
+    });
+});     
 
 ```
 Now it may be possible to make strings that reflect HTML, and append on the strings, depending on the data coming in, but as you can see, if your entire web application is database driven, it would take an eternity to produce a good quality flexible user environment.
