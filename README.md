@@ -300,11 +300,37 @@ Now it may be possible to make strings that reflect HTML, and append on the stri
 One thing to remember here, is that setting the css manually for each div, is optional, you can define a class name for your
 jsonHTML object, or an ID, and implement styling in an external style sheet, just like you would if you were writing native html. In the
 above example, even though it currently does nothing, I set the parentNameObj class to "defaultClass," a css style can be added
-and when this object is rendered on the DOM, it will automatically set the styling. It is also good to remember that jsonHTML
-does technically require that each object has an id, if you do not define an id, jsonHTML will come up with random characters and
-make a random generic one for you, but if you ever want to call on this object again with jQuery, your going to have to come up
+and when this object is rendered on the DOM, the browser will automatically implement the styling. It is also good to remember that jsonHTML does technically require that each object have an id, if you do not define an id, jsonHTML will come up with a random set of characters and make a generic ID for you, but if you ever want to call on this object again with jQuery, your going to have to come up
 with a unique ID. It is recommended in very large projects to define a unique id to each object, but jsonHTML will do the best it
 can to provide the most unique ID possible.
+
+The Eventful stuff
+------------------
+
+There are two basic ways of implementing events in jsonHTML, one way, is to get the id and do your standard jQuery "$('#'+obj.id).click(function());" or you can implement the built in functionality which is typically easier to remember, and is more legible when code gets large and complex "myDivObj.event('click', function(){});" Either way works, it really depends on user preference.
+
+Example using the more standard jQuery method:
+```JavaScript
+var helloDiv = $jConstruct('div', {
+    text: 'Hello World',
+}).addFunction(function() { //notice you have to add the jQuery event on click as a function, to be used after the object is appeneded, and rendered.
+    $('#'+helloDiv.id).click(function() {
+        console.log('i has click!');
+    });
+});
+
+```
+
+Example of the newer jsonHTML event implementation:
+```JavaScript
+var helloDiv = $jConstruct('div', {
+    text: 'Hello World',
+}).event('click', function() { //notice how the type of event is in quotes.
+    console.log('i has click!');
+});
+```
+
+As you can tell, there is not too much of a difference between the two, this is why native event support in jsonHTML's custom syntax was implemented only recently; it was not very important. Basically the short-hand for implementing events, actually does the exact same thing as what is done at the top. In the background, the jQuery event is added as a function and later implemented after the object is appended. Any event that you can do in jQuery, you can do here, you simply name the event you need to use within the quotes which is supported by jQuery, and it will be used.
 
 Writing in a different Style
 ----------------------------
