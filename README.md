@@ -304,7 +304,7 @@ and when this object is rendered on the DOM, the browser will automatically impl
 with a unique ID. It is recommended in very large projects to define a unique id to each object, but jsonHTML will do the best it
 can to provide the most unique ID possible.
 
-The Eventful stuff
+The Eventful Stuff
 ------------------
 
 There are two basic ways of implementing events in jsonHTML, one way, is to get the id and do your standard jQuery "$('#'+obj.id).click(function());" or you can implement the built in functionality which is typically easier to remember, and is more legible when code gets large and complex "myDivObj.event('click', function(){});" Either way works, it really depends on user preference.
@@ -373,10 +373,10 @@ $(document).ready(function() {
 
 Basically this example code changes the color of the text contained in the div, on click like a switch, on and off. You can see how using simple javaScript/jQuery tricks, you can access what the current color of the text in the div is, and change it according to your specifications on click.
 
-Getting Down To The Grains
---------------------------
+Getting Down To The Grounds
+---------------------------
 
-Any experienced programmer will know that jsonHTML in it's current state cannot do everything. If you use jsonHTML all on its own, you can get pretty far, but there needs to be a way for you to get down deep into your objects and manipulate them. The easiest way to do this, is by adding functions that will be executed after your object is rendered on the DOM. You can add these functions with "helloDiv.addFunction(function() { myFunctionToExecute(); });" You may have noticed, that this property was utilized in the [earlier code example](https://github.com/trillobite/jsonHTML#the-eventful-stuff) under event handling! The bonus with this, is that you are currently still within your jsonHTML object, and can grab its properties directly, before the V8 engine garbege collects it.
+Any experienced programmer will know that jsonHTML in it's current state cannot do everything. Luckily for you, the "Keep it black" philosophy kept me from adding too many abstraction layers, and you can still get down and dirty within jsonHTML. If you use jsonHTML all on its own, you can get pretty far, but there needs to be a way for you to get down deep into your objects and manipulate them. The easiest way to do this, is by adding functions that will be executed after your object is rendered on the DOM. You can add these functions with "helloDiv.addFunction(function() { myFunctionToExecute(); });" You may have noticed, that this property was utilized in the [earlier code example](https://github.com/trillobite/jsonHTML#the-eventful-stuff) under event handling! The bonus with this, is that you are currently still within your jsonHTML object, and can grab its properties directly, before the V8 engine garbege collects it.
 
 I will leave it up to you to figure out what you want to do with this functionality, but here is a basic example to quench your curiosity:
 
@@ -388,6 +388,21 @@ var helloDiv = $jConstruct('div', {
 });
 
 ```
+
+Another limitation with jsonHTML is the fact that the appendHTML function deep inside does not recognize more than the few very basic HTML objects. One solution that I have implemented, which is experimental, but I left just in case I required extended functionality, is the "html" object. You can pass in directly, raw html written by hand as strings, to create HTML objects in which you can manipulate while still within the syntax of jsonHTML.
+
+An untested experimental example of this functionality:
+```JavaScript
+var helloDiv = $jConstruct('html', {
+    data: '<textarea>Hello World</textarea>', //custom html that will be appeneded to the DOM.
+}).addFunction(function() {
+    console.log('this is experimental, you should see "Hello World" on the screen though');
+});
+
+helloDiv.appendTo('body');
+```
+
+If you really want to dig deep into jsonHTML, and mess with it's inner workings, check out the [jsonHTML v0.2 style,](https://github.com/trillobite/jsonHTML#writing-in-a-different-style) you can still write in this style with v0.7+. Basically, your using jsonHTML without touching the $jConstructor, giving you lower level access to everything whenever required.
 
 Writing in a different Style
 ----------------------------
@@ -449,7 +464,7 @@ from opening up in your mind, consuming all logic and understanding.
     };
     appendHTML(jsonHTMLObj{ //now just append it to any div!
         indx: 1, //these are properties that you can set to your template object.
-    }, 'containerDivIDAsString');
+    }, '#containerDivIDAsString');
 ```
 Now, lets say I want 'thisIsDivStuffChild1' to mutate into a textbox!
 
@@ -504,11 +519,11 @@ mDiv({
                 event: function () { //now in reverse!
                     $('#thisIsDivStuffChild1').blur(function() { //when you click away from the textbox, it goes back to original!
                         $('#thisIsDivStuffChild1').remove();
-                        appendHTML(jsonHTMLObj(data).children[1], 'thisIsDivStuff'+data.indx); // I can just grab the original object, like recursion!
+                        appendHTML(jsonHTMLObj(data).children[1], '#thisIsDivStuff'+data.indx); // I can just grab the original object, like recursion!
                     });
                     $('#thisIsDivStuffChild1').focus(); //focus will now be in the text box.
                 },
-            }), 'thisIsDivStuff'+data.indx);
+            }), '#thisIsDivStuff'+data.indx);
         });
     },
 }),
@@ -525,7 +540,7 @@ Incompatibility Notice:
 --------
 
 -------------------------------------------------------------
-jsonHTML still does not have an official release, as the API is still under construction. In order to least affect anyone using this code library during the developmental phase, I still maintain the ideal that any changes to the API should be minor, and not drastic. If you have used v0.5.X-X, and want to begin using v0.6+ be sure to read the Incompatibility Notice, If you would rather still use v0.5 to v0.6, I left the old documentation renamed as, "READMEv0.5.md," and you should still be able to download the latest v0.6.X-X pre-release.
+jsonHTML still does not have an official release, as the API is still under construction. In order to least affect anyone using this code library during the developmental phase, I still maintain the ideal that any changes to the API should be minor, and not drastic. If you have used v0.5.X-X, and want to begin using v0.6+ be sure to read the Incompatibility Notice, If you would rather still use v0.5 to v0.6, I left the [old documentation,](https://github.com/trillobite/jsonHTML/blob/master/READMEv0.5.md) and you should still be able to download the latest [v0.6.X-X pre-release.](https://github.com/trillobite/jsonHTML/releases/tag/v0.6-beta.1)
 
 
 #####Incompatibilities between v0.5 - v0.6 and v0.7:
@@ -551,17 +566,15 @@ To do:
 
 --------
 
-*Implement an easy way to handle events: on click, blur... etc...
-
-*Can append a jsonHTML object to a parent jsonHTML object, by passing the object directly, or by passing the parent objects ID.
-
-*Object DOM removal memory leak fix.
+-Possibly remove some syntactic sugar from v0.5, make it more low level, thus more functional, and more future proof.
 
 ~Implement more HTML objects.
 
--Possibly remove some syntactic sugar from v0.5, make it more low level, thus more functional, and more future proof.
+*Object DOM removal memory leak fix.
 
++Implement an easy way to handle events: on click, blur... etc...
 
++Can append a jsonHTML object to a parent jsonHTML object, by passing the object directly, or by passing the parent objects ID.
 
 Disclaimer / License: 
 ---------------------
