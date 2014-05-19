@@ -332,6 +332,47 @@ var helloDiv = $jConstruct('div', {
 
 As you can tell, there is not too much of a difference between the two, this is why native event support in jsonHTML's custom syntax was implemented only recently; it was not very important. Basically the short-hand for implementing events, actually does the exact same thing as what is done at the top. In the background, the jQuery event is added as a function and later implemented after the object is appended. Any event that you can do in jQuery, you can do here, you simply name the event you need to use within the quotes which is [supported by jQuery,](https://api.jquery.com/category/events/) and it will be used.
 
+As an example, I have written a small, but more advanced code example with added functionality:
+```JavaScript
+//Creating child object as a seperate var, may be more intuitive:
+var childTextBox = $jConstruct('textbox', {
+    text: 'it is amazing!',
+}).css({
+    'color': 'purple',
+});
+
+//Creating the parent object.
+var helloDiv = $jConstruct('div', {
+    text: 'Hello World',
+}).textProperties('heading', '2').textProperties('bold').css({
+    'width': '200px',
+    'color': 'purple',
+    'margin': '0 auto',
+    'text-align': 'center',
+    'border': '1px solid black',
+    'border-radius': '15px', //I want the border to look pretty!
+}).event('click', function () { //when div is clicked...
+    if(helloDiv.css().color == 'purple') { //if the current color is purple, change it to blue.
+        helloDiv.css({
+            'color': 'blue',
+        });
+    } else {
+        helloDiv.css({ //if it's not, change it back to purple.
+            'color': 'purple',
+        });
+    }
+}).addChild(childTextBox);   
+
+
+//first we want to wait until the DOM is finished rendering, we can use jQuery to do this.
+$(document).ready(function() {
+    //now lets append helloDiv to the root div.
+    helloDiv.appendTo('body');
+});
+```
+
+Basically this example code changes the color of the text contained in the div, on click like a switch, on and off. You can see how using simple javaScript/jQuery tricks, you can access what the current color of the text in the div is, and change it according to your specifications on click.
+
 Getting Down To The Grains
 --------------------------
 
