@@ -332,6 +332,22 @@ var helloDiv = $jConstruct('div', {
 
 As you can tell, there is not too much of a difference between the two, this is why native event support in jsonHTML's custom syntax was implemented only recently; it was not very important. Basically the short-hand for implementing events, actually does the exact same thing as what is done at the top. In the background, the jQuery event is added as a function and later implemented after the object is appended. Any event that you can do in jQuery, you can do here, you simply name the event you need to use within the quotes which is supported by jQuery, and it will be used.
 
+Getting Down To The Grains
+--------------------------
+
+Any experienced programmer will know that jsonHTML in it's current state cannot do everything. If you use jsonHTML all on its own, you can get pretty far, but there needs to be a way for you to get down deep into your objects and manipulate them. The easiest way to do this, is by adding functions that will be executed after your object is rendered on the DOM. You can add these functions with "helloDiv.addFunction(function() { myFunctionToExecute(); });" You may have noticed, that this property was utilized in the earlier code example under event handling! The bonus with this, is that you are currently still within your jsonHTML object, and can grab its properties directly, before the V8 engine garbege collects it.
+
+I will leave it up to you to figure out what you want to do with this functionality, but here is a basic example for your curiosity:
+
+```JavaScript
+var helloDiv = $jConstruct('div', {
+    text: 'Hello World',
+}).addFunction(function() {
+    console.log('this was executed after helloDiv was rendered, cool right?!');
+});
+
+```
+
 Writing in a different Style
 ----------------------------
 
