@@ -33,7 +33,7 @@ the string to pass to jQuery, then jQuery handles the rest. Think of jsonHTML as
 
 If you are a more experienced programmer, you may notice that most of the example code below does not look like pure JSON, and in truth, you are correct! So why is this project called "jsonHTML?" Basically, what you see below is due to the functionality that the $jConstruct contstructor gives you, without this you will have to write code in pure JSON. You can [view](https://github.com/trillobite/jsonHTML#writing-in-a-different-style) the heart and soul of jsonHTML with the code examples near the bottom of this documentation.
 
-So, if you would like to follow along, make sure to download [the latest release,](https://github.com/trillobite/jsonHTML/archive/v0.7.2-beta.zip) unpack, and give jsonHTML a try! It is assumed that you know the concepts of HTML, and javaScript. Having an understanding of jQuery is helpful, as jsonHTML largely depends on this library, but this understanding not mandatory.
+So, if you would like to follow along, make sure to download [the latest release,](https://github.com/trillobite/jsonHTML/archive/v0.7.2-beta.zip) unpack, and give jsonHTML a try! It is assumed that you know the concepts of HTML, and javaScript. Having an understanding of jQuery is helpful, as jsonHTML largely depends on this library, but this understanding not mandatory. The documentation is still pretty basic as jsonHTML was not originally created to be released to the public, but as I moved the project to github, it became exposed to the public, and I have decided that it would be helpful to the free software coding community if my code was documented.
 
 The easiest way to use jsonHTML.
 ---------------------------------
@@ -50,15 +50,14 @@ simplicity it's best to practice on a clean slate.
         <body></body>
 </html>
 ```
-As of v0.6 and newer, you can now append directly to the body, this is one of two incompatibilities between v0.5 and v0.6. This "root" div can be any current div in the DOM, you may have to experiment to see
-exactly how your DOM will render, and make changes to css styling, luckily you can do that on the fly as will be covered later.
+As of v0.6 and newer, you can now append directly to the body, this is one of two [incompatibilities](https://github.com/trillobite/jsonHTML#incompatibility-notice) between v0.5 and v0.6. This "root" div can be any current div in the DOM, you may have to experiment to see exactly how your DOM will render, and make changes to [css styling](https://github.com/trillobite/jsonHTML#basic-htmlcss-styling), luckily you can do that on the fly which will be covered later.
 
 Now, within the head tags, or within an external linked script, you can begin using jsonHTML, for this example, for simplicity, 
 were going to place the code within the html in the head between script tags.
 
 For the sake of simplicity, there is a jsonHTML constructor that you can call to quickly begin coding, it's called $jConstruct.
 This sets up an object that you can manipulate and have renderd to the DOM. If you dont like syntactic sugar, check out the 
-documentation for v0.2 near the bottom of this documentation, v0.5 is backwards compatible.
+[documentation for v0.2](https://github.com/trillobite/jsonHTML#writing-in-a-different-style) near the bottom of this documentation, [v0.5.x](https://github.com/trillobite/jsonHTML/releases/tag/v0.5) is currently backwards compatible in that code style. Similar documentation is coming for v0.6+.
 
 ```HTML
 <script>
@@ -547,7 +546,7 @@ give you credit as one of the authors or contributors.
         )   )
         (
     .---------------------.
-    |       _____         |___      
+    |        _____        |___      
     |     .'`_,-._`'.      __ \
     |    /  ( [ ] )  \    |  ||
     |   /.-""`( )`""-.\   |  ||
