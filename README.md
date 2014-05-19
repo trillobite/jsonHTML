@@ -91,7 +91,7 @@ The code so far between the script tags should look like this:
     });
 
 ```
-Now, When you reload the page, it should be rendered on the DOM, and you can even hit "inspect element" in your browser, and you can view the HTML which was appended to the specified HTML container, in this case the "body" of the DOM. Notice how, every object you create with jsonHTML has a random character string as an ID. This random ID is created if you dont specify one yourself, in order for jsonHTML to manage appends in it's internal workings, this adds flexibility, and decreases code complexity so others can view the code and understand it better. It is not known if having lots of ID's decreases performance in page rendering, but so far, even big web applications don't appear to mind.
+Now, When you reload the page, it should be rendered on the DOM, and you can even hit "inspect element" in your browser, and you can view the HTML which was appended to the specified HTML container, in this case the "body" of the DOM. Notice how, every object you create with jsonHTML has a random character string as an ID. This random ID is created if you don't specify one yourself, in order for jsonHTML to manage appends in it's internal workings, add flexibility, and decrease code complexity so others can view and understand your code better. It is not known if having lots of ID's decreases performance in page rendering, but so far, even big web applications don't appear to mind.
 
 Now that you made your first helloWorld page with jsonHTML, we can begin with doing some tad bit more crazy, and mind bending
 stuff, But first, lets cover the basic HTML styling which is typically done naturally.
@@ -208,8 +208,7 @@ can just write it by hand? You must remember, javaScript has some powerful tools
 and one of the most powerful are loops. What??? Your wondering why loops are so awesome??? If you must ask, I will explain!
 
 First of all, lets say you have a database full of data. When you pulled data from it, you got an array of objects with properties.
-For each row that was in the database (or object if using mongoDB), you need a div element to allow your users to view that data.
-In order to display this data, traditionally we would have to write out each div statically, but since we do not know how much data is going to come to us, one would write templates, as strings... by hand... yes... tedious. This is the reason jsonHTML was created, we could simply use its tools to produce for us a bunch of div objects, and append that object to the DOM on
+For each row that was in the database (or object if using [mongoDB](http://www.mongodb.com/)), you need a div element to allow your users to view that data. In order to display this data, traditionally we would have to write out each div statically, but since we do not know how much data is going to come to us, one would write templates, as strings... by hand... yes... tedious. This is the reason jsonHTML was created, we could simply use its tools to produce for us a bunch of div objects, and append that object to the DOM on
 every loop.
 
 For the sake of simplicity of this example, lets say the data which came back from your database is already in JSON format:
@@ -331,14 +330,14 @@ var helloDiv = $jConstruct('div', {
 });
 ```
 
-As you can tell, there is not too much of a difference between the two, this is why native event support in jsonHTML's custom syntax was implemented only recently; it was not very important. Basically the short-hand for implementing events, actually does the exact same thing as what is done at the top. In the background, the jQuery event is added as a function and later implemented after the object is appended. Any event that you can do in jQuery, you can do here, you simply name the event you need to use within the quotes which is supported by jQuery, and it will be used.
+As you can tell, there is not too much of a difference between the two, this is why native event support in jsonHTML's custom syntax was implemented only recently; it was not very important. Basically the short-hand for implementing events, actually does the exact same thing as what is done at the top. In the background, the jQuery event is added as a function and later implemented after the object is appended. Any event that you can do in jQuery, you can do here, you simply name the event you need to use within the quotes which is [supported by jQuery,](https://api.jquery.com/category/events/) and it will be used.
 
 Getting Down To The Grains
 --------------------------
 
-Any experienced programmer will know that jsonHTML in it's current state cannot do everything. If you use jsonHTML all on its own, you can get pretty far, but there needs to be a way for you to get down deep into your objects and manipulate them. The easiest way to do this, is by adding functions that will be executed after your object is rendered on the DOM. You can add these functions with "helloDiv.addFunction(function() { myFunctionToExecute(); });" You may have noticed, that this property was utilized in the earlier code example under event handling! The bonus with this, is that you are currently still within your jsonHTML object, and can grab its properties directly, before the V8 engine garbege collects it.
+Any experienced programmer will know that jsonHTML in it's current state cannot do everything. If you use jsonHTML all on its own, you can get pretty far, but there needs to be a way for you to get down deep into your objects and manipulate them. The easiest way to do this, is by adding functions that will be executed after your object is rendered on the DOM. You can add these functions with "helloDiv.addFunction(function() { myFunctionToExecute(); });" You may have noticed, that this property was utilized in the [earlier code example](https://github.com/trillobite/jsonHTML#the-eventful-stuff) under event handling! The bonus with this, is that you are currently still within your jsonHTML object, and can grab its properties directly, before the V8 engine garbege collects it.
 
-I will leave it up to you to figure out what you want to do with this functionality, but here is a basic example for your curiosity:
+I will leave it up to you to figure out what you want to do with this functionality, but here is a basic example to quench your curiosity:
 
 ```JavaScript
 var helloDiv = $jConstruct('div', {
