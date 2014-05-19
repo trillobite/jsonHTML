@@ -33,6 +33,8 @@ add them or manipulate them by parsing that string. This was tedious, especially
 abstraction layer. Basically put, by creating a JSON object to reflect what you want, jsonHTML takes your object and creates
 the string to pass to jQuery, then jQuery handles the rest. Think of jsonHTML as a compiler, or a jQuery shell, it takes javaScript (JSON) objects and compiles them down to HTML, where it is passed to jQuery, implemented into the DOM and the browser deals with them traditionally.
 
+So, if you would like to follow along, make sure to visit [releases,](https://github.com/trillobite/jsonHTML/releases) download and unpack the latest release, and give jsonHTML a try!
+
 The easiest way to use jsonHTML.
 ---------------------------------
 
