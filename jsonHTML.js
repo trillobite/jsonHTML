@@ -158,23 +158,29 @@ var parsetype = function (type) {
 //recursive function, simply loops until there are no more children objects,
 //uses jQuery to append to the parent object (usually a div element).
 function appendHTML(jsonObj, container) {
-    if(typeof jsonObj == 'function'){
-        jsonObj = jsonObj();
-    }
-    if(undefined === jsonObj.id) {
-        jsonObj.id = makeID();
-    }
-    $(container).append(parsetype(jsonObj.type)(jsonObj));
-    if(undefined !== jsonObj.children) {
-        $.each(jsonObj.children, function () {
-            appendHTML(this, '#'+jsonObj.id);
-        });
-    }
-    if(undefined !== jsonObj.functions) {
-        $.each(jsonObj.functions, function () {
-            this();
-        });
-    }
+    var dfd = new $.Deferred();
+    var exec = function () {
+        if(typeof jsonObj == 'function'){
+            jsonObj = jsonObj();
+        }
+        if(undefined === jsonObj.id) {
+            jsonObj.id = makeID();
+        }
+        $(container).append(parsetype(jsonObj.type)(jsonObj));
+        if(undefined !== jsonObj.children) {
+            $.each(jsonObj.children, function () {
+                appendHTML(this, '#'+jsonObj.id);
+            });
+        }
+        if(undefined !== jsonObj.functions) {
+            $.each(jsonObj.functions, function () {
+                this();
+            });
+        }
+        dfd.resolve();
+    };
+    exec();
+    return dfd.promise();
 }
 
 var jConstructObjectManipulations = { //text object manipulations.
@@ -217,14 +223,17 @@ var jConstructObjectManipulations = { //text object manipulations.
             return this; 
         }; 
         tmp.appendTo = function(parent) { //append the JSON to a container div.
+            var dfd = new $.Deferred();
             var id;
             if(typeof parent == "object") { //if a jsonHTML object is inserted intended as the object to append to, grab the id of it.
                 id = '#' + parent.id;
             } else {
                 id = parent;
             }
-            appendHTML(this, id); 
-            return this; 
+            appendHTML(this, id).done(function () {
+                dfd.resolve();
+            }); 
+            return dfd.promise(); 
         };
         tmp.event = function(type, func) {
             var divId = '#'+this.id;

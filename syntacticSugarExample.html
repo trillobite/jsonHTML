@@ -53,10 +53,10 @@
                         text: 'Change the text!', //text that will display in the text box.
                     }).css({
                         'color': 'purple', //color of the text in the text box.
-                    }).addFunction(function () {
+                    }).appendTo('#thisIsDivStuff'+data.indx).done(function () {
                         mutableDivOnBlur(mDiv, data);
                         mDiv.event('focus');
-                    }).appendTo('#thisIsDivStuff'+data.indx); //on click append my object to this div id!
+                    }); //on click append my object to this div id!
                 });
             }
             

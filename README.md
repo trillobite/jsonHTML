@@ -394,7 +394,7 @@ Another limitation with jsonHTML is the fact that the appendHTML function deep i
 An untested experimental example of this functionality:
 ```JavaScript
 var helloDiv = $jConstruct('html', {
-    data: '<textarea>Hello World</textarea>', //custom html that will be appeneded to the DOM.
+    data: '<textarea id="helloWorldStuff">Hello World</textarea>', //custom html that will be appeneded to the DOM.
 }).addFunction(function() {
     console.log('this is experimental, you should see "Hello World" on the screen though');
 });
@@ -543,9 +543,13 @@ Incompatibility Notice:
 jsonHTML still does not have an official release, as the API is still under construction. In order to least affect anyone using this code library during the developmental phase, I still maintain the ideal that any changes to the API should be minor, and not drastic. If you have used v0.5.X-X, and want to begin using v0.6+ be sure to read the Incompatibility Notice, If you would rather still use v0.5 to v0.6, I left the [old documentation,](https://github.com/trillobite/jsonHTML/blob/master/READMEv0.5.md) and you should still be able to download the latest [v0.6.X-X pre-release.](https://github.com/trillobite/jsonHTML/releases/tag/v0.6-beta.1)
 
 
-#####Incompatibilities between v0.5 - v0.6 and v0.7:
+#####Incompatibilities between v0.5 - v0.6 and v0.7+:
 
 For the sake of simplicity, and increasing the flexibility of jsonHTML it was determined that it is important to allow the user to append to any portion of the DOM. The user is now able to append to the body of the HTML directly by simply specifying 'body.' In order to do this properly, if you are to append to any div in the DOM, you have to specify it with the hash symbol '#.' Before you were able to simply type .appendTo('divID'), but now it is required to type .appendTo('#divID'), jQuery users should already be familiar with this, as it is a necessary method in order to use jQuery properly.
+
+#####Incompatibilities between v0.7.x and v0.8.x+
+
+In order to allow the user to gain lower access to the native jQuery functionality, I have decided to allow the .appendTo function to return a jQuery.Deferred() object. It should not affect any code already written in v0.7.x as nobody should have attempted to chain another function behind appendTo(), as anything chained behind .appendTo() would have done nothing on the DOM anyways. The v8 engine will now throw an error in the javaScript Console if the user has incorrectly done chaining in the previously explained way. The positive aspect to this, is that chaining is actually more useful, you can detect when the object is done being appended to the DOM by simply adding .done(). In this way you can add a function which you want to execute after the object has been appended to the DOM: "$jConstruct('div').appendTo('body').done(function() { console.log('now added to the DOM')});" Before this functionality was added, one would have to use the .addFunction() method in order to execute a function after the object has been rendered to the DOM, this functionality is basically useless, and quite possibly may become depricated.
 
 -------------------------------------------------------------
 
@@ -569,6 +573,8 @@ To do:
 -Possibly remove some syntactic sugar from v0.5, make it more low level, thus more functional, and more future proof.
 
 ~Implement more HTML objects.
+
+*Make the ".appendTo" function utilize jQuery Deferreds, so the user can simply type ".done(function() { console.log('done appending to the DOM')});" which brings the user down a tad lower level by not having to utilize ".addFunction," and allows for some asynchronious programming techniques to take place. [View v0.8.x+](https://github.com/trillobite/jsonHTML#incompatibility-notice)
 
 *Object DOM removal memory leak fix.
 
