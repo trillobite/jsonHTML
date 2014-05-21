@@ -368,15 +368,31 @@ Disclaimer / License:
 ---------------------
 
 ---------------------------------------------------------------------------------------------------------------------------------
-jsonHTML is provided to you as Free Software (refer to: https://gnu.org/philosophy/free-sw.html ), by using this code
-you agree not to hold me responsible for any damages, or consequences of your malicious or "friendly" use of this code.
-This code is provided with no warranties, or guarantees, all I ask is you retain credit back to me if you use my code. 
+    Copyright (C) 2014 Jesse Parnell
+    
+    v1.0
+    This software / code is provided to you similarly as Free Software, (refer to: https://gnu.org/philosophy/free-sw.html ),
+    by using or obtaining this code, you have the Free Software basic rights that do not contradict this license, if any, 
+    and you agree, with common sense:
 
-The "Keep it black" philosophy was arisen from the rebirth of the coffee shop culture, when one would ask if you wanted any sweeteners in your coffee, the correct response under this philosophy is, "No, keep it black." One who believes in this philosophy, finds that keeping the coffee black is the best way to experience the flavor in it's truest form, unspoiled by pesky sweeteners masking it's true nature. This same philosophy is now implemented into the code that I write, I try to keep it black, I only add fluff to the code where it's necessary, but other than that any library I write under this philosophy is written to be as low level as possible and least intrusive to any programmer coming to try out the code I made. If you understand javaScript, there should be as small of a learning curve as possible to use my code, keeping it as true to it's roots as possible. 
+    To hold me __not__ responsible for any damages, or consequences of your malicious or "friendly" use of this code, it is up
+    to the user to ensure the integrity and effects of this code before it is run, copied, deleted, modified, or utilized in any way. 
+    This code is provided with no warranties, or guarantees. I ask from you to __retain__ credit back to me if you use my code 
+    or any portion of it, and leave this stated license intact and not modified. This code / software is regarded as an inanimate 
+    object, a tool, operating on natural laws, influenced by the current user and it's environment. The current user of the copy of 
+    this tool must be held responsible for the way they use it, and not hold reponsible the creators, distributors, or copiers of that 
+    tool. You may not redact, or modify this license within this repository / project / code / software, and leave the license fully, 
+    unmodified, as is, unless given written or verbal permission from the Copyright holder of this code / software. This license is 
+    not intended to cause a Closed-Source project to become Free Software, only the code and any portion of it from this project, 
+    under this license, has to remain Free, and it's source publicly availible, unless permission granted from the Copyright holder. 
 
-Feel free to fork, and ask to become a contributor, if you have an improvement you have implemented in your fork, that 
-you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, and
-give you credit as one of the authors or contributors.
+    Without manipulation to the license currently being utilized here, you may copy this license, and use it in __your__ own 
+    code / software / projects / works, but, similarly, as stated above, you are responsible for the way you use the tools I created, 
+    including this license.
+
+    Feel free to fork, and ask to become a contributor, you have that right, if you have an improvement you have implemented in your 
+    fork, that you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, 
+    and give you credit as one of the authors or contributors, and remember, your also protected under the license above.
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
