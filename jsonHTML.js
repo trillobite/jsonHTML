@@ -120,6 +120,13 @@ var parsetype = function (type) {
         html: function (element) {
             return element.data;
         },
+        image: function (element) {
+            var html = {
+                start: '<img src='+element.src+' alt="'+element.text,
+                end: '>',
+            };
+            return html.start + ico(element) + html.end;
+        },
         spinner: function (element) {
             var html = {
                 start: undefined !== element.text ? element.text+'<input type="number"' : '<input type="number"',
