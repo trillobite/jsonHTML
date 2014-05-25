@@ -574,6 +574,8 @@ To do:
 
 ~Implement more HTML objects.
 
+*Added support for images! Cant believe I forgot this very important functionality to jsonHTML, you must know that this is a very alpha release, not tested, just implemented on the whim, you can only get it by doing a git clone of the repository, there is currently no release with this functionality. You define the source of the image with "src" and you define the text for the image as "text," just like you normally insert text for a div object.
+
 *Make the ".appendTo" function utilize jQuery Deferreds, so the user can simply type ".done(function() { console.log('done appending to the DOM')});" which brings the user down a tad lower level by not having to utilize ".addFunction," and allows for some asynchronious programming techniques to take place. [View v0.8.x+](https://github.com/trillobite/jsonHTML#incompatibility-notice)
 
 *Object DOM removal memory leak fix.
