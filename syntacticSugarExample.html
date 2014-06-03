@@ -25,60 +25,39 @@
                 'margin': '0 auto',
             };
             
-            var child0 = function () {
-                return $jConstruct('div', {
-                    //id: 'thisISDivStuffChild0', //notice how if this object is not later manipulated in code, I can simply ignore adding an ID, jsonHTML will make one on its own!
-                    text: 'Hello World From Child 0',
-                }).css(centerBorderHalf);
-            };
+            //this is your plain ordinary <div>, with some css added to it.
+            var child0 = $jConstruct('div', {
+                text: 'Hello World From Child 0',
+            }).css(centerBorderHalf);
             
-            //do this when div looses focus.
-            var mutableDivOnBlur = function (mDiv, data) {
-                mDiv.event('blur', function() { //when you click away from the textbox, it goes back to a div!
-                    var txt = $('#'+mDiv.id)[0].value;
-                    mDiv.remove();
-                    mDiv.text = txt;
-                    mDiv.textProperties('bold').css({
-                        'color': 'purple',
-                    }).appendTo('#thisIsDivStuff'+data.indx); // I can just grab the original mDiv, by its ID, and re-append it, beautiful like recursion!
-                }); 
-            }
-            
-            //do this when div is clicked. this is what makes a mutable div... mutate.
-            var mutableDivOnClick = function(mDiv, data) {
-                mDiv.event('click', function() { //mutate my div into a textbox on the click!
-                    mDiv.remove(); //remove the old
-                    $jConstruct('textbox', {
-                        id: mDiv.id,
-                        text: 'Change the text!', //text that will display in the text box.
-                    }).css({
-                        'color': 'purple', //color of the text in the text box.
-                    }).appendTo('#thisIsDivStuff'+data.indx).done(function () {
-                        mutableDivOnBlur(mDiv, data);
-                        mDiv.event('focus');
-                    }); //on click append my object to this div id!
-                });
-            }
-            
-            //here is where it gets crazy... this is a mutable div!
-            var mutableDiv = function(data) { 
-                var mDiv = $jConstruct('div', { //this var is reused, make sure that it stays in memory by declaring it as var.
-                    //id: 'thisIsDivStuffChild1',
-                    text: 'Hello World From Child 1 <-- Click Me!',
-                }).css(centerBorderHalf).addFunction(function() {
-                    mutableDivOnClick(mDiv, data);
-                });
-                return mDiv;
-            };
-            
+            //this object has events added to it, so when you click on it, it transforms into a textbox, and back again with the changes implemented.
+            var child1 = $jConstruct('div', {
+                text: 'Click Me!'
+            }).css(centerBorderHalf).event('click', function() { //on click event.
+                if(child1.type == 'div') {
+                    child1.type = 'textbox';
+                }
+                child1.refresh(); //wow, very much yes simple!
+                $('#'+child1.id).focus(); //focus on the textbox so the user can type into it.
+            }).event('blur', function() { //on blur event.
+                if(child1.type == 'textbox') {
+                    child1.type = 'div';
+                    child1.text = $('#'+child1.id)[0].value; //get the data that changed.
+                }
+                child1.refresh(); //Refreshes the object on the DOM containing the current changes.
+            });
+
+            //this is basically the main object. Notice how I have it contained in a function so that I can
+            //pass a parameter to manipulate it.
             var jsonHTMLObj = function(data) {
                 return $jConstruct('div', {
                     id: 'thisIsDivStuff' + data.indx,
                     class: 'divStuff', //yea, you can set a class and add css in an external style sheet!
                     text: 'HELLO WORLD!',
-                }).textProperties('heading', '2').css(centerBorderHalf).addChild(child0).addChild(mutableDiv(data)); //add text styling, css and a child object with chaining!
+                }).textProperties('heading', '2').css(centerBorderHalf).addChild(child0).addChild(child1); //add text styling, css and a child object with chaining!
             };
 
+            //The DOM needs to be ready, before I can do anything... we must wait...
             $(document).ready(function () {
                 jsonHTMLObj({indx: 1}).appendTo('body'); //now just append it to any div!
             });

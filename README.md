@@ -373,6 +373,31 @@ $(document).ready(function() {
 
 Basically this example code changes the color of the text contained in the div, on click like a switch, on and off. You can see how using simple javaScript/jQuery tricks, you can access what the current color of the text in the div is, and change it according to your specifications on click.
 
+Simplify With Refresh v0.9+
+---------------------------
+
+One thing that you may have noticed already with the above code example, is that it is not entirely legible. It occured to me one evening: Would if I could change the property of the object and make it take the changes immediately. Despite this not being currently possible with my current knowledge, I found out I could do something similar, and the refresh function was born! Basically, when you refresh a jsonHTML object, it renders that object again to make sure it has the latest properties, by physically removing the object and adding it again, new.
+
+```JavaScript
+var child1 = $jConstruct('div', {
+    text: 'Click Me!'
+}).css(centerBorderHalf).event('click', function() { //on click event.
+    if(child1.type == 'div') {
+        child1.type = 'textbox';
+    }
+    child1.refresh(); //wow, very much yes simple!
+    $('#'+child1.id).focus();
+}).event('blur', function() { //on blur event.
+    if(child1.type == 'textbox') {
+        child1.type = 'div';
+        child1.text = $('#'+child1.id)[0].value; //get the data that changed.
+    }
+    child1.refresh(); //Refreshes the object on the DOM containing the current changes.
+});
+
+```
+As you can see, this object is very condensed and compact, yet highly functional. First jConstruct was used to create a div the the text saying Click Me! Then, css was added from another object containing the css definitions somewhere in the project. Then, a click event handler was added, which changes the property type in the child1 object to now define it as a text box, and refresh is used to make those changes display in the browser to the user. Other than the blur handler which translates it back into a div, that's the basics of it, and you can see this object in action in syntacticSugarExample.html, as it was just updated with this latest feature.
+
 Getting Down To The Grounds
 ---------------------------
 

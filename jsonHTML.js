@@ -52,7 +52,7 @@ var arrdb = {
         }
     }
 
-}
+};
 
 /*
     If the user does not provide a div id for their object, this will make a 
@@ -164,6 +164,7 @@ function appendHTML(jsonObj, container) {
         if(undefined === jsonObj.id) {
             jsonObj.id = makeID();
         }
+        jsonObj.parent = container;
         $(container).append(parsetype(jsonObj.type)(jsonObj));
         if(undefined !== jsonObj.children) {
             $.each(jsonObj.children, function () {
@@ -208,7 +209,7 @@ var jConstructObjectManipulations = { //text object manipulations.
                 tmp.text = '<p>'+tmp.text+'</p>';
                 return tmp;
             }
-        }
+        };
     },
     //what you can immediately call on any object created by $jConstruct.
     basicPropertiesInsert: function(tmp, directInsert) {
@@ -270,11 +271,13 @@ var jConstructObjectManipulations = { //text object manipulations.
             }
             return this; //everything worked as expected.
         };
-        tmp.editProperty = function(properties) { //dynamically add new properties to the JSON HTML object on the fly.
+        //dynamically add new properties to the JSON HTML object on the fly.
+        tmp.editProperty = function(properties) {
             jConstructObjectManipulations.dynamicPropertiesAdd(tmp, properties);
             return this;
         };
-        tmp.remove = function() { //removes the object from the DOM
+        //remove the object from the DOM.
+        tmp.remove = function() {
             var divId = this.id;
             var myNode = document.getElementById(divId);
             while(myNode.firstChild) { //Experimental DOM object removal, jQuery "remove" leaves a temporary memory leak, this is intended to fix that issue.
@@ -283,12 +286,23 @@ var jConstructObjectManipulations = { //text object manipulations.
             $('#'+divId).remove();
             return this;
         };
-        tmp.textProperties = function(type, option) { //so the simple text manipulations can easily be done.
+        //allows the user to change what the text looks like with simple pre-generated HTML tags.
+        tmp.textProperties = function(type, option) {
             var options = jConstructObjectManipulations.textStyling(tmp);
             if(option) {
                 options[type](option);
             } else {
                 options[type]();
+            }
+            return this;
+        };
+        //Allows the user to render the object on the DOM again.
+        tmp.refresh = function() {
+            if(tmp.parent.length > 0) {
+                tmp.remove();
+                tmp.appendTo(tmp.parent);
+            } else {
+                console.log('Error: Parent of the object not defined. Was it rendered to the DOM yet?');
             }
             return this;
         };
