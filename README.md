@@ -620,32 +620,19 @@ Disclaimer / License:
 The reason why I wrote this license, is so that anyone using my code can understand what they are making an agreement to, and what their rights are without having to go to a lawyer. All I ask is for you to utilize your brain, read this license as it is in context of the entire document, and do not try to stretch it's boundaries, as doing so may cause this license to be destroyed, and a newer one implemented with non-free restrictions... which would be sad, and terrible to the whole programming community. You must understand that my hand is forced into implementing any sort of license, people never want to be held accountable for their actions, politicians and governments have their agendas. People enjoy stealing your rights, this is an attempt to protect those rights. This license attempts to protect you and I, and anyone who helped to develop it. I would rather just throw my code out onto the web and let everyone do as they please with it, but that's not practical in the world that we live in today.
 
 #####Copyright License:
-    Copyright (C) 2014 Jesse Parnell
+Copyright (C) 2014 Jesse Parnell
     
-    v1.0
+v1.1
 
-    This software / code is provided to you similarly as Free Software, (refer to: https://gnu.org/philosophy/free-sw.html ),
-    by using or obtaining this code, you have the Free Software basic rights that do not contradict this license, if any, 
-    and you agree, with common sense:
+This software / code is provided to you similarly as Free Software, (refer to: https://gnu.org/philosophy/free-sw.html ), by using or obtaining this code, you have the Free Software basic rights that do not contradict this license, if any, and you defined as a user or consumer agree:
 
-    To hold me __not__ responsible for any damages, or consequences of your malicious or "friendly" use of this code, it is up
-    to the user to ensure the integrity and effects of this code before it is run, copied, deleted, modified, or utilized in any way. 
-    This code is provided with no warranties, or guarantees. I ask from you to __retain__ credit back to me if you use my code 
-    or any portion of it, and leave this stated license intact and not modified. This code / software is regarded as an inanimate 
-    object, a tool, operating on natural laws, influenced by the current user and it's environment. The current user of the copy of 
-    this tool must be held responsible for the way they use it, and not hold reponsible the creators, distributors, or copiers of that 
-    tool. You may not redact, or modify this license within this repository / project / code / software, and leave the license fully, 
-    unmodified, as is, unless given written or verbal permission from the Copyright holder of this code / software. This license is 
-    not intended to cause a Closed-Source project to become Free Software, only the code and any portion of it from this project, 
-    under this license, has to remain Free, and it's source publicly availible, unless permission granted from the Copyright holder. 
+To hold me not responsible for any damages, or consequences of your malicious or "friendly" use of this code, or action taken by any interpretation of the documentation supplied. It is up to the consumer to ensure the integrity and effects of this code before it is run, copied, deleted, modified, or utilized in any way. This code is provided with no warranties, or guarantees. I ask from you to retain credit back to me if you use my code or any portion of it, and leave this stated license intact and not modified. This code / software is regarded as an inanimate object, a tool, operating on natural laws, influenced by the current user and it's environment, any damage caused, by it's use or misuse even if resulting in any type of damage, you agree to hold the authors, contributors, and copyright holders of this entire project not repsonisble. The current user of the copy of this tool must be held responsible for the way they use it, and not hold reponsible the creators, distributors, or copiers of that tool. You may not redact, or modify this license within this repository / project / code / software, and leave the license fully, unmodified, as is, unless given written or verbal permission from the Copyright holder of this code / software. This license is not intended to cause a Closed-Source project to become Free Software, only the code and any portion of it from this project, under this license, has to remain Free, and it's source publicly availible, unless permission granted from the Copyright holder. This license is also not intended to be utilized as legal advice, the user/consumer must check with their local laws to make sure that an agreement with this license, and use of the works protected by this license, will not cause them to conflict with their local laws
 
-    Without manipulation to the license currently being utilized here, you may copy this license, and use it in __your__ own 
-    code / software / projects / works, but, similarly, as stated above, you are responsible for the way you use the tools I created, 
-    including this license.
+Main Idea: You agree by downloading this work to hold me not responsible for whatever happens.
 
-    Feel free to fork, and ask to become a contributor, you have that right, if you have an improvement you have implemented in your 
-    fork, that you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, 
-    and give you credit as one of the authors or contributors, and remember, your also protected under the license above.
+Without manipulation of this license, you may copy this license, and use it in your own code / software / projects / works, but, similarly, as stated above, you are responsible for the way you use the tools I created, including this license.
+
+Feel free to fork, and ask to become a contributor, you have that right, if you have an improvement you implemented in your fork, that you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, and give you credit as one of the authors or contributors, and remember, this license is intended to protect you as an author or contributor also.
 
 
 #####Philosophy:
