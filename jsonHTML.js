@@ -103,6 +103,13 @@ var parsetype = function (type) {
             };
             return html.start + ico(element) + html.end;
         },
+        canvas: function(element) {
+            var html = {
+                start: '<canvas',
+                end: '></canvas>',
+            };
+            return html.start + ico(element) + html.end;
+        },
         checkbox: function (element) {
             var html = {
                 start: '<input type="checkbox"',
@@ -148,9 +155,18 @@ var parsetype = function (type) {
             };
             return html.start + ico(element) + html.end;
         },
-
+        unknown: function (element) { //jsonHTML is not sure what the object actually is that the user wants... but it will try!
+            var html = {
+                start: '<' + type,
+                end: undefined !== element.text ? ' value="' + element.text + '">' : '>',
+            };
+            return html.start + ico(element) + html.end;
+        },
     };
-    return undefined !== options[type] ? options[type] : undefined;
+    if(options[type]) {
+        return options[type];
+    }
+    return options.unknown; //if the object is not recognized, jsonHTML will try to create it anyways.
 };
 
 //recursive function, simply loops until there are no more children objects,
@@ -244,9 +260,9 @@ var jConstructObjectManipulations = { //text object manipulations.
                 }
             } else {
                 if(func) {
-                    tmp.addFunction(function () { $(divId)[type](func) });
+                    tmp.addFunction(function () { $(divId)[type](func); });
                 } else {
-                    tmp.addFunction(function () { $(divId)[type]() });
+                    tmp.addFunction(function () { $(divId)[type](); });
                 }
             }
             return this;
