@@ -35,6 +35,8 @@ If you are a more experienced programmer, you may notice that most of the exampl
 
 So, if you would like to follow along, make sure to download [the latest release,](https://github.com/trillobite/jsonHTML/archive/v0.9-beta.zip) unpack, and give jsonHTML a try! It is assumed that you know the concepts of HTML, and javaScript. Having an understanding of jQuery is helpful, as jsonHTML largely depends on this library, but this understanding not mandatory. The documentation is still pretty basic as jsonHTML was not originally created to be released to the public, but as I moved the project to github, it became exposed to the public, and I have decided that it would be helpful to the free software coding community if my code was documented.
 
+Note: v0.9.5 will be relased shortly, simply working on the documentation.
+
 The easiest way to use jsonHTML.
 ---------------------------------
 
