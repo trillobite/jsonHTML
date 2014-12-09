@@ -11,9 +11,9 @@ Documentation / Code examples Relevant for v0.7+
 
 -------------------------------------------------------------------------------------------------------------------------
 
-There have been recent changes to jsonHTML, v0.7 is slightly incompatible, incompatibilites are noted in the Incompatibility Notice at the bottom of this document. Feel free to view the latest methods by taking a look at the new code example: syntacticSugarExample.html
+An entire fully dedicated guide is in the works and nearly complete. There is a new experimental version of jsonHTML currently in the works, in which it integrates the micronDB project with jsonHTML. Make sure to download the latest release if you want something stable, as the current working branch contains the experimental code.
 
-#####The example code in this documentation is currently being bug tested.
+#####The example code in this documentation is not always up to date with the latest best methods, they may change in the near future. 
 
 -------------------------------------------------------------------------------------------------------------------------
 
