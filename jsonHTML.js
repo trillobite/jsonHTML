@@ -9,64 +9,10 @@
     Basically, if you can do something in javaScript, you can now do it to your HTML.
 */
 
-/*
-    This is a hashing function. It works similar to an in memory database for this project.
-    It can store any object with a string type id you want, to see if that object already exists. 
-    It's a really powerful tool actually. The biggest benifit is that it leverages the memory on the
-    client side rather than the server side.
-*/
-var arrdb = {
-    db: [],
-    calcIndex: function(data) { //takes a string
-        var total = 0;
-        for(var i = 0; i < data.length; ++i) {
-            total += data.charCodeAt(i);
-        }
-        return total % 50; //max hash table size.
-    },
-    exists: function(data) { //takes a string object.
-        var indx = this.calcIndex(data);
-        if(this.db[indx]) {
-            for(var i = 0; i < this.db[indx].length; ++i) {
-                if(this.db[indx][i].id == data) {
-                    return true; //success
-                }
-            }
-            return false; //none matched
-        } else {
-            return false; //contains nothing.
-        }
-    },
-    hash: function(data) {
-        if(!(this.exists(data))) {
-            var indx = this.calcIndex(data.id);
-            if(this.db[indx]) {
-                this.db[indx][this.db[indx].length] = data;
-                return true; //success
-            } else {
-                this.db[indx] = [];
-                this.db[indx][this.db[indx].length] = data;
-                return true; //success
-            }
-        } else {
-            return false; //already exists
-        }
-    },
-    get: function(key) { //key is the id of the object.
-        var indx = this.calcIndex(key);
-        if(this.db[indx]) {
-            for(var i = 0; i < this.db[indx].length; ++i) {
-                if(this.db[indx][i].id == key) {
-                    return this.db[indx][i]; //found the object.
-                }
-            }
-            return undefined; //object does not exist in this hash array.
-        } else {
-            return undefined; //object does not even exist.
-        }
-    }
+//view un-minified micronDB code under the micronDB project repository.
+var micronDB=function(){return{db:[],hashTraverse:function(r,t){if(this.db[r]){for(var n=0;n<this.db[r].length;++n){var e=t(this.db[r][n]);if(e)return e}return!1}return!1},calcIndex:function(r){for(var t=0,n=0;n<r.length;++n)t+=r.charCodeAt(n);return t%50},exists:function(r){var t=this.calcIndex(r);return this.hashTraverse(t,function(t){return t.id==r?!0:void 0})},hash:function(r){if(this.exists(r))return!1;var t=this.calcIndex(r.id);return this.db[t]?(this.db[t][this.db[t].length]=r,!0):(this.db[t]=[],this.db[t][this.db[t].length]=r,!0)},get:function(r){var t=this.calcIndex(r);return this.hashTraverse(t,function(t){return t.id==r?t:void 0})},remove:function(r){var t=this.calcIndex(r);if(this.db[t])for(var n=0;n<this.db[t].length;++n)if(this.db[t][n])return delete this.db[t][n]},match:{where:function(r,t){for(var n in t)if("undefined"!=typeof r[n])if("function"==typeof r[n]){if(r[n](t[n])===!0)return t}else if(t[n]==r[n])return t;return!1}},traverse:function(r,t,n){var e=function(r,n){for(var i=[],h=0;h<n.length;++h)if(Array.isArray(n[h])){var f=e(r,n[h]);f.length>0&&(Array.isArray(f)&&f.length<2?i[i.length]=f[0]:i[i.length]=f)}else t(r,n[h])&&(i[i.length]=t(r,n[h]));return i},i=[],h=0,f=function(r,t,n,f){"undefined"!=typeof n[f]&&"number"!=typeof f&&(h?i.length>0&&(i=e(r,i)):i=e(r,t)),++h},a=function(r,t,n,h){if("undefined"!=typeof n[h]&&"number"!=typeof h){var f=e(r,t);if(i.length>0)for(var a=function(r,t){for(var n=0;n<t.length;++n)if(t[n]==r)return!0;return!1},s=0;s<f.length;++s)a(f[s],i)||(i[i.length]=f[s]);else i=e(r,t)}};for(var s in r){"$and"==s&&(h=0);var u={};if(u[s]=r[s],"$or"==s||"$and"==s)for(var o in u[s]){var d={};d[o]=u[s][o],"$or"==s?a(d,n,u[s],o):f(d,n,u[s],o)}else f(u,n,r,s)}return i},insert:function(r){this.hash(r)},query:function(r){var t;for(var n in r)"undefined"!=typeof this.match[n]&&(t=void 0===t?this.traverse(r[n],this.match[n],this.db):this.traverse(r[n],this.match[n],t));return t}}};
 
-};
+var arrdb = new micronDB();
 
 /*
     If the user does not provide a div id for their object, this will make a 
@@ -76,7 +22,7 @@ var makeID = function () {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for( var i=0; i < 12; i++ ) //144 possible random div id's
+    for( var i=0; i < 12; i++ ) //rough estimate: 44,652 possible unique random ids.
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     /*if(!(arrdb.hash({id: text, append: undefined, }))) {
@@ -173,7 +119,7 @@ function appendHTML(jsonObj, container, type) {
         if(arrdb.exists(jsonObj.id)) {
             arrdb.get(jsonObj.id).append = type;
         } else {
-            arrdb.hash({id: jsonObj.id, append: type});
+            arrdb.hash(jsonObj);
         }
         jsonObj.parent = container;
         if(type) {
@@ -296,10 +242,14 @@ var jConstructObjectManipulations = { //text object manipulations.
         tmp.remove = function() {
             var divId = this.id;
             var myNode = document.getElementById(divId);
-            while(myNode.firstChild) { //Experimental DOM object removal, jQuery "remove" leaves a temporary memory leak, this is intended to fix that issue.
-                myNode.removeChild(myNode.firstChild);
+            if(myNode) {
+                while(myNode.firstChild) { //Experimental DOM object removal, jQuery "remove" leaves a temporary memory leak, this is intended to fix that issue.
+                    myNode.removeChild(myNode.firstChild);
+                }
+                $('#'+divId).remove();                
+            } else {
+                console.log(divId, 'object does not exist, or has already been removed');
             }
-            $('#'+divId).remove();
             return this;
         };
         //allows the user to change what the text looks like with simple pre-generated HTML tags.
