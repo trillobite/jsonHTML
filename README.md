@@ -416,7 +416,7 @@ Here is a very quick and interesting trick if you download jsonHTML directly off
 ```JavaScript
 $jConstruct('div', {
     text: 'wah hallo',
-    id: 'helloWorldID',
+    id: 'helloWorldID', //Remember, this is also a real HTML ID for CSS styling!
 }).css({
     'color': 'green',
 }).appendTo('body');
