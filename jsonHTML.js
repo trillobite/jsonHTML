@@ -306,8 +306,11 @@ function $jConstruct(htmlType, directInsert) {
     return tmp;
 }
 
+//compressed copy of toadFish. Non-compressed copy should be included in the download package.
+var toadFish={};toadFish.create2DArray=function(e){for(var r=[],t=0;e>t;++t)r[t]=[];return r},toadFish.structure=function(e,r){for(var t=$jConstruct("div",{collectionName:r}).css({clear:"left","float":"left",display:"block"}),l=0;l<e.length;++l){var i=$jConstruct("div");e[l].length?i.css({"float":"left"}):i.addChild(e[l]);for(var n=0;n<e[l].length;++n)i.addChild(e[l][n]);t.addChild(i)}return t.getCell=function(e,r){return t.children[e].children[r]},t.global=function(e,r,l){for(var i=0;i<t.children.length;++i)for(var n=0;n<t.children[i].length;++n)t.getCell(i,n)[e](r,l)},t},toadFish.tiles=function(e,r){for(var t=$jConstruct("div",{collectionName:r}).css({clear:"left","float":"left",display:"block"}),l=0;l<e.length;++l){var i=$jConstruct("div").addChild($jConstruct("div",e[l]));t.addChild(i)}return t.getTile=function(e){return t.children[e].children[0]},t.removeTile=function(e){var r=t.getTile(e);$("#"+r.id).remove(),arrdb.remove(r.id)},t.updateTiles=function(r,l,i){for(var n=0;n<e.length;++n)t.getTile(n)[r](l,i)},t},toadFish.grid=function(e,r,t){r++,e++;for(var l=toadFish.tiles(Array(e),{collectionName:t}).css({width:"auto",height:"auto"}),i=0;e>i;++i){l.children[i]=toadFish.tiles(Array(r),t+"row"+i.toString());for(var n=0;r>n;++n)l.children[i].children[n].css({"float":"left"})}return l.getCell=function(e,r){return l.children[e].children[r]},l.removeCell=function(e,r){var t=l.getCell(e,r);$("#"+t.id).remove(),arrdb.remove(t.id)},l.removeRow=function(e){l.removeTile(e)},l.rowAssign=function(e,r,t,i){l.children[e].updateTiles(r,t,i)},l.globalAssign=function(r,t,i){for(var n=0;e>n;++n)l.rowAssign(n,r,t,i)},l};
+
 /*
-    Copyright (C) 2014 Jesse Parnell
+    Copyright (C) 2016 Jesse Parnell
     
     v1.0
     This software / code is provided to you similarly as Free Software, (refer to: https://gnu.org/philosophy/free-sw.html ),
@@ -333,22 +336,19 @@ function $jConstruct(htmlType, directInsert) {
     fork, that you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, 
     and give you credit as one of the authors or contributors, and remember, your also protected under the license above.
 
-
-            )
-            
-            (
-        )   )
-        (
-    .---------------------.
-    |        _____        |___      
-    |     .'`_,-._`'.      __ \
-    |    /  ( [ ] )  \    |  ||
-    |   /.-""`( )`""-.\   |  ||
-    |  ' <'```(.)```'> '  | _||
-    |    <'```(.)```'>    |/ _/
-    |     <'``(.)``'>      ./
-    |      <``\_/``>      |
-    |       `'---'`       |
-    \github.com/trillobite/              Keep it black.
-      \_________________/  
-*/
+             )
+c            (
+o        )   )
+p        (
+y    .---------------------.
+r    |        _____        |___      
+i    |     .'`_,-._`'.      __ \
+g    |    /  ( [ ] )  \    |  ||
+h    |   /.-""`( )`""-.\   |  ||
+t    |  ' <'```(.)```'> '  | _||
+     |    <'```(.)```'>    |/ _/
+2    |     <'``(.)``'>      ./
+0    |      <``\_/``>      |
+1    |       `'---'`       |
+6    \github.com/trillobite/              
+       \_________________/      Keep it black*/

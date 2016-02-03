@@ -7,8 +7,6 @@
 				 project in the near future.
 				 These are more advanced objects that mainly produce grid like
 				 structures, and are managed utilizing micronDB.
-
-	Copyright 2016 Jesse Parnell
 */
 
 var toadFish = {};
@@ -145,3 +143,20 @@ toadFish.grid = function(row, col, gridCollectionName) {
 	}
 	return main;
 };
+
+/*           )
+c            (
+o        )   )
+p        (
+y    .---------------------.
+r    |        _____        |___      
+i    |     .'`_,-._`'.      __ \
+g    |    /  ( [ ] )  \    |  ||
+h    |   /.-""`( )`""-.\   |  ||
+t    |  ' <'```(.)```'> '  | _||
+     |    <'```(.)```'>    |/ _/
+2    |     <'``(.)``'>      ./
+0    |      <``\_/``>      |
+1    |       `'---'`       |
+6    \github.com/trillobite/              
+       \_________________/      Keep it black*/
