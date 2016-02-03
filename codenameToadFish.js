@@ -144,7 +144,8 @@ toadFish.grid = function(row, col, gridCollectionName) {
 	return main;
 };
 
-/*           )
+/*  View full license in README.md
+             )
 c            (
 o        )   )
 p        (
@@ -159,4 +160,4 @@ t    |  ' <'```(.)```'> '  | _||
 0    |      <``\_/``>      |
 1    |       `'---'`       |
 6    \github.com/trillobite/              
-       \_________________/      Keep it black*/
+       \_________________/      Keep it black, keep it free.*/

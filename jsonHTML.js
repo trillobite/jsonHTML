@@ -309,33 +309,7 @@ function $jConstruct(htmlType, directInsert) {
 //compressed copy of toadFish. Non-compressed copy should be included in the download package.
 var toadFish={};toadFish.create2DArray=function(e){for(var r=[],t=0;e>t;++t)r[t]=[];return r},toadFish.structure=function(e,r){for(var t=$jConstruct("div",{collectionName:r}).css({clear:"left","float":"left",display:"block"}),l=0;l<e.length;++l){var i=$jConstruct("div");e[l].length?i.css({"float":"left"}):i.addChild(e[l]);for(var n=0;n<e[l].length;++n)i.addChild(e[l][n]);t.addChild(i)}return t.getCell=function(e,r){return t.children[e].children[r]},t.global=function(e,r,l){for(var i=0;i<t.children.length;++i)for(var n=0;n<t.children[i].length;++n)t.getCell(i,n)[e](r,l)},t},toadFish.tiles=function(e,r){for(var t=$jConstruct("div",{collectionName:r}).css({clear:"left","float":"left",display:"block"}),l=0;l<e.length;++l){var i=$jConstruct("div").addChild($jConstruct("div",e[l]));t.addChild(i)}return t.getTile=function(e){return t.children[e].children[0]},t.removeTile=function(e){var r=t.getTile(e);$("#"+r.id).remove(),arrdb.remove(r.id)},t.updateTiles=function(r,l,i){for(var n=0;n<e.length;++n)t.getTile(n)[r](l,i)},t},toadFish.grid=function(e,r,t){r++,e++;for(var l=toadFish.tiles(Array(e),{collectionName:t}).css({width:"auto",height:"auto"}),i=0;e>i;++i){l.children[i]=toadFish.tiles(Array(r),t+"row"+i.toString());for(var n=0;r>n;++n)l.children[i].children[n].css({"float":"left"})}return l.getCell=function(e,r){return l.children[e].children[r]},l.removeCell=function(e,r){var t=l.getCell(e,r);$("#"+t.id).remove(),arrdb.remove(t.id)},l.removeRow=function(e){l.removeTile(e)},l.rowAssign=function(e,r,t,i){l.children[e].updateTiles(r,t,i)},l.globalAssign=function(r,t,i){for(var n=0;e>n;++n)l.rowAssign(n,r,t,i)},l};
 
-/*
-    Copyright (C) 2016 Jesse Parnell
-    
-    v1.0
-    This software / code is provided to you similarly as Free Software, (refer to: https://gnu.org/philosophy/free-sw.html ),
-    by using or obtaining this code, you have the Free Software basic rights that do not contradict this license, if any, 
-    and you agree, with common sense:
-
-    To hold me __not__ responsible for any damages, or consequences of your malicious or "friendly" use of this code, it is up
-    to the user to ensure the integrity and effects of this code before it is run, copied, deleted, modified, or utilized in any way. 
-    This code is provided with no warranties, or guarantees. I ask from you to __retain__ credit back to me if you use my code 
-    or any portion of it, and leave this stated license intact and not modified. This code / software is regarded as an inanimate 
-    object, a tool, operating on natural laws, influenced by the current user and it's environment. The current user of the copy of 
-    this tool must be held responsible for the way they use it, and not hold reponsible the creators, distributors, or copiers of that 
-    tool. You may not redact, or modify this license within this repository / project / code / software, and leave the license fully, 
-    unmodified, as is, unless given written or verbal permission from the Copyright holder of this code / software. This license is 
-    not intended to cause a Closed-Source project to become Free Software, only the code and any portion of it from this project, 
-    under this license, has to remain Free, and it's source publicly availible, unless permission granted from the Copyright holder. 
-
-    Without manipulation to the license currently being utilized here, you may copy this license, and use it in __your__ own 
-    code / software / projects / works, but, similarly, as stated above, you are responsible for the way you use the tools I created, 
-    including this license.
-
-    Feel free to fork, and ask to become a contributor, you have that right, if you have an improvement you have implemented in your 
-    fork, that you believe is totally amazing, and should be included in the main project, ill review it, and possibly implement it, 
-    and give you credit as one of the authors or contributors, and remember, your also protected under the license above.
-
+/*  View full license in README.md
              )
 c            (
 o        )   )
@@ -351,4 +325,4 @@ t    |  ' <'```(.)```'> '  | _||
 0    |      <``\_/``>      |
 1    |       `'---'`       |
 6    \github.com/trillobite/              
-       \_________________/      Keep it black*/
+       \_________________/      Keep it black, keep it free.*/

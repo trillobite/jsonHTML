@@ -705,8 +705,7 @@ Wallet: DGpXaej8VBMwuQB925fzwBo1N97ABZMNkT
 ---------------------------------------------------------------------------------------------------------------------------------
 
 ```
-            )
-            
+            )            
             (
         )   )
         (
@@ -720,7 +719,7 @@ Wallet: DGpXaej8VBMwuQB925fzwBo1N97ABZMNkT
     |     <'``(.)``'>      ./
     |      <``\_/``>      |
     |       `'---'`       |
-    \github.com/trillobite/              Keep it black.
+    \github.com/trillobite/              Keep it black, keep it free.
       \_________________/  
 
 ```
