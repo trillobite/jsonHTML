@@ -16,6 +16,7 @@ An entire fully dedicated guide is in the works and nearly complete. There is a 
 I will be releasing yet another project soon called project toadFish. You will also see this project implemented into jsonHTML, but don't worry, I am attempting to keep all this minimal, staying true to the 'keep it black' philosophy. micronDB and toadFish code will be inserted as compressed javaScript. The non-compressed code will be included in the download package, so it can be viewed in a more human-legible form.
 
 micronDB: Client side volatile database. Basically, a volatile data storage system, where data can be inserted, and queried for later.
+
 toadFish: Generates grid structures for producing complex GUI boxes and structures.
 
 Visit the online guide [here.](https://trillobite.github.io)
