@@ -9,41 +9,6 @@
         the readme for more information.
 
         Enjoy!
-    AUTHOR: 
-                     (
-                 )   )
-                 (
-             .---------------------.
-             |        _____        |___      
-             |     .'`_,-._`'.      __ \
-             |    /  ( [ ] )  \    |  ||
-             |   /.-""`( )`""-.\   |  ||
-             |  ' <'```(.)```'> '  | _||
-             |    <'```(.)```'>    |/ _/
-        2    |     <'``(.)``'>      ./
-        0    |      <``\_/``>      |
-        1    |       `'---'`       |
-        5    \github.com/trillobite/              
-               \_________________/      Keep it black
-    COPYRIGHT: 
-
-        BY USING THIS CODE/SOFTWARE, YOU AGREE TO FOLLOW
-        AND UNDERSTAND WHAT IS WRITTEN BELOW:
-
-        COMMERCIAL AND PERSONAL USE IS PERMITTED.
-        SOFTWARE DOES NOT COME WITH ANY WARRANTIES OR
-        GUARANTEE'S USE AT YOUR OWN RISK! 
-
-        MODIFICATIONS TO THIS SOURCE MUST BE DOCUMENTED
-        WITH AUTHORS NAME, REASON FOR MODIFICATION, AND
-        DATE MODIFICATION WAS MADE.
-
-        GOVERNMENT USE IS INTERPRETED THE SAME AS 
-        COMMERCIAL, READ BELOW.
-
-        IF USED IN A COMMERCIAL ENVIRONMENT, CONTACT THE
-        AUTHOR OF THIS SOFTWARE, AS HE IS VERY INTERESTED
-        IN HOW POPULAR HIS SOFTWARE IS BECOMING.
 */
 
 // get instance using myDB = new micronDB();
@@ -222,3 +187,20 @@ var micronDB = function() {
         },
     };
 };
+/*  View full license in README.md
+             )
+c            (
+o        )   )
+p        (
+y    .---------------------.
+r    |        _____        |___      
+i    |     .'`_,-._`'.      __ \
+g    |    /  ( [ ] )  \    |  ||
+h    |   /.-""`( )`""-.\   |  ||
+t    |  ' <'```(.)```'> '  | _||
+     |    <'```(.)```'>    |/ _/
+2    |     <'``(.)``'>      ./
+0    |      <``\_/``>      |
+1    |       `'---'`       |
+6    \github.com/trillobite/              
+       \_________________/      Keep it black, keep it free.*/
