@@ -101,10 +101,29 @@ The code so far between the script tags should look like this:
     });
 
 ```
-Now, When you reload the page, it should be rendered on the DOM, and you can even hit "inspect element" in your browser, and you can view the HTML which was appended to the specified HTML container, in this case the "body" of the DOM. Notice how, every object you create with jsonHTML has a random character string as an ID. This random ID is created if you don't specify one yourself, in order for jsonHTML to manage appends in it's internal workings, add flexibility, and decrease code complexity so others can view and understand your code better. It is not known if having lots of ID's decreases performance in page rendering, but so far, even big web applications don't appear to mind.
+Now, When you reload the page, it should be rendered on the DOM, and you can even hit "inspect element" in your browser, and you can view the HTML which was appended to the specified HTML container, in this case the "body" of the DOM. Notice how, every object you create with jsonHTML has a random character string as an ID. This random ID is created if you don't specify one yourself, in order for jsonHTML to manage appends in it's internal workings, add flexibility, and decrease code complexity so others can view and understand your code better. It is not known if having lots of ID's decreases performance in page rendering, but so far, even big web applications don't appear to mind. Although, performance really depends on the users processing power. So far, jsonHTML has been stress tested against an old 3.4GHz Celeron D (Single Core) computer, and even with large complex webpages, it ran reasonably well.
+
+Soon to be in the next release, the append function now supports jQuery deferreds, you can gain this experimental functionality by simply downloading the code repository directly. Example:
+
+```JavaScript
+    
+    helloDiv.appendTo('body').state.done(function() {
+        console.log('Everything is now rendered, have fun!');
+    });
+``` 
+
+Later, we will discuss how deferreds can be utilized with the refresh function, but here is an example just to peak your interest:
+
+```JavaScript
+
+    helloDiv.text = 'crazy sauce!';
+    helloDiv.refresh().state.done(function() {
+        console.log('your object is done refreshing now!');
+    });
+```
 
 Now that you made your first helloWorld page with jsonHTML, we can begin with doing some tad bit more crazy, and mind bending
-stuff, But first, lets cover the basic HTML styling which is typically done naturally.
+stuff, but first, lets cover the basic HTML styling which is typically done naturally.
 
 Basic HTML/CSS styling
 ----------------------
