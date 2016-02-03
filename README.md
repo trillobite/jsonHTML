@@ -441,7 +441,7 @@ yay[0].refresh();
 //Don't worry, this time you at least assigned an ID.
 var yayz = arrdb.get('helloWorldID');
 
-yayz.text = 'What is that!',
+yayz.text = 'What is that!';
 yayz.refresh();
 ```
 
