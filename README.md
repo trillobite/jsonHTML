@@ -11,9 +11,12 @@ Documentation / Code examples Relevant for v0.7+
 
 -------------------------------------------------------------------------------------------------------------------------
 
-An entire fully dedicated guide is in the works and nearly complete. There is a new experimental version of jsonHTML, which integrates the micronDB project with jsonHTML. Make sure to download the latest release if you want something stable, as the current working branch contains the experimental micronDB+jsonHTML project code.
+An entire fully dedicated guide is in the works and nearly complete. There is a new experimental version of jsonHTML, which integrates the micronDB project with jsonHTML. Make sure to download the latest release if you want something stable, as the current working branch contains the experimental micronDB+toadFish+jsonHTML project code. Forgive me as I develop jsonHTML, documentation is taking the backburner for now. I will attempt to leave documentation within the code for those who are determined to understand the experimental code.
 
-I will be releasing yet another project soon called project toadFish. You will also see this project implemented into jsonHTML, but don't worry, I am attempting to keep all this minimal, staying true to the 'keep it black' philosophy.
+I will be releasing yet another project soon called project toadFish. You will also see this project implemented into jsonHTML, but don't worry, I am attempting to keep all this minimal, staying true to the 'keep it black' philosophy. micronDB and toadFish code will be inserted as compressed javaScript. The non-compressed code will be included in the download package, so it can be viewed in a more human-legible form.
+
+micronDB: Client side volatile database. Basically, a volatile data storage system, where data can be inserted, and queried for later.
+toadFish: Generates grid structures for producing complex GUI boxes and structures.
 
 Visit the online guide [here.](https://trillobite.github.io)
 
@@ -611,7 +614,7 @@ To do:
 
 *Object DOM removal memory leak fix.
 
-*micronDB is now implemented within jsonHTML. This is revolutionary, and will require quite a lot of documentation... maybe a youTube tutorial. Hint: Mutate objects to any other type, and back. Objects that you add with jsonHTML can be found utilizing query commands: 
+*micronDB is now implemented within jsonHTML. (Not included in the latest release yet, a new release will be made shortly.) This is revolutionary, and will require quite a lot of documentation... maybe a youTube tutorial. Hint: Mutate objects to any other type, and back. Objects that you add with jsonHTML can be found utilizing query commands: 
 ```
 arrdb.query({ //gets all jsonHTML objects of the type div.
     where: {
