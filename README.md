@@ -413,7 +413,7 @@ Experimental micronDB support
 
 Here is a very quick and interesting trick if you download jsonHTML directly off the repository. The raw build within the repository contains micronDB. Before micronDB, jsonHTML stored all of it's objects within a hash table to allow for refreshing objects. Today, jsonHTML uses a more advanced storage system called micronDB which stores its data within a hash table. The idea behind micronDB is that it is incredibly fast, and allows for making queries. jsonHTML stores it's data within micronDB by the variable name arrdb. As you may notice, the old hash table variable name was arrdb, and this was done on purpose in order to avoid any upgrade incompatibilities in the future. So here is a very basic instruction on how to use this new feature:
 
-'''JavaScript
+```JavaScript
 $jConstruct('div', {
     text: 'wah hallo',
     id: 'helloWorldID',
@@ -443,7 +443,7 @@ var yayz = arrdb.get('helloWorldID');
 
 yayz.text = 'What is that!',
 yayz.refresh();
-'''
+```
 
 Getting Down To The Grounds
 ---------------------------
