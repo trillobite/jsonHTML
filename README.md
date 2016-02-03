@@ -112,16 +112,6 @@ Soon to be in the next release, the append function now supports jQuery deferred
     });
 ``` 
 
-Later, we will discuss how deferreds can be utilized with the refresh function, but here is an example just to peak your interest:
-
-```JavaScript
-
-    helloDiv.text = 'crazy sauce!';
-    helloDiv.refresh().state.done(function() {
-        console.log('your object is done refreshing now!');
-    });
-```
-
 Now that you made your first helloWorld page with jsonHTML, we can begin with doing some tad bit more crazy, and mind bending
 stuff, but first, lets cover the basic HTML styling which is typically done naturally.
 
@@ -425,6 +415,17 @@ var child1 = $jConstruct('div', {
 });
 
 ```
+
+Later, we will discuss how deferreds can be utilized with the refresh function, but here is an example just to peak your interest:
+
+```JavaScript
+
+    helloDiv.text = 'crazy sauce!';
+    helloDiv.refresh().state.done(function() {
+        console.log('your object is done refreshing now!');
+    });
+```
+
 As you can see, this object is very condensed and compact, yet highly functional. First jConstruct was used to create a div with the text saying Click Me! Then, css was added from another object containing the definitions somewhere in the project. Then, a click event handler was added, which changes the property type in the child1 object to now define it as a text box, and refresh is used to make those changes display in the browser to the user. Other than the blur handler which translates it back into a div, that's the basics of it, and you can see this object in action in syntacticSugarExample.html, as it was just updated with this latest feature.
 
 Experimental micronDB support
