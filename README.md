@@ -408,6 +408,43 @@ var child1 = $jConstruct('div', {
 ```
 As you can see, this object is very condensed and compact, yet highly functional. First jConstruct was used to create a div with the text saying Click Me! Then, css was added from another object containing the definitions somewhere in the project. Then, a click event handler was added, which changes the property type in the child1 object to now define it as a text box, and refresh is used to make those changes display in the browser to the user. Other than the blur handler which translates it back into a div, that's the basics of it, and you can see this object in action in syntacticSugarExample.html, as it was just updated with this latest feature.
 
+Experimental micronDB support
+-----------------------------
+
+Here is a very quick and interesting trick if you download jsonHTML directly off the repository. The raw build within the repository contains micronDB. Before micronDB, jsonHTML stored all of it's objects within a hash table to allow for refreshing objects. Today, jsonHTML uses a more advanced storage system called micronDB which stores its data within a hash table. The idea behind micronDB is that it is incredibly fast, and allows for making queries. jsonHTML stores it's data within micronDB by the variable name arrdb. As you may notice, the old hash table variable name was arrdb, and this was done on purpose in order to avoid any upgrade incompatibilities in the future. So here is a very basic instruction on how to use this new feature:
+
+'''JavaScript
+$jConstruct('div', {
+    text: 'wah hallo',
+    id: 'helloWorldID',
+}).css({
+    'color': 'green',
+}).appendTo('body');
+
+$jConstruct('div', {
+    text: 'hello world',
+}).css({
+    'color': 'green',
+}).appendTo('body');
+
+//oh no! You forgot to assign a variable name! that's okay!
+var yay = arrdb.query({
+    where: {
+        text: 'hello world',
+    },
+});
+
+yay[0].text = 'hi again!';
+yay[0].refresh();
+
+
+//Don't worry, this time you at least assigned an ID.
+var yayz = arrdb.get('helloWorldID');
+
+yayz.text = 'What is that!',
+yayz.refresh();
+'''
+
 Getting Down To The Grounds
 ---------------------------
 
