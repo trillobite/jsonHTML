@@ -364,7 +364,7 @@ Still left to do:
 
 
 ```
-/*  View full license in README.md
+    View full license in README.md
              )
 c            (
 o        )   )
@@ -380,5 +380,5 @@ t    |  ' <'```(.)```'> '  | _||
 0    |      <``\_/``>      |
 1    |       `'---'`       |
 6    \github.com/trillobite/              
-       \_________________/      Keep it black, keep it free.*/
+       \_________________/      Keep it black, keep it free.
 ```
