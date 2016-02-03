@@ -445,6 +445,8 @@ yayz.text = 'What is that!',
 yayz.refresh();
 ```
 
+Don't forget, micronDB is not about helping a bad programmer get by without assigning variables. javaScript utilizes a function-level scope, and micronDB will allow you to query through ALL jsonHTML objects on the DOM and grab whatever is outside of your function-level scope. In many cases I have used this technique in order to avoid producing highly complex code. With micronDB, there are cases where you can produce highly elegant code without many issues. Lets not forget though, jQuery does have a lot of this functionality also, which is why it has the term 'Query' within it's name. micronDB is most likely for your coding situation where you need to solve a very unique problem more elegantly. micronDB is not intended to 're-invent' the wheel, it's just there to grease it's bearings.
+
 Getting Down To The Grounds
 ---------------------------
 
