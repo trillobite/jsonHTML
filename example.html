@@ -1,96 +1,96 @@
 
+<!DOCTYPE html>
 <html>
-    <head>
+  <head>
+    <meta charset="UTF-8">
         <title>jsonHTML EXAMPLE!</title>
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js'></script> <!--MAKE SURE TO INCLUDE JQUERY!!-->
         <script type='text/javascript' src='jsonHTML.js'></script>
         <script>
-            function mDiv(element) { //A generic mutable JSON Div.
-                return {
-                    type: 'div',
-                    id: element.id,
-                    text: element.text,
-                    functions: [element.css, element.event],
-                    children: undefined !== element.children ? element.children : undefined,
-                }  
-            };
-            
-            function mTxt(element) {
-                return {
-                    type: 'textbox',
-                    id: element.id,
-                    text: element.text,
-                    functions: [element.css, element.event],
-                    children: undefined !== element.children ? element.children : undefined,
-                }  
-            };
-
-            var jsonHTMLObj = function (data) {
-                return {
-                    type: 'div',
-                    id: 'thisIsDivStuff'+data.indx, //there must always be an id so that my code knows where to make appends.
-                    class: 'divStuff',
-                    text: '<h2>'+'HELLO WORLD!'+'</h2>', //you can still have some html, it just throws it all in as a string.
-                    functions: [function () {
-                        $('#thisIsDivStuff'+data.indx).css({ //set the css styling using jQuery! Or any other functions you would like!
-                            'width': '50%',
-                            'border': '1px solid black',
-                            'text-align': 'center',
-                        });
-                    }],
-                    children: [ //an array of child objects, these can be anything, even text boxes.
-                        {
-                            type: 'div',
-                            id: 'thisIsDivStuffChild0', //notice this id is static and could cause some bugs, +data.indx would make it dynamic.
-                            text: 'Hello World From Child 0',
-                            functions: [function () {
-                                $('#thisIsDivStuffChild0').css({
-                                    'width': '50%',
-                                    'border': '1px solid black',
-                                    'text-align': 'center',
-                                });
-                            }]
-                        },
-                        
-                        mDiv({
-                            id: 'thisIsDivStuffChild1',
-                            text: 'Hello World From Child 1 <-- Click me!',
-                            css: function() {
-                                $('#thisIsDivStuffChild1').css({
-                                    'width': '50%',
-                                    'border': '1px solid black',
-                                    'text-align': 'center',
-                                });
-                            },
-                            event: function () {
-                                $('#thisIsDivStuffChild1').click(function() { //mutate on the click!
-                                    $('#thisIsDivStuffChild1').remove(); //remove the old
-                                    appendHTML(mTxt({ //in with the new!
-                                        id: 'thisIsDivStuffChild1',
-                                        text: 'Hello World From Child 1',
-                                        css: function() {
-                                            $('#thisIsDivStuffChild1').css({
-                                                'color': 'purple',
-                                            })
-                                        },
-                                        event: function () { //now in reverse!
-                                            $('#thisIsDivStuffChild1').blur(function() { //when you click away from the textbox, it goes back to original!
-                                                $('#thisIsDivStuffChild1').remove();
-                                                appendHTML(jsonHTMLObj(data).children[1], '#thisIsDivStuff'+data.indx); // I can just grab the original object, like recursion!
-                                            });
-                                            $('#thisIsDivStuffChild1').focus(); //so you will be in the text box.
-                                        },
-                                    }), '#thisIsDivStuff'+data.indx);
-                                });
-                            },
-                        }),
-                    ]
-                }
-            };
             $(document).ready(function () {
-                appendHTML(jsonHTMLObj({ //now just append it to any div!
-                    indx: 1, //these are properties that you can set to your template object.
-                }), 'body');
+
+                //this is the object which you see on the screen!
+                var main = $jConstruct('div', {
+                    text: 'click me!', //this is the default text.
+                    id: 'exampleObjectID',
+                });
+
+                //while the users mouse cursor is over this object.
+                main.event('mouseover', function() {
+                    main.css({
+                        'color': 'green',
+                    });
+                });
+                
+                //when the mouse cursor leaves this object.
+                main.event('mouseout', function() {
+                    main.css({
+                        'color': 'black',
+                    });
+                });
+                
+                //when the user clicks, mutate this object into a textbox.
+                main.event('click', function() {
+                    if(main.type == 'div') {
+                        main.text = 'type some text!'
+                        main.type = 'textbox';
+                        main.refresh();                 
+                    }
+                });
+
+                //when the user is done typing, and they click outside of the box.
+                main.event('focusout', function() {
+                    if(main.type == 'textbox') {
+                        var tmp = $('#'+main.id)[0].value;
+                        main.text = tmp;
+                        main.type = 'div';
+                        main.refresh();
+                    }
+                });
+
+                //this is the styles to be applied to the object.
+                main.css({
+                    'font-family': 'arial',
+                    'text-align': 'center',
+                    'border': '1px solid black',
+                    'border-radius': '5px',
+                    'width': '300px',
+                    'cursor': 'pointer',
+                });
+
+                //can append anywhere, even to the document body!
+                main.appendTo('body');
+
+                /*
+                    See, that was not all that bad, was it? It should be quite simple,
+                    and become more simple as you contine to work with jsonHTML.
+
+                    Now, try out micronDB! Open your chrome console or firefox console,
+                    and type this:
+
+                    arrdb.query({
+                        where: {
+                            type: 'div',
+                        }
+                    });
+
+                    If it returns an empty array, you probably need to click somewhere
+                    within the document body, as the main element may still be a textbox.
+
+                    If everything is correct, it will search for a jsonHTML object which
+                    is set to be a DIV. It will return an array with a single element, 
+                    which should be the main object which you see above in the code.
+
+                    You can also call for a document directly if you have it's ID. When
+                    you have the object's ID, it simply uses the standard math for hash
+                    tables and brings your jsonHTML object back instantly, with no
+                    searching. This is the command:
+
+                    arrdb.get('exampleObjectID');  //go ahead and try it in your console!
+
+                    Notice how with the get command, it returns a single object not 
+                    contained in an array!
+                */
             });
         </script>
     </head>
