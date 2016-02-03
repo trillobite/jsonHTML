@@ -671,7 +671,7 @@ Disclaimer / License:
 ---------------------
 
 ---------------------------------------------------------------------------------------------------------------------------------
-#####jsonHTML Copyright License v1.3 2015 Jesse Parnell
+#####jsonHTML Copyright License v1.3 2016 Jesse Parnell
 
 
 #####Summary:
@@ -695,6 +695,8 @@ Feel free to fork, and ask to become a contributor, you have that right, if you 
 
 #####Philosophy:
 The "Keep it black" philosophy was arisen from the rebirth of the coffee shop culture, when one would ask if you wanted any sweeteners in your coffee, the correct response under this philosophy is, "No, keep it black." One who believes in this philosophy, finds that keeping the coffee black is the best way to experience the flavor in it's truest form, unspoiled by pesky sweeteners masking it's true nature. This same philosophy is now implemented into the code that I write, I try to keep it black, I only add fluff to the code where it's necessary, but other than that, any library I write under this philosophy is written to be as low level as possible and least intrusive to any programmer coming to try out the code I made. If you understand javaScript, there should be as small of a learning curve as possible to use my code, keeping it as true to it's roots as possible. 
+
+I am still studying all of the different forms of Licensing which I can use. Be patient, my favorite one so far is the GNU public license, but before I release it with this license, I need to ensure that as the author of this code, I am not giving up any of my own valuable rights. Thank you for your patience.
 
 
 #####Donate!
