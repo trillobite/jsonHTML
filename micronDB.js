@@ -7,7 +7,6 @@
         memory operations. This was an experiment of mine, and 
         is actually used quite often in my projects. Refer to 
         the readme for more information.
-
         Enjoy!
 */
 

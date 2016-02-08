@@ -104,15 +104,56 @@
                 This may be useful for anything that requires a static structure.
             */
 
-            var dimensional = toadFish.create2DArray(4); //Create a 2D array with four rows.
+            var exampleCSS = {
+                'font-family': 'Arial',
+                'width': '300px',
+                'height': '250px',
+                'margin': '10px',
+                'padding': '20px',
+                'text-align': 'center',
+                'align': 'inline-block',
+                'border': '1px solid black',
+                'border-radius': '5px',
+            };
+
+            var singleDimension = [];
+            for(var r = 0; r < 5; ++r) {
+                singleDimension[r] = $jConstruct('div').css({
+                    'width': '300px',
+                    'height': '20px',
+                    'background-color': 'white',
+                    'border': '1px solid black',
+                    'border-radius': '5px',
+                }).event('click', function() {
+                    var thisObj = arrdb.get(this.id);
+                    if(this.style['background-color'] == 'white') {
+                        thisObj.css({
+                            'background-color': 'gray',
+                        });
+                    } else {
+                        thisObj.css({
+                            'background-color': 'white',
+                        });
+                    }
+                });
+            }
+
+            var tiles = toadFish.structure(singleDimension, 'collectionTestingName2');
+            var tilesContainer = $jConstruct('div').addChild($jConstruct('div', {
+                text: 'Example of making tiles',
+            })).addChild(tiles).css(exampleCSS);
+
+
+            var dimensional = toadFish.create2DArray(8); //Create a 2D array with four rows.
 
             for(var r = 0; r < dimensional.length; ++r) { //for every row in dimensional.
-                for(var c = 0; c < 4; ++c) { //I want four columns, so loop four times.
+                for(var c = 0; c < 8; ++c) { //I want four columns, so loop four times.
                     dimensional[r][c] = $jConstruct('div').css({
                         'width': '20px',  //width  of each cell
                         'height': '20px', //height of each cell
                         'border': '1px solid black', //so you can see what the cells look like.
                         'background-color': 'white',
+                        'border-radius': '5px',
                     }).event('click', function() { //when the user clicks this cell, execute what is below:
                         console.log(this); //notice that 'this' returns the html object.
                         var thisObj = arrdb.get(this.id); //to get the jsonHTML object, we just grab it by the same id.
@@ -130,9 +171,13 @@
             }
 
             var grid = toadFish.structure(dimensional, 'collectionTestingName'); //now convert it all into a real grid
+            var gridContainer = $jConstruct('div').addChild($jConstruct('div', {
+                text: 'Example of making a grid',
+            })).addChild(grid).css(exampleCSS);
 
             $('document').ready(function() {
-                grid.appendTo('body'); //place it onto the DOM.
+                tilesContainer.appendTo('body');
+                gridContainer.appendTo('body'); //place it onto the DOM.
             });
 
         </script>
