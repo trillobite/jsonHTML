@@ -34,7 +34,16 @@
                     if(main.type == 'div') {
                         main.text = 'type some text!'
                         main.type = 'textbox';
-                        main.refresh();                 
+                        main.refresh();
+                        $('#'+this.id).select(); //causes the textbox to be selected.
+                    }
+                });
+
+                //if the user hits the enter key, do this!
+                main.event('keypress', function(e) {
+                    if(e.keyCode==13){
+                        //just trigger the focusout to mutate the div back into a div!
+                        $('#'+this.id).trigger('focusout');
                     }
                 });
 
@@ -58,8 +67,13 @@
                     'cursor': 'pointer',
                 });
 
+                
+                //Without this, upon refresh, the object will re-appear at the bottom of
+                //the project! The container holds it in one place.
+                var appendContainer = $jConstruct('div').addChild(main); 
+
                 //can append anywhere, even to the document body!
-                main.appendTo('body');
+                appendContainer.appendTo('body');
 
                 /*
                     See, that was not all that bad, was it? It should be quite simple,
@@ -116,15 +130,21 @@
                 'border-radius': '5px',
             };
 
-            var singleDimension = [];
-            for(var r = 0; r < 5; ++r) {
-                singleDimension[r] = $jConstruct('div').css({
-                    'width': '300px',
+            //this allows me to assign the same css to each object.
+            var cellCSS = function(input) { //input variable allows me to change the width of the object at will.
+                return {
+                    'width': input,
                     'height': '20px',
                     'background-color': 'white',
                     'border': '1px solid black',
                     'border-radius': '5px',
-                }).event('click', function() {
+                    'cursor': 'pointer',
+                }
+            };
+
+            var singleDimension = [];
+            for(var r = 0; r < 5; ++r) {
+                singleDimension[r] = $jConstruct('div').css(cellCSS('300px')).event('click', function() {
                     var thisObj = arrdb.get(this.id);
                     if(this.style['background-color'] == 'white') {
                         thisObj.css({
@@ -148,13 +168,7 @@
 
             for(var r = 0; r < dimensional.length; ++r) { //for every row in dimensional.
                 for(var c = 0; c < 8; ++c) { //I want four columns, so loop four times.
-                    dimensional[r][c] = $jConstruct('div').css({
-                        'width': '20px',  //width  of each cell
-                        'height': '20px', //height of each cell
-                        'border': '1px solid black', //so you can see what the cells look like.
-                        'background-color': 'white',
-                        'border-radius': '5px',
-                    }).event('click', function() { //when the user clicks this cell, execute what is below:
+                    dimensional[r][c] = $jConstruct('div').css(cellCSS('20px')).event('click', function() { //when the user clicks this cell, execute what is below:
                         console.log(this); //notice that 'this' returns the html object.
                         var thisObj = arrdb.get(this.id); //to get the jsonHTML object, we just grab it by the same id.
                         if(this.style['background-color'] == 'white') { //When the background is white, make it gray.

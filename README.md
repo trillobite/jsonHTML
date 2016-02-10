@@ -103,7 +103,7 @@ Soon to be in the next release, the append function now supports jQuery deferred
 Now that you made your first helloWorld page with jsonHTML, we can begin with doing some tad bit more crazy, and mind bending
 stuff, but first, lets cover the basic HTML styling which is typically done naturally.
 
-If this looks interesting to you, please continue reading [here.](https://trillobite.github.io)
+If this looks interesting to you, please continue reading [here.](https://trillobite.github.io) or visit the wiki near the top of this page.
 
 ```
     View full license in LICENSE.md
