@@ -308,11 +308,11 @@ function $jConstruct(htmlType, directInsert) {
 
 //compressed copy of toadFish. Non-compressed copy should be included in the download package.
 var toadFish={};toadFish.create2DArray=function(t){for(var r=[],l=0;t>l;++l)r[l]=[];return r},toadFish.structure=function(t,r){for(var l=$jConstruct("div",{collectionName:r}).css({clear:"left","float":"left",display:"block"}),e=0;e<t.length;++e){var a=$jConstruct("div");t[e].length?a.css({"float":"left"}):a.addChild(t[e]);for(var d=0;d<t[e].length;++d)a.addChild(t[e][d]);l.addChild(a)}return l.getCell=function(t,r){return l.children[r].children[t]},l};
-/*  View full license in README.md
+/*  View full license in LICENSE.md
              )
 c            (
 o        )   )
-p        (             v1.3
+p        (           v1.3.1
 y    .---------------------.
 r    |        _____        |___      
 i    |     .'`_,-._`'.      __ \

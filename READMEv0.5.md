@@ -364,11 +364,11 @@ Still left to do:
 
 
 ```
-    View full license in README.md
+    View full license in LICENSE.md
              )
 c            (
 o        )   )
-p        (             v1.3
+p        (           v1.3.1
 y    .---------------------.
 r    |        _____        |___      
 i    |     .'`_,-._`'.      __ \

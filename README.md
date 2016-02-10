@@ -106,10 +106,11 @@ stuff, but first, lets cover the basic HTML styling which is typically done natu
 If this looks interesting to you, please continue reading [here.](https://trillobite.github.io)
 
 ```
+    View full license in LICENSE.md
              )
 c            (
 o        )   )
-p        (
+p        (           v1.3.1
 y    .---------------------.
 r    |        _____        |___      
 i    |     .'`_,-._`'.      __ \
