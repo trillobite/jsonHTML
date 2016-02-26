@@ -19,26 +19,28 @@
         }
 
         .dropdown-content {
-            /*font-style: arial;*/
+            font-family: arial;
+            font-size: 10px;
             display: none;
             position: absolute;
             background-color: #f9f9f9;
-            min-width: 160px;
+            min-width: 80px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            padding: 12px 16px;
+            padding: 5px 10px;
             z-index: 1;
         }
 
         .dropdown-content-link {
+            /*font-family: arial;*/
             color: black;
-            padding: 12px 16px;
+            padding: 5px 10px;
             text-decoration: none;
             display: block;
         }
 
-        .dropdown:hover .dropdown-content {
+        /*.dropdown:hover .dropdown-content {
             display: block;
-        }
+        }*/
 
         .dropdown-content-link:hover {
             background-color: gray;
@@ -66,6 +68,9 @@
                 var option = $jConstruct('div', {
                     class: 'dropdown-content-link',
                     text: 'Link' + i,
+                }).event('click', function(input) {
+                    var txt = arrdb.get(input.currentTarget.id).text;
+                    console.log(txt, 'was clicked!');
                 });
                 tinyContent.addChild(option);
             }
@@ -77,12 +82,19 @@
             });
 
             tinySquare.event('mouseup', function() {
-                tinySquare.css({
-                    'background-color': 'white',
+                tinyContent.css({
+                    'display': 'block',
                 });
             });
 
+            tinyContent.event('mouseleave', function() {
+                console.log('mouseout triggered');
+                tinyContent.css({
+                    'display': 'none',
+                });
+            });
 
+            
 
             tinySquare.addChild(tinyContent);
 
