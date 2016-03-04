@@ -1,25 +1,27 @@
 /*
                                          jsonHTML
                                    Author: Jesse Parnell
-                                        Description
+                                       Description:
     This allows you to render html using jQuery dynamically. Was created for one of my own projects,
     in which virtually none of my div objects, or much of any of the HTML could have been written
     statically in HTML. It was not written for performance, therefore it may not be good for very
     large projects, but it is good if you need to write code quickly in a more intuitive manner. 
     Basically, if you can do something in javaScript, you can now do it to your HTML.
 
-                /\\\\
-               /  \\\\
-              /    \\\\
-             /      \\\\
-            /=======|\\\\
-           / \\       \\\\
-          /   \\       \\\\
-         /    //        \\\\
-        /    //          \\\\.
-       /     =======|     \\\\=
-      /....................\\\\==
-     github.com/trillobite/jsonHTML
+(c) v1.3.1        /\\\\
+ o               /  \\\\
+ p              /    \\\\
+ y             /      \\\\
+ r            /=======|\\\\
+ i           / \\       \\\\
+ g          /   \\       \\\\
+ h         /    //        \\\\
+ t        /    //          \\\\.
+         /    .=======|     \\\\=
+ 2      /....................\\\\==
+ 0     github.com/trillobite/jsonHTML
+ 1
+ 6    View full license in  LICENSE.md
 
 */
 
@@ -248,23 +250,3 @@ var make = function(tmp, prop) {
 
 //compressed copy of toadFish. Non-compressed copy should be included in the download package.
 var toadFish={};toadFish.create2DArray=function(t){for(var r=[],l=0;t>l;++l)r[l]=[];return r},toadFish.structure=function(t,r){for(var l=$jConstruct("div",{collectionName:r}).css({clear:"left","float":"left",display:"block"}),e=0;e<t.length;++e){var a=$jConstruct("div");t[e].length?a.css({"float":"left"}):a.addChild(t[e]);for(var d=0;d<t[e].length;++d)a.addChild(t[e][d]);l.addChild(a)}return l.getCell=function(t,r){return l.children[r].children[t]},l};
-
-
-
-/*  View full license in LICENSE.md
-             )
-c            (
-o        )   )
-p        (           v1.3.1
-y    .---------------------.
-r    |        _____        |___      
-i    |     .'`_,-._`'.      __ \
-g    |    /  ( [ ] )  \    |  ||
-h    |   /.-""`( )`""-.\   |  ||
-t    |  ' <'```(.)```'> '  | _||
-     |    <'```(.)```'>    |/ _/
-2    |     <'``(.)``'>      ./
-0    |      <``\_/``>      |
-1    |       `'---'`       |
-6    \github.com/trillobite/              
-       \_________________/      Keep it black, keep it free.*/
