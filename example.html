@@ -6,6 +6,104 @@
         <title>jsonHTML EXAMPLE!</title>
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js'></script> <!--MAKE SURE TO INCLUDE JQUERY!!-->
         <script type='text/javascript' src='jsonHTML.js'></script>
+        <style>
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+        }
+
+        .dropdown-content {
+            font-family: arial;
+            font-size: 10px;
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 80px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 5px 10px;
+            z-index: 1;
+        }
+
+        .dropdown-content-link {
+            /*font-family: arial;*/
+            color: black;
+            padding: 5px 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /*.dropdown:hover .dropdown-content {
+            display: block;
+        }*/
+
+        .dropdown-content-link:hover {
+            background-color: gray;
+            cursor: pointer;
+        }
+
+        </style>
+
+        <script>
+
+            /*
+                Here will be an example of a drop-down menu.
+            */
+
+            var tinySquare = $jConstruct('div', {
+                class: 'dropdown',
+            });
+
+            var tinyContent = $jConstruct('div', {
+                class: 'dropdown-content',
+                //text: 'hello world',
+            });
+
+            for(var i = 0; i < 4; ++i) {
+                var option = $jConstruct('div', {
+                    class: 'dropdown-content-link',
+                    text: 'Link' + i,
+                }).event('click', function(input) {
+                    var txt = arrdb.get(input.currentTarget.id).text;
+                    console.log(txt, 'was clicked!');
+                });
+                tinyContent.addChild(option);
+            }
+
+            tinySquare.event('mousedown', function() {
+                tinySquare.css({
+                    'background-color': 'gray',
+                });
+            });
+
+            tinySquare.event('mouseup', function() {
+                tinyContent.css({
+                    'display': 'block',
+                });
+            });
+
+            tinyContent.event('mouseleave', function() {
+                console.log('mouseout triggered');
+                tinyContent.css({
+                    'display': 'none',
+                });
+            });
+
+            
+
+            tinySquare.addChild(tinyContent);
+
+            $('document').ready(function() {
+                tinySquare.appendTo('body');
+            });
+
+        </script>
+
         <script>
             $(document).ready(function () {
 
@@ -63,8 +161,9 @@
                     'text-align': 'center',
                     'border': '1px solid black',
                     'border-radius': '5px',
-                    'width': '300px',
+                    'width': '340px',
                     'cursor': 'pointer',
+                    'margin': '10px',
                 });
 
                 
@@ -121,7 +220,7 @@
             var exampleCSS = {
                 'font-family': 'Arial',
                 'width': '300px',
-                'height': '250px',
+                'height': '200px',
                 'margin': '10px',
                 'padding': '20px',
                 'text-align': 'center',
@@ -195,6 +294,8 @@
             });
 
         </script>
+
+
     </head>
         <body></body>
 </html>
