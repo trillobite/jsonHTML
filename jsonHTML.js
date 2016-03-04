@@ -263,12 +263,12 @@ var jConstructObjectManipulations = { //text object manipulations.
             return this;
         };
         //Allows the user to render the object on the DOM again.
-        tmp.refresh = function() {
+        tmp.refresh = function(appendType) {
             var dfd = new $.Deferred();
             if(tmp.parent.length > 0) {
                 tmp.remove();
-
-                tmp.appendTo(tmp.parent, arrdb.get(tmp.id).append).state.done(function() {
+                var appending = appendType ? appendType : arrdb.get(tmp.id).append;
+                tmp.appendTo(tmp.parent, appendType).state.done(function() {
                     dfd.resolve();
                 }); //make sure to get from the hash table how the object was originally appended.
 
