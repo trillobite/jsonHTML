@@ -7,6 +7,20 @@
     statically in HTML. It was not written for performance, therefore it may not be good for very
     large projects, but it is good if you need to write code quickly in a more intuitive manner. 
     Basically, if you can do something in javaScript, you can now do it to your HTML.
+
+                /\\\\
+               /  \\\\
+              /    \\\\
+             /      \\\\
+            /=======|\\\\
+           / \\       \\\\
+          /   \\       \\\\
+         /    //        \\\\
+        /    //          \\\\.
+       /    |=======|     \\\\=
+      /....................\\\\==
+     github.com/trillobite/jsonHTML
+
 */
 
 //view un-minified micronDB code under the micronDB project repository.
@@ -48,20 +62,6 @@ var parsetype = function (type) {
         return ico;
     }
     var options = {
-        button: function (element) {
-            var html = {
-                start: '<button type="button"',
-                end: undefined !== element.text ? '>' + element.text + '</button>' : '></button>',
-            };
-            return html.start + ico(element) + html.end;
-        },
-        checkbox: function (element) {
-            var html = {
-                start: '<input type="checkbox"',
-                end: '>' + (undefined !== element.text ? element.text : '') + '<br>',
-            };
-            return html.start + ico(element) + html.end;
-        },
         generic: function(element) { //this can be used to generate div's
             var html = {
                 start: '<' + element.type,
@@ -72,35 +72,6 @@ var parsetype = function (type) {
         html: function (element) {
             return element.data;
         },
-        image: function (element) {
-            var html = {
-                start: '<img src='+element.src+' alt="'+element.text,
-                end: '>',
-            };
-            return html.start + ico(element) + html.end;
-        },
-        input: function (element) { //generic input type html object.
-            var html = {
-                start: '<input',
-                end: '/>',
-            };
-            return html.start + ico(element) + html.end;
-        },
-        spinner: function (element) {
-            var html = {
-                start: undefined !== element.text ? element.text+'<input type="number"' : '<input type="number"',
-                end: '/>',
-            };
-            return html.start + ico(element) + html.end;
-        },
-        textbox: function (element) {
-            var html = {
-                start: '<input type="text"',
-                end: undefined !== element.text ? ' value="' + element.text + '">' : '>',
-            };
-            return html.start + ico(element) + html.end;
-        },
-
     };
     return undefined !== options[type] ? options[type] : options['generic']; //if jsonHTML does not have that type, it will try a generic method to create it.
 };
@@ -143,35 +114,7 @@ function appendHTML(jsonObj, container, type) {
     return dfd.promise();
 }
 
-var jConstructObjectManipulations = { //text object manipulations.
-    textStyling: function(tmp) {
-        return {
-            hyperlink: function(linkTo) {
-                tmp.text = '<a href='+linkTo+'>'+tmp.text+'</a>';
-                return this;
-            },
-            bold: function() {
-                tmp.text = '<b>'+tmp.text+'</b>';
-                return this;
-            },
-            italicize: function() {
-                tmp.text = '<i>'+tmp.text+'</i>';
-                return this;
-            },
-            strong: function () {
-                tmp.text = '<strong>'+tmp.text+'</strong>';
-                return this;
-            },
-            heading: function(num) {
-                tmp.text = '<h'+num+'>'+tmp.text+'</h'+num+'>';
-                return tmp;
-            },
-            paragraph: function() {
-                tmp.text = '<p>'+tmp.text+'</p>';
-                return tmp;
-            }
-        };
-    },
+var jConstructObjectManipulations = {
     //what you can immediately call on any object created by $jConstruct.
     basicPropertiesInsert: function(tmp, directInsert) {
         tmp.addChild = function(childObj) { //add a child JSON object on the fly.
@@ -233,11 +176,6 @@ var jConstructObjectManipulations = { //text object manipulations.
             }
             return this; //everything worked as expected.
         };
-        //dynamically add new properties to the JSON HTML object on the fly.
-        tmp.editProperty = function(properties) {
-            jConstructObjectManipulations.dynamicPropertiesAdd(tmp, properties);
-            return this;
-        };
         //remove the object from the DOM.
         tmp.remove = function() {
             var divId = this.id;
@@ -249,16 +187,6 @@ var jConstructObjectManipulations = { //text object manipulations.
                 $('#'+divId).remove();                
             } else {
                 console.log(divId, 'object does not exist, or has already been removed');
-            }
-            return this;
-        };
-        //allows the user to change what the text looks like with simple pre-generated HTML tags.
-        tmp.textProperties = function(type, option) {
-            var options = jConstructObjectManipulations.textStyling(tmp);
-            if(option) {
-                options[type](option);
-            } else {
-                options[type]();
             }
             return this;
         };
@@ -306,9 +234,6 @@ function $jConstruct(htmlType, directInsert) {
     return tmp;
 }
 
-//compressed copy of toadFish. Non-compressed copy should be included in the download package.
-var toadFish={};toadFish.create2DArray=function(t){for(var r=[],l=0;t>l;++l)r[l]=[];return r},toadFish.structure=function(t,r){for(var l=$jConstruct("div",{collectionName:r}).css({clear:"left","float":"left",display:"block"}),e=0;e<t.length;++e){var a=$jConstruct("div");t[e].length?a.css({"float":"left"}):a.addChild(t[e]);for(var d=0;d<t[e].length;++d)a.addChild(t[e][d]);l.addChild(a)}return l.getCell=function(t,r){return l.children[r].children[t]},l};
-
 var make = function(tmp, prop) {
     if(tmp) {
         return $jConstruct(tmp, prop);
@@ -320,6 +245,11 @@ var make = function(tmp, prop) {
         },
     };
 };
+
+//compressed copy of toadFish. Non-compressed copy should be included in the download package.
+var toadFish={};toadFish.create2DArray=function(t){for(var r=[],l=0;t>l;++l)r[l]=[];return r},toadFish.structure=function(t,r){for(var l=$jConstruct("div",{collectionName:r}).css({clear:"left","float":"left",display:"block"}),e=0;e<t.length;++e){var a=$jConstruct("div");t[e].length?a.css({"float":"left"}):a.addChild(t[e]);for(var d=0;d<t[e].length;++d)a.addChild(t[e][d]);l.addChild(a)}return l.getCell=function(t,r){return l.children[r].children[t]},l};
+
+
 
 /*  View full license in LICENSE.md
              )
