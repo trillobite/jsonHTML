@@ -236,7 +236,7 @@ function $jConstruct(htmlType, directInsert) {
     return tmp;
 }
 
-var make = function(tmp, prop) {
+var sigma = function(tmp, prop) {
     if(tmp) {
         return $jConstruct(tmp, prop);
     }
