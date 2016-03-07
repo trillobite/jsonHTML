@@ -30,223 +30,229 @@ var micronDB=function(){return{db:[],hashTraverse:function(r,t){if(this.db[r]){f
 
 var arrdb = new micronDB();
 
-/*
-    If the user does not provide a div id for their object, this will make a 
-    random one.
-*/
-var makeID = function () {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+var sig = function(typ, prop) {
+    /*
+        If the user does not provide a div id for their object, this will make a 
+        random one.
+    */
+    var makeID = function () {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for( var i=0; i < 12; i++ ) //rough estimate: 44,652 possible unique random ids.
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+        for( var i=0; i < 12; i++ ) //rough estimate: 44,652 possible unique random ids.
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-    /*if(!(arrdb.hash({id: text, append: undefined, }))) {
-        text + Math.floor(Math.random() * 24);
-        console.log('warning: Last div id was the same, are you making too many objects without div id\'s? ', text);
-    }*/
-    return text;
-};
+        /*if(!(arrdb.hash({id: text, append: undefined, }))) {
+            text + Math.floor(Math.random() * 24);
+            console.log('warning: Last div id was the same, are you making too many objects without div id\'s? ', text);
+        }*/
+        return text;
+    };
 
-//Returns a small chunk of HTML as a string back to the parent function.
-//Can produce HTML for a button, text box, or a div element.
-var parsetype = function (type) {
-    function ico(element) {
-        var ico = "";
-        for(var k in element) {
-            var obj = k.toString();
-            if(typeof element[k] == 'string') { //makes sure that the object is a property, and not an array, or function, or object, or whatever.
-                if(k != 'text' && k != 'type') { //these are properties that are already handled and reserved for jsonHTML.
-                    ico += ' ' + obj + '="' + element[k] + '"';
+    //Returns a small chunk of HTML as a string back to the parent function.
+    //Can produce HTML for a button, text box, or a div element.
+    var parsetype = function (type) {
+        function ico(element) {
+            var ico = "";
+            for(var k in element) {
+                var obj = k.toString();
+                if(typeof element[k] == 'string') { //makes sure that the object is a property, and not an array, or function, or object, or whatever.
+                    if(k != 'text') { //these are properties that are already handled and reserved for jsonHTML.
+                        ico += ' ' + obj + '="' + element[k] + '"';
+                    }
                 }
             }
+            return ico;
         }
-        return ico;
+        var options = {
+            generic: function(element) { //this can be used to generate div's
+                var html = {
+                    start: '<' + element.type,
+                    end: undefined !== element.text ? '>' + element.text + '</' + element.type + '>' : '></' + element.type + '>',
+                };
+                return html.start + ico(element) + html.end;
+            },
+            input: function (element) { //generic input type html object.
+                var html = {
+                    start: '<input',
+                    end: '/>',
+                };
+                return html.start + ico(element) + html.end;
+            },
+            html: function (element) {
+                return element.data;
+            },
+        };
+        //these are input objects that require the input tag name.
+        var inpts = ['button', 'text', 'textbox', 'password', 'checkbox', 'radio', 'file', 'image', 'submit'];
+        if(inpts.indexOf(type) > -1) {
+            return options['input']
+        }
+        //if it's not an input object, just do this.
+        return undefined !== options[type] ? options[type] : options['generic']; //if jsonHTML does not have that type, it will try a generic method to create it.
+    };
+
+    //recursive function, simply loops until there are no more children objects,
+    //uses jQuery to append to the parent object (usually a div element).
+    function appendHTML(jsonObj, container, type) {
+        var dfd = new $.Deferred();
+        var exec = function () {
+            if(typeof jsonObj == 'function'){
+                jsonObj = jsonObj();
+            }
+            if(undefined === jsonObj.id) {
+                jsonObj.id = makeID();
+            }
+            if(arrdb.exists(jsonObj.id)) {
+                arrdb.get(jsonObj.id).append = type;
+            } else {
+                arrdb.hash(jsonObj);
+            }
+            jsonObj.parent = container;
+            if(type) {
+                $(container)[type](parsetype(jsonObj.type)(jsonObj));
+            } else {
+                $(container).append(parsetype(jsonObj.type)(jsonObj));
+            }
+            if(undefined !== jsonObj.children) {
+                $.each(jsonObj.children, function () {
+                    appendHTML(this, '#'+jsonObj.id);
+                });
+            }
+            if(undefined !== jsonObj.functions) {
+                $.each(jsonObj.functions, function () {
+                    this();
+                });
+            }
+            dfd.resolve();
+        };
+        exec();
+        return dfd.promise();
     }
-    var options = {
-        generic: function(element) { //this can be used to generate div's
-            var html = {
-                start: '<' + element.type,
-                end: undefined !== element.text ? '>' + element.text + '</' + element.type + '>' : '></' + element.type + '>',
-            };
-            return html.start + ico(element) + html.end;
-        },
-        html: function (element) {
-            return element.data;
-        },
-    };
-    return undefined !== options[type] ? options[type] : options['generic']; //if jsonHTML does not have that type, it will try a generic method to create it.
-};
 
-//recursive function, simply loops until there are no more children objects,
-//uses jQuery to append to the parent object (usually a div element).
-function appendHTML(jsonObj, container, type) {
-    var dfd = new $.Deferred();
-    var exec = function () {
-        if(typeof jsonObj == 'function'){
-            jsonObj = jsonObj();
-        }
-        if(undefined === jsonObj.id) {
-            jsonObj.id = makeID();
-        }
-        if(arrdb.exists(jsonObj.id)) {
-            arrdb.get(jsonObj.id).append = type;
-        } else {
-            arrdb.hash(jsonObj);
-        }
-        jsonObj.parent = container;
-        if(type) {
-            $(container)[type](parsetype(jsonObj.type)(jsonObj));
-        } else {
-            $(container).append(parsetype(jsonObj.type)(jsonObj));
-        }
-        if(undefined !== jsonObj.children) {
-            $.each(jsonObj.children, function () {
-                appendHTML(this, '#'+jsonObj.id);
-            });
-        }
-        if(undefined !== jsonObj.functions) {
-            $.each(jsonObj.functions, function () {
-                this();
-            });
-        }
-        dfd.resolve();
-    };
-    exec();
-    return dfd.promise();
-}
-
-var jConstructObjectManipulations = {
-    //what you can immediately call on any object created by $jConstruct.
-    basicPropertiesInsert: function(tmp, directInsert) {
-        tmp.addChild = function(childObj) { //add a child JSON object on the fly.
-            this.children[this.children.length] = childObj; 
-            return this; 
-        }; 
-        tmp.addFunction = function(addFunc) { //add a function on the fly.
-            this.functions[this.functions.length] = addFunc; 
-            return this; 
-        }; 
-        tmp.appendTo = function(parent, type) { //append the JSON to a container div.
-            var dfd = new $.Deferred();
-            var id;
-            if(typeof parent == "object") { //if a jsonHTML object is inserted intended as the object to append to, grab the id of it.
-                id = '#' + parent.id;
-            } else {
-                id = parent;
-            }
-            appendHTML(this, id, type).done(function () {
-                dfd.resolve();
-            }); 
-            this.state = dfd;
-            return this;
-        };
-        tmp.event = function(type, func) {
-            var divId = '#'+this.id;
-            if($(divId)[0]) { //if the object is on the DOM.
-                if(func) {
-                    $(divId)[type](func);
+    var jConstructObjectManipulations = {
+        //what you can immediately call on any object created by $jConstruct.
+        basicPropertiesInsert: function(tmp, directInsert) {
+            tmp.addChild = function(childObj) { //add a child JSON object on the fly.
+                this.children[this.children.length] = childObj; 
+                return this; 
+            }; 
+            tmp.addFunction = function(addFunc) { //add a function on the fly.
+                this.functions[this.functions.length] = addFunc; 
+                return this; 
+            }; 
+            tmp.appendTo = function(parent, type) { //append the JSON to a container div.
+                var dfd = new $.Deferred();
+                var id;
+                if(typeof parent == "object") { //if a jsonHTML object is inserted intended as the object to append to, grab the id of it.
+                    id = '#' + parent.id;
                 } else {
-                    $(divId)[type]();
+                    id = parent;
                 }
-            } else {
-                if(func) {
-                    tmp.addFunction(function () { $(divId)[type](func) });
-                } else {
-                    tmp.addFunction(function () { $(divId)[type]() });
-                }
-            }
-            return this;
-        };
-        tmp.css = function(input) { //sets CSS to the current element.
-            //console.log(this);
-            var divId = '#'+this.id;
-            if($(divId)[0]) { //if the object is rendered on the DOM.
-                if(input) {
-                    $(divId).css(input); //set the css
-                } else { //if there was no input
-                    return $(divId)[0].style; //return the object styles.
-                }
-            } else { //if not rendered on the DOM
-                if(input) { //if css was input
-                    this.addFunction(function() { //set CSS after it is rendered on the DOM.
-                        $(divId).css(input);
-                    });
-                } else { //if there was no input
-                    return $(divId)[0].style; //return the object styles.
-                }
-            }
-            return this; //everything worked as expected.
-        };
-        //remove the object from the DOM.
-        tmp.remove = function() {
-            var divId = this.id;
-            var myNode = document.getElementById(divId);
-            if(myNode) {
-                while(myNode.firstChild) { //Experimental DOM object removal, jQuery "remove" leaves a temporary memory leak, this is intended to fix that issue.
-                    myNode.removeChild(myNode.firstChild);
-                }
-                $('#'+divId).remove();                
-            } else {
-                console.log(divId, 'object does not exist, or has already been removed');
-            }
-            return this;
-        };
-        //Allows the user to render the object on the DOM again.
-        tmp.refresh = function(appendType) {
-            var dfd = new $.Deferred();
-            if(tmp.parent.length > 0) {
-                tmp.remove();
-                var appending = appendType ? appendType : arrdb.get(tmp.id).append;
-                tmp.appendTo(tmp.parent, appendType).state.done(function() {
+                appendHTML(this, id, type).done(function () {
                     dfd.resolve();
-                }); //make sure to get from the hash table how the object was originally appended.
+                }); 
+                this.state = dfd;
+                return this;
+            };
+            tmp.event = function(type, func) {
+                var divId = '#'+this.id;
+                if($(divId)[0]) { //if the object is on the DOM.
+                    if(func) {
+                        $(divId)[type](func);
+                    } else {
+                        $(divId)[type]();
+                    }
+                } else {
+                    if(func) {
+                        tmp.addFunction(function () { $(divId)[type](func) });
+                    } else {
+                        tmp.addFunction(function () { $(divId)[type]() });
+                    }
+                }
+                return this;
+            };
+            tmp.css = function(input) { //sets CSS to the current element.
+                //console.log(this);
+                var divId = '#'+this.id;
+                if($(divId)[0]) { //if the object is rendered on the DOM.
+                    if(input) {
+                        $(divId).css(input); //set the css
+                    } else { //if there was no input
+                        return $(divId)[0].style; //return the object styles.
+                    }
+                } else { //if not rendered on the DOM
+                    if(input) { //if css was input
+                        this.addFunction(function() { //set CSS after it is rendered on the DOM.
+                            $(divId).css(input);
+                        });
+                    } else { //if there was no input
+                        return $(divId)[0].style; //return the object styles.
+                    }
+                }
+                return this; //everything worked as expected.
+            };
+            //remove the object from the DOM.
+            tmp.remove = function() {
+                var divId = this.id;
+                var myNode = document.getElementById(divId);
+                if(myNode) {
+                    while(myNode.firstChild) { //Experimental DOM object removal, jQuery "remove" leaves a temporary memory leak, this is intended to fix that issue.
+                        myNode.removeChild(myNode.firstChild);
+                    }
+                    $('#'+divId).remove();                
+                } else {
+                    console.log(divId, 'object does not exist, or has already been removed');
+                }
+                return this;
+            };
+            //Allows the user to render the object on the DOM again.
+            tmp.refresh = function(appendType) {
+                var dfd = new $.Deferred();
+                if(tmp.parent.length > 0) {
+                    tmp.remove();
+                    var appending = appendType ? appendType : arrdb.get(tmp.id).append;
+                    tmp.appendTo(tmp.parent, appendType).state.done(function() {
+                        dfd.resolve();
+                    }); //make sure to get from the hash table how the object was originally appended.
 
-            } else {
-                dfd.reject('Error: Parent of the object not defined. Was it rendered to the DOM yet?');
-            }
-            this.state = dfd;
-            return this;
-        };
-    },
-    dynamicPropertiesAdd: function(tmp, directInsert) {
-        for(var propertyName in directInsert) {
-            tmp[propertyName] = directInsert[propertyName];
-        }
-        return this;
-    }
-};
-
-
-//so that you can construct an object that will work just like any other javaScript object.
-function $jConstruct(htmlType, directInsert) {
-    var tmp = {
-        type: undefined !== htmlType ? htmlType : 'div', //defaults to a div
-        children: [],
-        functions: [],
-    };
-    if(directInsert) { //dynamically add all properties to the object from directInsert that the user inputs.
-        jConstructObjectManipulations.dynamicPropertiesAdd(tmp, directInsert);
-    }
-    if(undefined === tmp.id) {
-        tmp.id = makeID();
-    }
-    jConstructObjectManipulations.basicPropertiesInsert(tmp, directInsert);
-    
-    return tmp;
-}
-
-var sigma = function(tmp, prop) {
-    if(tmp) {
-        return $jConstruct(tmp, prop);
-    }
-    return {
-        input: function(tmp, prop) {
-            prop ? prop.type = tmp : prop = {type: tmp};
-            return $jConstruct('input', prop);
+                } else {
+                    dfd.reject('Error: Parent of the object not defined. Was it rendered to the DOM yet?');
+                }
+                this.state = dfd;
+                return this;
+            };
         },
+        dynamicPropertiesAdd: function(tmp, directInsert) {
+            for(var propertyName in directInsert) {
+                tmp[propertyName] = directInsert[propertyName];
+            }
+            return this;
+        }
     };
+
+    return (function() {
+        var tmp = {
+            type: undefined !== typ ? typ : 'div', //defaults to a div
+            children: [],
+            functions: [],
+        };
+        if(prop) { //dynamically add all properties to the object from prop that the user inputs.
+            jConstructObjectManipulations.dynamicPropertiesAdd(tmp, prop);
+        }
+        if(undefined === tmp.id) {
+            tmp.id = makeID();
+        }
+        jConstructObjectManipulations.basicPropertiesInsert(tmp, prop);
+        
+        return tmp;        
+    })();
 };
+
+//for some backwards compatibility.
+function $jConstruct(typ, prop) {
+    return sig(typ, prop);
+}
 
 //compressed copy of toadFish. Non-compressed copy should be included in the download package.
 var toadFish={};toadFish.create2DArray=function(t){for(var r=[],l=0;t>l;++l)r[l]=[];return r},toadFish.structure=function(t,r){for(var l=$jConstruct("div",{collectionName:r}).css({clear:"left","float":"left",display:"block"}),e=0;e<t.length;++e){var a=$jConstruct("div");t[e].length?a.css({"float":"left"}):a.addChild(t[e]);for(var d=0;d<t[e].length;++d)a.addChild(t[e][d]);l.addChild(a)}return l.getCell=function(t,r){return l.children[r].children[t]},l};
