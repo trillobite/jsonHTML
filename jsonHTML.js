@@ -36,17 +36,17 @@ var sig = function(typ, prop) {
         random one.
     */
     var makeID = function () {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var txt = "";
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
         for( var i=0; i < 12; i++ ) //rough estimate: 44,652 possible unique random ids.
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
+            txt += chars.charAt(Math.floor(Math.random() * chars.length));
 
         /*if(!(arrdb.hash({id: text, append: undefined, }))) {
             text + Math.floor(Math.random() * 24);
             console.log('warning: Last div id was the same, are you making too many objects without div id\'s? ', text);
         }*/
-        return text;
+        return txt;
     };
 
     //Returns a small chunk of HTML as a string back to the parent function.
@@ -54,11 +54,7 @@ var sig = function(typ, prop) {
     var parsetype = function (type) {
         var isInput = function(typ) {
             //these are input objects that require the input tag name.
-            var inpts = ['text', 'textbox', 'password', 'checkbox', 'radio', 'file', 'image', 'submit'];
-            if(inpts.indexOf(typ) > -1) {
-                return true;
-            }
-            return false;
+            return ['text', 'textbox', 'password', 'checkbox', 'radio', 'file', 'image', 'submit'].indexOf(typ) > -1;
         };
         var ico = function(element) {
             var ico = "";
@@ -75,6 +71,7 @@ var sig = function(typ, prop) {
             }
             return ico;
         };
+        //this is actually what creates the HTML.
         var options = {
             generic: function(element) { //this can be used to generate div's
                 var html = {
@@ -95,15 +92,7 @@ var sig = function(typ, prop) {
             },
         };
 
-        if(isInput(type)) {
-            return options['input']
-        }
-
-        if(options[type]) { //if listed as an known object type,
-            return options[type]; //just return the known object type.
-        } else {
-            return options['generic']; //else, just return the generic HTML structure.
-        }
+        return isInput(type) ? options['input'] : options[type] ? options[type] : options['generic'];
     };
 
     //recursive function, simply loops until there are no more children objects,
@@ -144,9 +133,9 @@ var sig = function(typ, prop) {
         return dfd.promise();
     }
 
-    var jConstructObjectManipulations = {
+    var objManip = {
         //what you can immediately call on any object created by $jConstruct.
-        basicPropertiesInsert: function(tmp, directInsert) {
+        basicPropInsrt: function(tmp, directInsert) {
             tmp.addChild = function(childObj) { //add a child JSON object on the fly.
                 this.children[this.children.length] = childObj; 
                 return this; 
@@ -237,7 +226,7 @@ var sig = function(typ, prop) {
                 return this;
             };
         },
-        dynamicPropertiesAdd: function(tmp, directInsert) {
+        propertyAdd: function(tmp, directInsert) {
             for(var propertyName in directInsert) {
                 tmp[propertyName] = directInsert[propertyName];
             }
@@ -252,12 +241,12 @@ var sig = function(typ, prop) {
             functions: [],
         };
         if(prop) { //dynamically add all properties to the object from prop that the user inputs.
-            jConstructObjectManipulations.dynamicPropertiesAdd(tmp, prop);
+            objManip.propertyAdd(tmp, prop);
         }
         if(undefined === tmp.id) {
             tmp.id = makeID();
         }
-        jConstructObjectManipulations.basicPropertiesInsert(tmp, prop);
+        objManip.basicPropInsrt(tmp, prop);
         
         return tmp;        
     })();
