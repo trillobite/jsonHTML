@@ -52,30 +52,41 @@ var sig = function(typ, prop) {
     //Returns a small chunk of HTML as a string back to the parent function.
     //Can produce HTML for a button, text box, or a div element.
     var parsetype = function (type) {
-        function ico(element) {
+        var isInput = function(typ) {
+            //these are input objects that require the input tag name.
+            var inpts = ['text', 'textbox', 'password', 'checkbox', 'radio', 'file', 'image', 'submit'];
+            if(inpts.indexOf(typ) > -1) {
+                return true;
+            }
+            return false;
+        };
+        var ico = function(element) {
             var ico = "";
             for(var k in element) {
                 var obj = k.toString();
                 if(typeof element[k] == 'string') { //makes sure that the object is a property, and not an array, or function, or object, or whatever.
-                    if(k != 'text') { //these are properties that are already handled and reserved for jsonHTML.
+                    if(k == 'type' && isInput(type)) {
+                        ico += ' ' + obj + '="' + element[k] + '"';
+                    }
+                    if(k != 'text' && k != 'type') { //these are properties that are already handled and reserved for jsonHTML.
                         ico += ' ' + obj + '="' + element[k] + '"';
                     }
                 }
             }
             return ico;
-        }
+        };
         var options = {
             generic: function(element) { //this can be used to generate div's
                 var html = {
                     start: '<' + element.type,
-                    end: undefined !== element.text ? '>' + element.text + '</' + element.type + '>' : '></' + element.type + '>',
+                    end: element.text ? '>' + element.text + '</' + element.type + '>' : '></' + element.type + '>',
                 };
                 return html.start + ico(element) + html.end;
             },
             input: function (element) { //generic input type html object.
                 var html = {
                     start: '<input',
-                    end: '/>',
+                    end: element.text ? ' value="' + element.text + '"></input>' : '></input>',
                 };
                 return html.start + ico(element) + html.end;
             },
@@ -83,13 +94,16 @@ var sig = function(typ, prop) {
                 return element.data;
             },
         };
-        //these are input objects that require the input tag name.
-        var inpts = ['button', 'text', 'textbox', 'password', 'checkbox', 'radio', 'file', 'image', 'submit'];
-        if(inpts.indexOf(type) > -1) {
+
+        if(isInput(type)) {
             return options['input']
         }
-        //if it's not an input object, just do this.
-        return undefined !== options[type] ? options[type] : options['generic']; //if jsonHTML does not have that type, it will try a generic method to create it.
+
+        if(options[type]) { //if listed as an known object type,
+            return options[type]; //just return the known object type.
+        } else {
+            return options['generic']; //else, just return the generic HTML structure.
+        }
     };
 
     //recursive function, simply loops until there are no more children objects,
