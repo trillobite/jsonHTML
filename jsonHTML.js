@@ -42,9 +42,9 @@ var sig = function(typ, prop) {
         for(var i = 0; i < 12; ++i) { nwID += chars.charAt(Math.floor(Math.random() * chars.length)); }
 
         //comment for performance, uncomment for stability.
-        if(arrdb.get(nwID)) { //will loop until new id is found.
+        if(arrdb.exists(nwID)) { //will loop until new id is found.
             if(sanity > 0) {console.log('warning: collision in micronDB hash.')}
-            if(sanity > 10) { //10 tries to make new ID.
+            if(sanity > 10) { //10 tries to make new ID. Prevents infinate loop.
                 console.log("micronDB ran out of ID's!");
             } else {
                 if(!sanity) {sanity = 0;}
