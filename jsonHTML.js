@@ -35,23 +35,29 @@ var sig = function(typ, prop) {
         If the user does not provide a div id for their object, this will make a 
         random one.
     */
-    var makeID = function () {
-        var txt = "";
+    var makeID = function (sanity) {
+        var nwID = "";
         var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        //rough estimate: 44,652 possible unique random IDs. Increase ID length for more possible IDs.
+        for(var i = 0; i < 12; ++i) { nwID += chars.charAt(Math.floor(Math.random() * chars.length)); }
 
-        for( var i=0; i < 12; i++ ) //rough estimate: 44,652 possible unique random ids.
-            txt += chars.charAt(Math.floor(Math.random() * chars.length));
-
-        /*if(!(arrdb.hash({id: text, append: undefined, }))) {
-            text + Math.floor(Math.random() * 24);
-            console.log('warning: Last div id was the same, are you making too many objects without div id\'s? ', text);
-        }*/
-        return txt;
+        //comment for performance, uncomment for stability.
+        if(arrdb.get(nwID)) { //will loop until new id is found.
+            if(sanity > 0) {console.log('warning: collision in micronDB hash.')}
+            if(sanity > 10) { //10 tries to make new ID.
+                console.log("micronDB ran out of ID's!");
+            } else {
+                if(!sanity) {sanity = 0;}
+                //failure to generate a new ID will crash the web application. This is better than having the same ID for two objects.
+                nwID = makeID(++sanity); 
+            }
+        }
+        return nwID;
     };
 
     //Returns a small chunk of HTML as a string back to the parent function.
     //Can produce HTML for a button, text box, or a div element.
-    var parsetype = function (type) {
+    var mkHTML = function (type) {
         var isInput = function(typ) {
             //these are input objects that require the input tag name.
             return ['text', 'textbox', 'password', 'checkbox', 'radio', 'file', 'image', 'submit'].indexOf(typ) > -1;
@@ -112,19 +118,19 @@ var sig = function(typ, prop) {
                 arrdb.hash(jsonObj); //hash it.
             }
             
-            $(container)[type](parsetype(jsonObj.type)(jsonObj));
+            $(container)[type](mkHTML(jsonObj.type)(jsonObj));
 
-            if(undefined !== jsonObj.children) {
+            if(undefined !== jsonObj.children) { //append all of the child objects.
                 $.each(jsonObj.children, function () {
                     appendHTML(this, '#'+jsonObj.id);
                 });
             }
-            if(undefined !== jsonObj.functions) {
+            if(undefined !== jsonObj.functions) { //execute all of the functions.
                 $.each(jsonObj.functions, function () {
                     this();
                 });
             }
-            dfd.resolve();
+            dfd.resolve(); //finished!
         };
         exec();
         return dfd.promise();
