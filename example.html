@@ -133,7 +133,8 @@
                         main.text = 'type some text!'
                         main.type = 'textbox';
                         main.refresh();
-                        $('#'+this.id).select(); //causes the textbox to be selected.
+                        main.event('select', undefined);
+                        //$('#'+this.id).select(); //causes the textbox to be selected.
                     }
                 });
 

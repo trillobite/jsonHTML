@@ -100,23 +100,20 @@ var sig = function(typ, prop) {
     function appendHTML(jsonObj, container, type) {
         var dfd = new $.Deferred();
         var exec = function () {
-            if(typeof jsonObj == 'function'){
-                jsonObj = jsonObj();
-            }
-            if(undefined === jsonObj.id) {
-                jsonObj.id = makeID();
-            }
-            if(arrdb.exists(jsonObj.id)) {
-                arrdb.get(jsonObj.id).append = type;
+            type = type ? type : 'append';
+            jsonObj = (typeof(jsonObj) == 'function') ? jsonObj() : jsonObj; //execute if a function.
+            jsonObj.id = (undefined === jsonObj.id) ? makeID() : jsonObj.id; //checks if object has an ID.
+            jsonObj.parent = jsonObj.parent ? jsonObj.parent : container;
+
+            var obj = arrdb.get(jsonObj.id);
+            if(obj) { //if object hashed into micronDB.
+                obj.append = type; //save the type of appending style.
             } else {
-                arrdb.hash(jsonObj);
+                arrdb.hash(jsonObj); //hash it.
             }
-            jsonObj.parent = container;
-            if(type) {
-                $(container)[type](parsetype(jsonObj.type)(jsonObj));
-            } else {
-                $(container).append(parsetype(jsonObj.type)(jsonObj));
-            }
+            
+            $(container)[type](parsetype(jsonObj.type)(jsonObj));
+
             if(undefined !== jsonObj.children) {
                 $.each(jsonObj.children, function () {
                     appendHTML(this, '#'+jsonObj.id);
@@ -146,43 +143,37 @@ var sig = function(typ, prop) {
             }; 
             tmp.appendTo = function(parent, type) { //append the JSON to a container div.
                 var dfd = new $.Deferred();
-                var id;
-                if(typeof parent == "object") { //if a jsonHTML object is inserted intended as the object to append to, grab the id of it.
-                    id = '#' + parent.id;
-                } else {
-                    id = parent;
-                }
-                appendHTML(this, id, type).done(function () {
+                var id = typeof(parent) == 'object' ? '#'+parent.id : parent; //is parent another jsonHTML object?
+                this.state = appendHTML(this, id, type).done(function () {
                     dfd.resolve();
                 }); 
-                this.state = dfd;
-                return this;
+                return this; //returns appendHTML promise.
             };
             tmp.event = function(type, func) {
                 var divId = '#'+this.id;
                 if($(divId)[0]) { //if the object is on the DOM.
                     if(func) {
                         $(divId)[type](func);
-                    } else {
+                    } else { //even if func is undefined, method below handles it better.
                         $(divId)[type]();
                     }
                 } else {
                     if(func) {
                         tmp.addFunction(function () { $(divId)[type](func) });
-                    } else {
+                    } else { //even if func is undefined, method below handles it better.
                         tmp.addFunction(function () { $(divId)[type]() });
                     }
                 }
                 return this;
             };
             tmp.css = function(input) { //sets CSS to the current element.
-                //console.log(this);
                 var divId = '#'+this.id;
-                if($(divId)[0]) { //if the object is rendered on the DOM.
+                var obj = $(divId); //use to reduce jQuery calls.
+                if(obj[0]) { //if the object is rendered on the DOM.
                     if(input) {
-                        $(divId).css(input); //set the css
+                        obj.css(input); //set the css
                     } else { //if there was no input
-                        return $(divId)[0].style; //return the object styles.
+                        return obj[0].style; //return the object styles.
                     }
                 } else { //if not rendered on the DOM
                     if(input) { //if css was input
@@ -190,7 +181,7 @@ var sig = function(typ, prop) {
                             $(divId).css(input);
                         });
                     } else { //if there was no input
-                        return $(divId)[0].style; //return the object styles.
+                        return obj[0].style; //return the object styles.
                     }
                 }
                 return this; //everything worked as expected.
