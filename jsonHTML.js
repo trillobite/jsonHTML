@@ -29,29 +29,41 @@
 var micronDB=function(){return{db:[],hashTraverse:function(r,t){if(this.db[r]){for(var n=0;n<this.db[r].length;++n){var e=t(this.db[r][n]);if(e)return e}return!1}return!1},calcIndex:function(r){for(var t=0,n=0;n<r.length;++n)t+=r.charCodeAt(n);return t%50},exists:function(r){var t=this.calcIndex(r);return this.hashTraverse(t,function(t){return t.id==r?!0:void 0})},hash:function(r){if(this.exists(r))return!1;var t=this.calcIndex(r.id);return this.db[t]?(this.db[t][this.db[t].length]=r,!0):(this.db[t]=[],this.db[t][this.db[t].length]=r,!0)},get:function(r){var t=this.calcIndex(r);return this.hashTraverse(t,function(t){return t.id==r?t:void 0})},remove:function(r){var t=this.calcIndex(r);if(this.db[t])for(var n=0;n<this.db[t].length;++n)if(this.db[t][n])return delete this.db[t][n]},match:{where:function(r,t){for(var n in t)if("undefined"!=typeof r[n])if("function"==typeof r[n]){if(r[n](t[n])===!0)return t}else if(t[n]==r[n])return t;return!1}},traverse:function(r,t,n){var e=function(r,n){for(var i=[],h=0;h<n.length;++h)if(Array.isArray(n[h])){var f=e(r,n[h]);f.length>0&&(Array.isArray(f)&&f.length<2?i[i.length]=f[0]:i[i.length]=f)}else t(r,n[h])&&(i[i.length]=t(r,n[h]));return i},i=[],h=0,f=function(r,t,n,f){"undefined"!=typeof n[f]&&"number"!=typeof f&&(h?i.length>0&&(i=e(r,i)):i=e(r,t)),++h},a=function(r,t,n,h){if("undefined"!=typeof n[h]&&"number"!=typeof h){var f=e(r,t);if(i.length>0)for(var a=function(r,t){for(var n=0;n<t.length;++n)if(t[n]==r)return!0;return!1},s=0;s<f.length;++s)a(f[s],i)||(i[i.length]=f[s]);else i=e(r,t)}};for(var s in r){"$and"==s&&(h=0);var u={};if(u[s]=r[s],"$or"==s||"$and"==s)for(var o in u[s]){var d={};d[o]=u[s][o],"$or"==s?a(d,n,u[s],o):f(d,n,u[s],o)}else f(u,n,r,s)}return i},insert:function(r){this.hash(r)},query:function(r){var t;for(var n in r)"undefined"!=typeof this.match[n]&&(t=void 0===t?this.traverse(r[n],this.match[n],this.db):this.traverse(r[n],this.match[n],t));return t}}};
 
 var arrdb = new micronDB();
+var idCache = new micronDB();
 
 var sig = function(typ, prop) {
+    var sanity = 0;
     /*
         If the user does not provide a div id for their object, this will make a 
         random one.
     */
-    var makeID = function (sanity) {
-        var nwID = "";
-        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        //rough estimate: 44,652 possible unique random IDs. Increase ID length for more possible IDs.
-        for(var i = 0; i < 12; ++i) { nwID += chars.charAt(Math.floor(Math.random() * chars.length)); }
+    var makeID = function () {
+        var idLen = 16;
+        var gen = function() {
+            var nwID = "";
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for(var i = 0; i < idLen; ++i) { nwID += chars.charAt(Math.floor(Math.random() * chars.length)) }
+            return nwID;
+        };
 
-        //comment for performance, uncomment for stability.
-        if(arrdb.exists(nwID)) { //will loop until new id is found.
-            if(sanity > 0) {console.log('warning: collision in micronDB hash.')}
-            if(sanity > 10) { //10 tries to make new ID. Prevents infinate loop.
-                console.log("micronDB ran out of ID's!");
-            } else {
-                if(!sanity) {sanity = 0;}
-                //failure to generate a new ID will crash the web application. This is better than having the same ID for two objects.
-                nwID = makeID(++sanity); 
-            }
+        var nwID = gen();
+        var loops = Math.pow(idLen, 2)*62;
+
+        while(idCache.exists(nwID) && sanity < loops) {
+            ++sanity;
+            nwID = gen();
         }
+
+        if(idCache.exists(nwID)) { 
+            console.log('ERROR: Collision in micronDB hash detected.') 
+        } else if(sanity) {
+            console.log('WARNING: hash collision detected and fixed!')
+        }
+        
+        sanity = 0;
+        
+        idCache.hash({id: nwID});
+        
         return nwID;
     };
 
@@ -67,10 +79,8 @@ var sig = function(typ, prop) {
             for(var k in element) {
                 var obj = k.toString();
                 if(typeof element[k] == 'string') { //makes sure that the object is a property, and not an array, or function, or object, or whatever.
-                    if(k == 'type' && isInput(type)) {
-                        ico += ' ' + obj + '="' + element[k] + '"';
-                    }
-                    if(k != 'text' && k != 'type') { //these are properties that are already handled and reserved for jsonHTML.
+                    //run ico on 'type,' only if it is an input object, or the property is not 'text.'
+                    if((k == 'type' && isInput(type)) || (k != 'text')) {
                         ico += ' ' + obj + '="' + element[k] + '"';
                     }
                 }
@@ -121,14 +131,14 @@ var sig = function(typ, prop) {
             $(container)[type](mkHTML(jsonObj.type)(jsonObj));
 
             if(undefined !== jsonObj.children) { //append all of the child objects.
-                $.each(jsonObj.children, function () {
-                    appendHTML(this, '#'+jsonObj.id);
-                });
+                for(var i = 0; i < jsonObj.children.length; ++i) { //8x faster to use a for loop.
+                    appendHTML(jsonObj.children[i], '#'+jsonObj.id);
+                }
             }
             if(undefined !== jsonObj.functions) { //execute all of the functions.
-                $.each(jsonObj.functions, function () {
-                    this();
-                });
+                for(var i = 0; i < jsonObj.functions.length; ++i) { //8x faster to use a for loop.
+                    jsonObj.functions[i]();
+                }
             }
             dfd.resolve(); //finished!
         };
