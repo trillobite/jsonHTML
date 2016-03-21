@@ -46,25 +46,26 @@ var sig = function(typ, prop) {
             return nwID;
         };
 
-        var nwID = gen();
-        var loops = Math.pow(idLen, 2)*62;
+        var verify = function(nwID) {
+            var loops = Math.pow(idLen, 2)*62;
 
-        while(idCache.exists(nwID) && sanity < loops) {
-            ++sanity;
-            nwID = gen();
-        }
+            while(idCache.exists(nwID) && sanity < loops) {
+                ++sanity;
+                nwID = gen();
+            }
 
-        if(idCache.exists(nwID)) { 
-            console.log('ERROR: Collision in micronDB hash detected.') 
-        } else if(sanity) {
-            console.log('WARNING: hash collision detected and fixed!')
-        }
-        
-        sanity = 0;
-        
-        idCache.hash({id: nwID});
-        
-        return nwID;
+            if(idCache.exists(nwID)) { 
+                console.log('ERROR: Collision in micronDB hash detected.') 
+            } else if(sanity) {
+                console.log('WARNING: hash collision detected and fixed!')
+            }
+            
+            sanity = 0;
+            idCache.hash({id: nwID});
+            return nwID;
+        };
+
+        return verify(gen());
     };
 
     //Returns a small chunk of HTML as a string back to the parent function.
