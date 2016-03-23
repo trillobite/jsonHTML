@@ -45,7 +45,7 @@ var sig = function(typ, prop) {
         };
 
         var verify = function(nwID) {
-            var check = function() {
+            var check = function() { //ensures that ID's are not wasted.
                 var loops = Math.pow(idLen, 2)*62; //max loops determined by how many ID's can be generated.
                 while(idCache.exists(nwID) && sanity < loops) { //will go through and make sure all possible id's are used.
                     ++sanity;

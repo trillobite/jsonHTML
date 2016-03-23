@@ -21,6 +21,9 @@ micronDB: Client side volatile database. Basically, a volatile data storage syst
 
 toadFish: Generates grid structures for producing complex GUI boxes and structures.
 
+#####Update Note 03/23/2016!
+After going through the code, the new version of jsonHTML will feature many performance gains, stability, some backwards compatibility, and an alternative syntax for easier use. There will also be no need to worry about ID collisions, and ID sizing. jsonHTML will automatically manage ID generation and performance. Although jsonHTML will be quite fast out of the box, there will also be ways to tweak it to pull out a little bit more performance. 
+
 #####The example code in this documentation is not always up to date with the latest best methods, they may change in the near future. 
 
 -------------------------------------------------------------------------------------------------------------------------
