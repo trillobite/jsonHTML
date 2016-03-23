@@ -33,13 +33,11 @@ var idCache = new micronDB();
 
 var sig = function(typ, prop) {
     var sanity = 0;
-    /*
-        If the user does not provide a div id for their object, this will make a 
-        random one.
-    */
-    var makeID = function () {
-        var idLen = 16;
-        var gen = function() {
+    var idLen = 8; //Starting length of ID's.
+    
+    var makeID = function () {//makes random ID, if not provided by the user.
+        
+        var gen = function() { //ID generator.
             var nwID = "";
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             for(var i = 0; i < idLen; ++i) { nwID += chars.charAt(Math.floor(Math.random() * chars.length)) }
@@ -47,17 +45,19 @@ var sig = function(typ, prop) {
         };
 
         var verify = function(nwID) {
-            var loops = Math.pow(idLen, 2)*62;
+            var check = function() {
+                var loops = Math.pow(idLen, 2)*62; //max loops determined by how many ID's can be generated.
+                while(idCache.exists(nwID) && sanity < loops) { //will go through and make sure all possible id's are used.
+                    ++sanity;
+                    nwID = gen();
+                }
+            };
 
-            while(idCache.exists(nwID) && sanity < loops) {
-                ++sanity;
-                nwID = gen();
-            }
+            check();
 
-            if(idCache.exists(nwID)) { 
-                console.log('ERROR: Collision in micronDB hash detected.') 
-            } else if(sanity) {
-                console.log('WARNING: hash collision detected and fixed!')
+            if(idCache.exists(nwID)) { //if failed to fix the collision.
+                idLen = Math.round((idLen / 2) + idLen); //increase max length of ID's.
+                check();
             }
             
             sanity = 0;
