@@ -36,9 +36,7 @@ var micronDB = function() {
         exists: function(data) { //takes a string object.
             var indx = this.calcIndex(data);
             return this.hashTraverse(indx, function(obj) {
-                if(obj.id == data) {
-                    return true;
-                }
+                return obj.id == data;
             });
         },
         hash: function(data) {
