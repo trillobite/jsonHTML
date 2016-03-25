@@ -26,48 +26,11 @@
 */
 
 //view un-minified micronDB code under the micronDB project repository.
-var micronDB=function(){return{db:[],hashTraverse:function(r,t){if(this.db[r]){for(var n=0;n<this.db[r].length;++n){var e=t(this.db[r][n]);if(e)return e}return!1}return!1},calcIndex:function(r){for(var t=0,n=0;n<r.length;++n)t+=r.charCodeAt(n);return t%50},exists:function(r){var t=this.calcIndex(r);return this.hashTraverse(t,function(t){return t.id==r?!0:void 0})},hash:function(r){if(this.exists(r))return!1;var t=this.calcIndex(r.id);return this.db[t]?(this.db[t][this.db[t].length]=r,!0):(this.db[t]=[],this.db[t][this.db[t].length]=r,!0)},get:function(r){var t=this.calcIndex(r);return this.hashTraverse(t,function(t){return t.id==r?t:void 0})},remove:function(r){var t=this.calcIndex(r);if(this.db[t])for(var n=0;n<this.db[t].length;++n)if(this.db[t][n])return delete this.db[t][n]},match:{where:function(r,t){for(var n in t)if("undefined"!=typeof r[n])if("function"==typeof r[n]){if(r[n](t[n])===!0)return t}else if(t[n]==r[n])return t;return!1}},traverse:function(r,t,n){var e=function(r,n){for(var i=[],h=0;h<n.length;++h)if(Array.isArray(n[h])){var f=e(r,n[h]);f.length>0&&(Array.isArray(f)&&f.length<2?i[i.length]=f[0]:i[i.length]=f)}else t(r,n[h])&&(i[i.length]=t(r,n[h]));return i},i=[],h=0,f=function(r,t,n,f){"undefined"!=typeof n[f]&&"number"!=typeof f&&(h?i.length>0&&(i=e(r,i)):i=e(r,t)),++h},a=function(r,t,n,h){if("undefined"!=typeof n[h]&&"number"!=typeof h){var f=e(r,t);if(i.length>0)for(var a=function(r,t){for(var n=0;n<t.length;++n)if(t[n]==r)return!0;return!1},s=0;s<f.length;++s)a(f[s],i)||(i[i.length]=f[s]);else i=e(r,t)}};for(var s in r){"$and"==s&&(h=0);var u={};if(u[s]=r[s],"$or"==s||"$and"==s)for(var o in u[s]){var d={};d[o]=u[s][o],"$or"==s?a(d,n,u[s],o):f(d,n,u[s],o)}else f(u,n,r,s)}return i},insert:function(r){this.hash(r)},query:function(r){var t;for(var n in r)"undefined"!=typeof this.match[n]&&(t=void 0===t?this.traverse(r[n],this.match[n],this.db):this.traverse(r[n],this.match[n],t));return t}}};
-
+var micronDB=function(){return{db:[],hashTraverse:function(r,t){if(this.db[r]){for(var n=0;n<this.db[r].length;++n){var e=t(this.db[r][n]);if(e)return e}return!1}return!1},calcIndex:function(r){if(r){for(var t=0,n=0;n<r.length;++n)t+=r.charCodeAt(n);return t%50}return-1},exists:function(r){var t=this.calcIndex(r);return this.hashTraverse(t,function(t){return t.id==r})},makeID:function(){var r=new micronDB,t=0,n=8,e=function(){for(var r="",t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",e=0;n>e;++e)r+=t.charAt(Math.floor(Math.random()*t.length));return r},i=function(i){var h=function(){for(var h=62*Math.pow(n,2);r.exists(i)&&h>t;)++t,i=e()};return h(),r.exists(i)&&(n=Math.round(n/2+n),h()),i};return i(e())},hash:function(r){if(r.id=void 0===r.id?this.makeID():r.id,this.exists(r.id))return!1;var t=this.calcIndex(r.id);return this.db[t]?(this.db[t][this.db[t].length]=r,!0):(this.db[t]=[],this.db[t][this.db[t].length]=r,!0)},get:function(r){var t=this.calcIndex(r);return this.hashTraverse(t,function(t){return t.id==r?t:void 0})},remove:function(r){var t=this.calcIndex(r);if(this.db[t])for(var n=0;n<this.db[t].length;++n)if(this.db[t][n])return delete this.db[t][n]},match:{where:function(r,t){for(var n in t)if("undefined"!=typeof r[n])if("function"==typeof r[n]){if(r[n](t[n])===!0)return t}else if(t[n]==r[n])return t;return!1}},traverse:function(r,t,n){var e=function(r,n){for(var i=[],h=0;h<n.length;++h)if(Array.isArray(n[h])){var a=e(r,n[h]);a.length>0&&(Array.isArray(a)&&a.length<2?i[i.length]=a[0]:i[i.length]=a)}else t(r,n[h])&&(i[i.length]=t(r,n[h]));return i},i=[],h=0,a=function(r,t,n,a){"undefined"!=typeof n[a]&&"number"!=typeof a&&(h?i.length>0&&(i=e(r,i)):i=e(r,t)),++h},f=function(r,t,n,h){if("undefined"!=typeof n[h]&&"number"!=typeof h){var a=e(r,t);if(i.length>0)for(var f=function(r,t){for(var n=0;n<t.length;++n)if(t[n]==r)return!0;return!1},o=0;o<a.length;++o)f(a[o],i)||(i[i.length]=a[o]);else i=e(r,t)}};for(var o in r){"$and"==o&&(h=0);var s={};if(s[o]=r[o],"$or"==o||"$and"==o)for(var u in s[o]){var d={};d[u]=s[o][u],"$or"==o?f(d,n,s[o],u):a(d,n,s[o],u)}else a(s,n,r,o)}return i},insert:function(r){this.hash(r)},query:function(r){var t;for(var n in r)"undefined"!=typeof this.match[n]&&(t=void 0===t?this.traverse(r[n],this.match[n],this.db):this.traverse(r[n],this.match[n],t));return t}}};
 var arrdb = new micronDB();
-var idCache = new micronDB();
+/*var idCache = new micronDB();*/
 
 var sig = function(typ, prop) {
-    var sanity = 0;
-    var idLen = 8; //Starting length of ID's.
-    
-    var makeID = function () {//makes random ID, if not provided by the user.
-        
-        var gen = function() { //ID generator.
-            var nwID = "";
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            for(var i = 0; i < idLen; ++i) { nwID += chars.charAt(Math.floor(Math.random() * chars.length)) }
-            return nwID;
-        };
-
-        var verify = function(nwID) {
-            var check = function() { //ensures that ID's are not wasted.
-                var loops = Math.pow(idLen, 2)*62; //max loops determined by how many ID's can be generated.
-                while(idCache.exists(nwID) && sanity < loops) { //will go through and make sure all possible id's are used.
-                    ++sanity;
-                    nwID = gen();
-                }
-            };
-
-            check();
-
-            if(idCache.exists(nwID)) { //if failed to fix the collision.
-                idLen = Math.round((idLen / 2) + idLen); //increase max length of ID's.
-                check();
-            }
-            
-            sanity = 0;
-            idCache.hash({id: nwID});
-            return nwID;
-        };
-
-        return verify(gen());
-    };
-
     //Returns a small chunk of HTML as a string back to the parent function.
     //Can produce HTML for a button, text box, or a div element.
     var mkHTML = function (type) {
@@ -119,7 +82,7 @@ var sig = function(typ, prop) {
         var exec = function () {
             type = type ? type : 'append';
             jsonObj = (typeof(jsonObj) == 'function') ? jsonObj() : jsonObj; //execute if a function.
-            jsonObj.id = (undefined === jsonObj.id) ? makeID() : jsonObj.id; //checks if object has an ID.
+            jsonObj.id = (undefined === jsonObj.id) ? arrdb.makeID() : jsonObj.id; //checks if object has an ID.
             jsonObj.parent = jsonObj.parent ? jsonObj.parent : container;
 
             var obj = arrdb.get(jsonObj.id);
@@ -252,7 +215,7 @@ var sig = function(typ, prop) {
             objManip.propertyAdd(tmp, prop);
         }
         if(undefined === tmp.id) {
-            tmp.id = makeID();
+            tmp.id = arrdb.makeID();
         }
         objManip.basicPropInsrt(tmp, prop);
         
