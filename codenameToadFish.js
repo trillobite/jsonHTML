@@ -48,8 +48,66 @@ toadFish.structure = function(arr, colName) {
 };
 
 
+/*
+	NAME:
+		DROP
 
+	DESCRIPTION:
+		An object class which can generate single layer
+		drop-down menu's using jsonHTML and CSS.
 
+	REQUIRES:
+	dropDown.css
+
+	SYNTAX AND USE:
+	var btn = sig();
+	var dropDown = new toadFish.drop(btn);
+	dropDown.addOption({
+		name: 'new group',
+		event: {
+			func: function() { 
+				console.log(this);
+			},
+			type: 'click',
+		},
+	});
+	dropDown.appendTo('#parentObject');
+*/
+
+toadFish.drop = function(inputBtn) {
+	var show;
+	var container = sig('div', {
+		class: 'dropdown',
+	}).event('click', function() {
+		if(!show) {
+			dropDownContainer.css({
+				'display': 'block',
+			});
+			show = 1;
+		}
+	});
+	var dropDownContainer = sig('div', {
+		class: 'dropdown-content',
+	}).event('mouseleave', function() {
+		if(show) {
+			dropDownContainer.css({
+				'display': 'none',
+			});
+			show = 0;
+		}
+	});
+	container.addOption = function(obj) {
+		var nwOption = sig('div', {
+			text: obj.name,
+			class: 'dropdown-content-link',
+		}).event(obj.event.type, obj.event.func);
+
+		dropDownContainer.addChild(nwOption);
+	};
+	container.addChild(inputBtn);
+	container.addChild(dropDownContainer);
+	return container;
+};
 
 /*  View full license in LICENSE.md
              )

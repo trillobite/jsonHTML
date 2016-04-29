@@ -83,11 +83,11 @@ var micronDB = function() {
                 var indx = this.calcIndex(data.id);
                 if(this.db[indx]) {
                     this.db[indx][this.db[indx].length] = data;
-                    return true; //success
+                    return data; //success
                 } else {
                     this.db[indx] = [];
                     this.db[indx][this.db[indx].length] = data;
-                    return true; //success
+                    return data; //success
                 }
             } else {
                 return false; //already exists
@@ -206,7 +206,7 @@ var micronDB = function() {
             return result;
         },
         insert: function(obj) {
-            this.hash(obj);
+            return this.hash(obj);
         },
         query: function(query) {
             var current;
