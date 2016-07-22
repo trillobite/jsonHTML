@@ -75,25 +75,26 @@ toadFish.structure = function(arr, colName) {
 */
 
 toadFish.drop = function(inputBtn) {
-	var show;
 	var container = sig('div', {
 		class: 'dropdown',
 	}).event('click', function() {
-		if(!show) {
+		var elm = document.getElementById(dropDownContainer.id);
+		if(elm.style.display == 'none' || elm.style.display == "") {
 			dropDownContainer.css({
 				'display': 'block',
 			});
-			show = 1;
+			toadFish.dropVisible = 1;				
 		}
 	});
 	var dropDownContainer = sig('div', {
 		class: 'dropdown-content',
 	}).event('mouseleave', function() {
-		if(show) {
+		var elm = document.getElementById(dropDownContainer.id);
+		if(elm.style.display == 'block') {
 			dropDownContainer.css({
 				'display': 'none',
 			});
-			show = 0;
+			toadFish.dropVisible = 0;				
 		}
 	});
 	container.addOption = function(obj) {
@@ -103,6 +104,7 @@ toadFish.drop = function(inputBtn) {
 		}).event(obj.event.type, obj.event.func);
 
 		dropDownContainer.addChild(nwOption);
+		return nwOption
 	};
 	container.addChild(inputBtn);
 	container.addChild(dropDownContainer);

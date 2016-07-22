@@ -18,9 +18,11 @@ var micronDB = function() {
         hashTraverse: function(indx, func) {
             if(this.db[indx]) { //if there is something there...
                 for(var i = 0; i < this.db[indx].length; ++i) {
-                    var tmp = func(this.db[indx][i]);
-                    if(tmp) { //send the object into the callback function.
-                        return tmp;
+                    if(this.db[indx][i]) { //check if something is there.
+                        var tmp = func(this.db[indx][i]);
+                        if(tmp) { //send the object into the callback function.
+                            return tmp;
+                        }                        
                     }
                 }
                 return false;
@@ -40,7 +42,7 @@ var micronDB = function() {
         exists: function(data) { //takes a string object.
             var indx = this.calcIndex(data);
             return this.hashTraverse(indx, function(obj) {
-                return obj.id == data;
+                return obj ? obj.id == data : false;
             });
         },
         //trying to make micronDB handle the creation of ID's.
@@ -103,10 +105,13 @@ var micronDB = function() {
         },
         remove: function(key) {
             var indx = this.calcIndex(key);
-            if(this.db[indx]) { //If something is in the hash row.
-                for(var i = 0; i < this.db[indx].length; ++i) {
+            if(this.db[indx]) { //If it is in the hash row.
+                for(var i = 0; i < this.db[indx].length; ++i) { //loop through the row
                     if(this.db[indx][i]) { //if the object exists.
-                        return delete this.db[indx][i] //deletes and returns weather the object was deleted. Returns true if section is undefined.
+                        if(this.db[indx][i] == this.get(key)) { //check if this is the object to remove.
+                            this.db[indx].splice(i, 1);
+                            return !this.exists(key);
+                        }
                     }
                 }
             }
