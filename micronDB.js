@@ -137,18 +137,6 @@ var micronDB = function() {
             var find = function(searchKey, source) {
                 var found = [];
 
-                /*var getIt = function(key, src) {
-                    if(Array.isArray(src)) { //if it's an array, traverse that array too.
-                        for(var i = 0; i < src.length; ++i) {
-                            getIt(key, src[i]);
-                        }
-                    } else if(matchFunc(key, src)) {
-                        found[found.length] = matchFunc(key, src);
-                    }
-                };
-
-                getIt(searchKey, source); */
-
                 for(var i = 0; i < source.length; ++i) {
                     if(Array.isArray(source[i])) { //if it's an array, traverse that array too.
                         var tmp = find(searchKey, source[i]);
